@@ -1,0 +1,75 @@
+[project]
+name = "trame-mui"
+version = "0.1.0"
+description = "MUI (React) widgets for trame"
+authors = [
+    {name = "Kitware Inc."},
+]
+dependencies = [
+    "trame-client>=3.7,<4",
+    # provides react_use module-key aggregation
+    "trame-server>=3.15",
+]
+requires-python = ">=3.10"
+readme = "README.rst"
+license = {text = "MIT"}
+keywords = ["Python", "Interactive", "Web", "Application", "Framework", "React"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Web Environment",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit",
+    "ruff",
+    "pytest",
+]
+test = [
+    "pytest",
+    "pytest-asyncio",
+    "pytest-playwright",
+    "pytest-xprocess",
+]
+
+[build-system]
+requires = ['setuptools', 'wheel']
+build-backend = 'setuptools.build_meta'
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["trame_mui*", "trame.*", "trame"]
+
+[tool.setuptools.package-data]
+trame_mui = [
+    "module/**/*.js",
+    "module/**/*.css",
+    "module/**/*.html",
+    "module/**/*.png",
+    "module/**/*.tpl",
+    "module/**/*.woff",
+    "module/**/*.woff2",
+]
+
+[tool.semantic_release]
+version_variables = [
+    "trame_mui/__init__.py:__version__",
+]
+version_toml = [
+    "pyproject.toml:project.version",
+]
+build_command = """
+  python -m venv .venv
+  source .venv/bin/activate
+  pip install -U pip build
+  python -m build .
+"""
+
+[tool.ruff]
+line-length = 88
