@@ -20,7 +20,9 @@ class MuiDemo(TrameApp):
 
     def _build_ui(self):
         with DivLayout(self.server) as self.ui:
-            with mui.ThemeProvider(mode=react.Bind("dark ? 'dark' : 'light'", dark=False)):
+            with mui.ThemeProvider(
+                mode=react.Bind("dark ? 'dark' : 'light'", dark=False)
+            ):
                 with mui.Container(max_width="sm", style={"paddingTop": "40px"}):
                     with mui.Card(elevation=4), mui.CardContent():
                         with mui.Stack(spacing=3):

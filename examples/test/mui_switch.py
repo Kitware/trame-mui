@@ -21,15 +21,12 @@ class MuiSwitch(TrameApp):
                     "trame-mui: switch(",
                     react.Bind("dark ? 'dark' : 'light'", dark=False),
                     ")",
-
                 ],
                 variant="h5",
             )
             a = mui.Switch(
                 checked=react.Bind("dark", dark=False),
-                on_change=react.Callback(
-                    "dark = $event.target.checked"
-                ),
+                on_change=react.Callback("dark = $event.target.checked"),
             )
             print(a.html)
 

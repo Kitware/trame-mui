@@ -126,9 +126,7 @@ class SinglePageLayout(MuiLayout):
                 mui.CircularProgress(
                     style={
                         "color": "#04a94d",
-                        "visibility": react.Bind(
-                            "trame__busy ? 'visible' : 'hidden'"
-                        ),
+                        "visibility": react.Bind("trame__busy ? 'visible' : 'hidden'"),
                     },
                     size=16,
                 )
@@ -193,9 +191,7 @@ class SinglePageWithDrawerLayout(SinglePageLayout):
                 anchor="left",
                 open=react.Bind(drawer_name, **{drawer_name: show_drawer}),
                 slot_props={
-                    "paper": {
-                        "style": {"position": "relative", "width": f"{width}px"}
-                    }
+                    "paper": {"style": {"position": "relative", "width": f"{width}px"}}
                 },
             )
         # drawer before the content

@@ -567,8 +567,8 @@ class Breadcrumbs(MuiHtmlElement):
     :param items_before_collapse: If max items is exceeded, the number of items to show before the ellipsis. (default: 1) (``integer``)
     :param max_items: Specifies the maximum number of breadcrumbs to display. When there are more than the maximum number, only the first itemsBeforeCollapse and last itemsAfterCollapse will be shown, with an ellipsis in between. (default: 8) (``integer``)
     :param separator: Custom separator node. (default: '/') (``node``)
-    :param slot_props: The props used for each slot inside the Breadcumb. (default: {}) (``{ collapsedIcon?: func | object }``)
-    :param slots: The components used for each slot inside the Breadcumb. Either a string to use a HTML element or a component. (default: {}) (``{ CollapsedIcon?: elementType }``)
+    :param slot_props: The props used for each slot inside the Breadcrumb. (default: {}) (``{ collapsedIcon?: func | object }``)
+    :param slots: The components used for each slot inside the Breadcrumb. Either a string to use a HTML element or a component. (default: {}) (``{ CollapsedIcon?: elementType }``)
     """
 
     def __init__(self, children=None, **kwargs):

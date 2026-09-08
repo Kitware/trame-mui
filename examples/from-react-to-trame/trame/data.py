@@ -1,4 +1,17 @@
-MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+MONTHS = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+]
 
 REVENUE_TREND = [v * 1000 for v in [32, 41, 38, 47, 52, 49, 58, 63, 60, 71, 76, 82]]
 
@@ -100,14 +113,31 @@ RECENT_ORDERS = [
 ]
 
 TEAM = [
-    {"name": "Amara Okafor", "role": "Product design", "initials": "AO", "completion": 82},
+    {
+        "name": "Amara Okafor",
+        "role": "Product design",
+        "initials": "AO",
+        "completion": 82,
+    },
     {"name": "Liam Chen", "role": "Frontend", "initials": "LC", "completion": 64},
     {"name": "Sofia Rossi", "role": "Backend", "initials": "SR", "completion": 91},
     {"name": "Noah Williams", "role": "QA", "initials": "NW", "completion": 45},
 ]
 
 NOTIFICATIONS = [
-    {"title": "New order received", "detail": "ORD-7231 from Amara Okafor", "time": "5m ago"},
-    {"title": "Server deployment finished", "detail": "v2.4.1 shipped to production", "time": "1h ago"},
-    {"title": "Weekly report ready", "detail": "Analytics summary for last week", "time": "3h ago"},
+    {
+        "title": "New order received",
+        "detail": "ORD-7231 from Amara Okafor",
+        "time": "5m ago",
+    },
+    {
+        "title": "Server deployment finished",
+        "detail": "v2.4.1 shipped to production",
+        "time": "1h ago",
+    },
+    {
+        "title": "Weekly report ready",
+        "detail": "Analytics summary for last week",
+        "time": "3h ago",
+    },
 ]

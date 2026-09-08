@@ -145,18 +145,21 @@ class Dashboard(TrameApp):
                 color="inherit",
                 on_click=react.Callback("dark = !dark"),
             )
-            with mui.IconButton(color="inherit", on_click=react.Callback("notif_open = true")):
+            with mui.IconButton(
+                color="inherit", on_click=react.Callback("notif_open = true")
+            ):
                 with mui.Badge(
                     badge_content=len(data.NOTIFICATIONS),
                     color="error",
                 ):
-                    mui.Typography("🔔"),
+                    (mui.Typography("🔔"),)
             with mui.IconButton(
                 on_click=react.Callback("account_open = true"),
                 color="inherit",
             ):
-                mui.Avatar("SJ", style={"width": "30px", "height": "30px", "fontSize": "14px"})
-
+                mui.Avatar(
+                    "SJ", style={"width": "30px", "height": "30px", "fontSize": "14px"}
+                )
 
         with mui.Dialog(
             open=react.Bind("notif_open", notif_open=False),
@@ -184,7 +187,11 @@ class Dashboard(TrameApp):
         ):
             mui.DialogTitle("Account")
             with mui.DialogContent():
-                with mui.Stack(direction="row", spacing=2, style={"alignItems": "center", "marginBottom": "12px"}):
+                with mui.Stack(
+                    direction="row",
+                    spacing=2,
+                    style={"alignItems": "center", "marginBottom": "12px"},
+                ):
                     mui.Avatar("SJ", style={"backgroundColor": series(0)})
                     with mui.Box():
                         mui.Typography("Sebastien Jourdain", style={"fontWeight": 700})
@@ -241,16 +248,33 @@ class Dashboard(TrameApp):
 
     def _build_content(self):
         with self.ui.content:
-            with mui.Box(style={"padding": "24px", "maxWidth": "1400px", "margin": "0 auto"}):
+            with mui.Box(
+                style={"padding": "24px", "maxWidth": "1400px", "margin": "0 auto"}
+            ):
                 with mui.Stack(
                     direction="row",
-                    style={"justifyContent": "space-between", "alignItems": "center", "marginBottom": "24px"},
+                    style={
+                        "justifyContent": "space-between",
+                        "alignItems": "center",
+                        "marginBottom": "24px",
+                    },
                 ):
                     with mui.Box():
-                        with mui.Stack(direction="row", spacing=0.5, style={"alignItems": "center", "marginBottom": "4px"}):
-                            mui.Link("Home", underline="hover", color="text.secondary", variant="body2")
+                        with mui.Stack(
+                            direction="row",
+                            spacing=0.5,
+                            style={"alignItems": "center", "marginBottom": "4px"},
+                        ):
+                            mui.Link(
+                                "Home",
+                                underline="hover",
+                                color="text.secondary",
+                                variant="body2",
+                            )
                             mui.Typography("/", variant="body2", color="text.secondary")
-                            mui.Typography("Dashboard", variant="body2", color="text.primary")
+                            mui.Typography(
+                                "Dashboard", variant="body2", color="text.primary"
+                            )
                         mui.Typography("Welcome back, Sebastien", variant="h5")
                     # Plain IconButton, no Tooltip wrapper: MUI's Tooltip
                     # clones its one child via React.Children to attach hover
@@ -286,7 +310,9 @@ class Dashboard(TrameApp):
         positive = item["delta"] >= 0
         with mui.Card(style={"height": "100%"}):
             with mui.CardContent():
-                with mui.Stack(direction="row", spacing=1.5, style={"alignItems": "center"}):
+                with mui.Stack(
+                    direction="row", spacing=1.5, style={"alignItems": "center"}
+                ):
                     mui.Avatar(
                         item["icon"],
                         variant="rounded",
@@ -297,11 +323,20 @@ class Dashboard(TrameApp):
                             "fontSize": "18px",
                         },
                     )
-                    mui.Typography(item["label"], variant="body2", color="text.secondary", style={"fontWeight": 600})
+                    mui.Typography(
+                        item["label"],
+                        variant="body2",
+                        color="text.secondary",
+                        style={"fontWeight": 600},
+                    )
 
                 with mui.Stack(
                     direction="row",
-                    style={"alignItems": "flex-end", "justifyContent": "space-between", "marginTop": "16px"},
+                    style={
+                        "alignItems": "flex-end",
+                        "justifyContent": "space-between",
+                        "marginTop": "16px",
+                    },
                 ):
                     with mui.Box():
                         mui.Typography(item["value"], variant="h4")
@@ -321,24 +356,40 @@ class Dashboard(TrameApp):
             with mui.CardContent():
                 with mui.Stack(
                     direction="row",
-                    style={"justifyContent": "space-between", "alignItems": "flex-start", "marginBottom": "8px"},
+                    style={
+                        "justifyContent": "space-between",
+                        "alignItems": "flex-start",
+                        "marginBottom": "8px",
+                    },
                 ):
                     with mui.Box():
-                        mui.Typography("Revenue", variant="subtitle1", style={"fontWeight": 700})
-                        mui.Typography("Last 12 months", variant="caption", color="text.secondary")
+                        mui.Typography(
+                            "Revenue", variant="subtitle1", style={"fontWeight": 700}
+                        )
+                        mui.Typography(
+                            "Last 12 months", variant="caption", color="text.secondary"
+                        )
                     mui.Chip(
                         label=f"${total / 1000:.0f}K total",
                         size="small",
                         color="primary",
                         variant="outlined",
                     )
-                charts.revenue_chart(data.REVENUE_TREND, data.MONTHS, series(0), SURFACE)
+                charts.revenue_chart(
+                    data.REVENUE_TREND, data.MONTHS, series(0), SURFACE
+                )
 
     def _traffic_card(self):
         with mui.Card(style={"height": "100%"}):
             with mui.CardContent():
-                mui.Typography("Traffic sources", variant="subtitle1", style={"fontWeight": 700})
-                mui.Typography("Sessions by channel, last 30 days", variant="caption", color="text.secondary")
+                mui.Typography(
+                    "Traffic sources", variant="subtitle1", style={"fontWeight": 700}
+                )
+                mui.Typography(
+                    "Sessions by channel, last 30 days",
+                    variant="caption",
+                    color="text.secondary",
+                )
 
                 total = sum(d["value"] for d in data.TRAFFIC_SOURCES)
                 # Static (not mode-reactive): these colors feed a single
@@ -358,10 +409,24 @@ class Dashboard(TrameApp):
                     for d, color in zip(data.TRAFFIC_SOURCES, colors):
                         with mui.Stack(
                             direction="row",
-                            style={"alignItems": "center", "justifyContent": "space-between"},
+                            style={
+                                "alignItems": "center",
+                                "justifyContent": "space-between",
+                            },
                         ):
-                            with mui.Stack(direction="row", spacing=1, style={"alignItems": "center"}):
-                                mui.Box(style={"width": "10px", "height": "10px", "borderRadius": "2px", "background": color})
+                            with mui.Stack(
+                                direction="row",
+                                spacing=1,
+                                style={"alignItems": "center"},
+                            ):
+                                mui.Box(
+                                    style={
+                                        "width": "10px",
+                                        "height": "10px",
+                                        "borderRadius": "2px",
+                                        "background": color,
+                                    }
+                                )
                                 mui.Typography(d["label"], variant="body2")
                             mui.Typography(
                                 f"{round(d['value'] / total * 100)}%",
@@ -372,20 +437,32 @@ class Dashboard(TrameApp):
     def _region_card(self):
         with mui.Card(style={"height": "100%"}):
             with mui.CardContent():
-                mui.Typography("Sales by region", variant="subtitle1", style={"fontWeight": 700})
-                mui.Typography("Units sold, current quarter", variant="caption", color="text.secondary")
+                mui.Typography(
+                    "Sales by region", variant="subtitle1", style={"fontWeight": 700}
+                )
+                mui.Typography(
+                    "Units sold, current quarter",
+                    variant="caption",
+                    color="text.secondary",
+                )
                 with mui.Box(style={"marginTop": "16px"}):
                     charts.bar_chart(data.SALES_BY_REGION, "value", "region", series(0))
 
     def _goal_card(self):
-        current = sum(v for v in data.REVENUE_TREND[-1:]) // 1000
+        # current = sum(v for v in data.REVENUE_TREND[-1:]) // 1000
         goal_k = 900
         current_k = 824
         pct = round(current_k / goal_k * 100)
         with mui.Card(style={"height": "100%"}):
             with mui.CardContent():
-                mui.Typography("Monthly goal", variant="subtitle1", style={"fontWeight": 700})
-                mui.Typography(f"Revenue vs. ${goal_k}K target", variant="caption", color="text.secondary")
+                mui.Typography(
+                    "Monthly goal", variant="subtitle1", style={"fontWeight": 700}
+                )
+                mui.Typography(
+                    f"Revenue vs. ${goal_k}K target",
+                    variant="caption",
+                    color="text.secondary",
+                )
                 with mui.Box(style={"marginTop": "12px"}):
                     charts.gauge_chart(
                         pct,
@@ -407,7 +484,9 @@ class Dashboard(TrameApp):
                     direction="row",
                     style={"justifyContent": "space-between", "alignItems": "center"},
                 ):
-                    mui.Typography("Recent orders", variant="subtitle1", style={"fontWeight": 700})
+                    mui.Typography(
+                        "Recent orders", variant="subtitle1", style={"fontWeight": 700}
+                    )
                     mui.Button("View all", size="small")
 
                 with mui.TableContainer(style={"marginTop": "8px"}):
@@ -425,12 +504,22 @@ class Dashboard(TrameApp):
                                 with mui.TableRow(hover=True):
                                     mui.TableCell(row["id"], style={"fontWeight": 600})
                                     with mui.TableCell():
-                                        with mui.Stack(direction="row", spacing=1, style={"alignItems": "center"}):
+                                        with mui.Stack(
+                                            direction="row",
+                                            spacing=1,
+                                            style={"alignItems": "center"},
+                                        ):
                                             mui.Avatar(
                                                 initials_of(row["customer"]),
-                                                style={"width": "26px", "height": "26px", "fontSize": "12px"},
+                                                style={
+                                                    "width": "26px",
+                                                    "height": "26px",
+                                                    "fontSize": "12px",
+                                                },
                                             )
-                                            mui.Typography(row["customer"], variant="body2")
+                                            mui.Typography(
+                                                row["customer"], variant="body2"
+                                            )
                                     mui.TableCell(row["date"])
                                     mui.TableCell(row["amount"], align="right")
                                     with mui.TableCell(align="right"):
@@ -446,23 +535,50 @@ class Dashboard(TrameApp):
             with mui.CardContent():
                 with mui.Stack(
                     direction="row",
-                    style={"justifyContent": "space-between", "alignItems": "center", "marginBottom": "8px"},
+                    style={
+                        "justifyContent": "space-between",
+                        "alignItems": "center",
+                        "marginBottom": "8px",
+                    },
                 ):
                     with mui.Box():
-                        mui.Typography("Team workload", variant="subtitle1", style={"fontWeight": 700})
-                        mui.Typography(f"{len(data.TEAM)} members", variant="caption", color="text.secondary")
+                        mui.Typography(
+                            "Team workload",
+                            variant="subtitle1",
+                            style={"fontWeight": 700},
+                        )
+                        mui.Typography(
+                            f"{len(data.TEAM)} members",
+                            variant="caption",
+                            color="text.secondary",
+                        )
                     with mui.AvatarGroup(max=4):
                         for m in data.TEAM:
-                            mui.Avatar(m["initials"], style={"width": "28px", "height": "28px", "fontSize": "12px"})
+                            mui.Avatar(
+                                m["initials"],
+                                style={
+                                    "width": "28px",
+                                    "height": "28px",
+                                    "fontSize": "12px",
+                                },
+                            )
 
                 with mui.List(disable_padding=True):
                     for m in data.TEAM:
-                        color = "success" if m["completion"] >= 80 else ("warning" if m["completion"] < 50 else "primary")
+                        color = (
+                            "success"
+                            if m["completion"] >= 80
+                            else ("warning" if m["completion"] < 50 else "primary")
+                        )
                         with mui.ListItem(disable_gutters=True):
                             with mui.ListItemAvatar():
-                                mui.Avatar(m["initials"], style={"backgroundColor": series(0)})
+                                mui.Avatar(
+                                    m["initials"], style={"backgroundColor": series(0)}
+                                )
                             mui.ListItemText(primary=m["name"], secondary=m["role"])
-                            with mui.Box(style={"width": "120px", "marginLeft": "16px"}):
+                            with mui.Box(
+                                style={"width": "120px", "marginLeft": "16px"}
+                            ):
                                 mui.LinearProgress(
                                     variant="determinate",
                                     value=m["completion"],
@@ -473,23 +589,43 @@ class Dashboard(TrameApp):
                                     f"{m['completion']}%",
                                     variant="caption",
                                     color="text.secondary",
-                                    style={"display": "block", "textAlign": "right", "marginTop": "4px"},
+                                    style={
+                                        "display": "block",
+                                        "textAlign": "right",
+                                        "marginTop": "4px",
+                                    },
                                 )
 
     def _preferences_card(self):
         with mui.Card():
             with mui.CardContent():
-                mui.Typography("Preferences", variant="subtitle1", style={"fontWeight": 700})
+                mui.Typography(
+                    "Preferences", variant="subtitle1", style={"fontWeight": 700}
+                )
                 mui.Typography(
                     "Account, notification and appearance settings",
                     variant="caption",
                     color="text.secondary",
                 )
 
-                with mui.Tabs(value=react.Bind("tab", tab=0), style={"marginTop": "8px", "borderBottom": "1px solid rgba(128,128,128,0.2)"}):
-                    mui.Tab(label="General", value=0, on_click=react.Callback("tab = 0"))
-                    mui.Tab(label="Notifications", value=1, on_click=react.Callback("tab = 1"))
-                    mui.Tab(label="Appearance", value=2, on_click=react.Callback("tab = 2"))
+                with mui.Tabs(
+                    value=react.Bind("tab", tab=0),
+                    style={
+                        "marginTop": "8px",
+                        "borderBottom": "1px solid rgba(128,128,128,0.2)",
+                    },
+                ):
+                    mui.Tab(
+                        label="General", value=0, on_click=react.Callback("tab = 0")
+                    )
+                    mui.Tab(
+                        label="Notifications",
+                        value=1,
+                        on_click=react.Callback("tab = 1"),
+                    )
+                    mui.Tab(
+                        label="Appearance", value=2, on_click=react.Callback("tab = 2")
+                    )
 
                 with react.If("tab === 0"):
                     self._general_tab()
@@ -502,7 +638,11 @@ class Dashboard(TrameApp):
 
                 with mui.Accordion(default_expanded=False):
                     with mui.AccordionSummary():
-                        mui.Typography("How is my data used?", variant="body2", style={"fontWeight": 600})
+                        mui.Typography(
+                            "How is my data used?",
+                            variant="body2",
+                            style={"fontWeight": 600},
+                        )
                     with mui.AccordionDetails():
                         mui.Typography(
                             "This demo dashboard uses only local mock data — nothing is"
@@ -512,7 +652,11 @@ class Dashboard(TrameApp):
                         )
                 with mui.Accordion(default_expanded=False):
                     with mui.AccordionSummary():
-                        mui.Typography("Can I export my preferences?", variant="body2", style={"fontWeight": 600})
+                        mui.Typography(
+                            "Can I export my preferences?",
+                            variant="body2",
+                            style={"fontWeight": 600},
+                        )
 
                     with mui.AccordionDetails():
                         mui.Typography(
@@ -522,8 +666,11 @@ class Dashboard(TrameApp):
                             color="text.secondary",
                         )
 
-
-                with mui.Stack(direction="row", spacing=1.5, style={"justifyContent": "flex-end", "marginTop": "24px"}):
+                with mui.Stack(
+                    direction="row",
+                    spacing=1.5,
+                    style={"justifyContent": "flex-end", "marginTop": "24px"},
+                ):
                     mui.Button(
                         "Delete account",
                         color="error",
@@ -612,10 +759,14 @@ class Dashboard(TrameApp):
                 ):
                     with mui.Box():
                         mui.Typography(label, variant="body2")
-                        mui.Typography(detail, variant="caption", color="text.secondary")
+                        mui.Typography(
+                            detail, variant="caption", color="text.secondary"
+                        )
                     mui.Switch(
                         checked=react.Bind(f"channel_{name}"),
-                        on_change=react.Callback(f"channel_{name} = $event.target.checked"),
+                        on_change=react.Callback(
+                            f"channel_{name} = $event.target.checked"
+                        ),
                     )
 
         with mui.Box(style={"marginTop": "24px"}):
@@ -639,11 +790,17 @@ class Dashboard(TrameApp):
         with mui.Box(style={"marginTop": "8px"}):
             mui.Typography("Theme", variant="body2", gutter_bottom=True)
             with mui.ToggleButtonGroup(exclusive=True, size="small"):
-                for value, label in [("light", "☀️ Light"), ("dark", "🌙 Dark"), ("system", "🖥️ System")]:
+                for value, label in [
+                    ("light", "☀️ Light"),
+                    ("dark", "🌙 Dark"),
+                    ("system", "🖥️ System"),
+                ]:
                     mui.ToggleButton(
                         label,
                         value=value,
-                        selected=react.Bind(f"appearance === '{value}'", appearance="system"),
+                        selected=react.Bind(
+                            f"appearance === '{value}'", appearance="system"
+                        ),
                         on_click=react.Callback(f"appearance = '{value}'"),
                     )
 
@@ -654,7 +811,10 @@ class Dashboard(TrameApp):
                 value=react.Bind("density", density="comfortable"),
                 on_change=react.Callback("density = $event.target.value"),
             ):
-                for value, label in [("comfortable", "Comfortable"), ("compact", "Compact")]:
+                for value, label in [
+                    ("comfortable", "Comfortable"),
+                    ("compact", "Compact"),
+                ]:
                     with mui.Stack(
                         direction="row",
                         style={"alignItems": "center", "marginRight": "16px"},

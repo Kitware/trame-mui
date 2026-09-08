@@ -68,8 +68,7 @@ export function getTheme(mode) {
         secondary: ink[mode].secondary,
         disabled: ink[mode].muted,
       },
-      divider:
-        mode === "light" ? "#e1e0d9" : "rgba(255,255,255,0.10)",
+      divider: mode === "light" ? "#e1e0d9" : "rgba(255,255,255,0.10)",
     },
     shape: { borderRadius: 12 },
     typography: {

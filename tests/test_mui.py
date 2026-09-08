@@ -48,7 +48,8 @@ def test_mui_select_render_value_slot(server, page):
 
     console_errors = []
     page.on(
-        "console", lambda msg: console_errors.append(msg.text) if msg.type == "error" else None
+        "console",
+        lambda msg: console_errors.append(msg.text) if msg.type == "error" else None,
     )
 
     select_box = page.locator(".flavorSelect [role='combobox']")

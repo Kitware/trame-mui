@@ -48,7 +48,9 @@ def sparkline(values, color, width=96, height=40):
     """A tiny 12-point trend line + wash, sized to fill a stat tile corner."""
     points = _line_points(values, width, height, pad_top=4, pad_bottom=4)
     with svg.Svg(width=str(width), height=str(height)):
-        svg.Path(d=_area_path(points, height), fill=color, fill_opacity=0.15, stroke="none")
+        svg.Path(
+            d=_area_path(points, height), fill=color, fill_opacity=0.15, stroke="none"
+        )
         svg.Path(
             d=_line_path(points),
             fill="none",
@@ -72,7 +74,12 @@ def revenue_chart(values, months, color, surface, width=760, height=220):
             view_box=f"0 0 {width} {height}",
             preserve_aspect_ratio="none",
         ):
-            svg.Path(d=_area_path(points, height), fill=color, fill_opacity=0.12, stroke="none")
+            svg.Path(
+                d=_area_path(points, height),
+                fill=color,
+                fill_opacity=0.12,
+                stroke="none",
+            )
             svg.Path(
                 d=_line_path(points),
                 fill="none",
@@ -86,7 +93,13 @@ def revenue_chart(values, months, color, surface, width=760, height=220):
             svg.Circle(cx=f"{last_x:.1f}", cy=f"{last_y:.1f}", r="6", fill=surface)
             svg.Circle(cx=f"{last_x:.1f}", cy=f"{last_y:.1f}", r="4", fill=color)
 
-        with mui.Box(style={"display": "flex", "justifyContent": "space-between", "padding": "4px 2px 0"}):
+        with mui.Box(
+            style={
+                "display": "flex",
+                "justifyContent": "space-between",
+                "padding": "4px 2px 0",
+            }
+        ):
             for month in months:
                 mui.Typography(month, variant="caption", color="text.secondary")
 
@@ -185,7 +198,9 @@ def donut_chart(data, value_key, colors, surface, size=180, hole_ratio=0.62):
     _ring(gradient, surface, size, hole_ratio)
 
 
-def gauge_chart(pct, color, track_color, surface, size=180, hole_ratio=0.68, label=None):
+def gauge_chart(
+    pct, color, track_color, surface, size=180, hole_ratio=0.68, label=None
+):
     pct = max(0, min(100, pct))
     gradient = f"conic-gradient({color} 0% {pct}%, {track_color} {pct}% 100%)"
 
