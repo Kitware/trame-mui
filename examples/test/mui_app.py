@@ -1,5 +1,6 @@
 from trame.app import get_server
 from trame.ui.html import DivLayout
+from trame.widgets import react
 from trame_client.utils.testing import enable_testing
 
 from trame_mui.widgets import mui
@@ -12,27 +13,31 @@ state.message = ""
 state.dialog_open = False
 
 with DivLayout(server), mui.ThemeProvider():
-    with mui.Stack(spacing=2, style="padding: 20px;"):
-        mui.Typography("count = {{ count }}", classes="countValue")
+    with mui.Stack(spacing=2, style={"padding": "20px"}):
+        mui.Typography(["count = ", react.Bind("count")], classes="countValue")
         mui.Button(
             "Add",
             classes="plusButton",
             variant="contained",
-            click="count++",
+            on_click=react.Callback("count++"),
         )
-        mui.TextField(r_model="message", label="Message")
+        mui.TextField(
+            value=react.Bind("message"),
+            on_change=react.Callback("message = $event.target.value"),
+            label="Message",
+        )
         mui.Button(
             "Open dialog",
             classes="openDialog",
-            click="dialog_open = true",
+            on_click=react.Callback("dialog_open = true"),
         )
-    with mui.Dialog(r_model="dialog_open"):
+    with mui.Dialog(open=react.Bind("dialog_open")):
         mui.DialogTitle("Hello from MUI", classes="dialogTitle")
         with mui.DialogActions():
             mui.Button(
                 "Close",
                 classes="closeDialog",
-                click="dialog_open = false",
+                on_click=react.Callback("dialog_open = false"),
             )
 
 enable_testing(server, "count", "message", "dialog_open")

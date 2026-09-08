@@ -1,5 +1,5 @@
 from trame_client.ui.core import AbstractLayout
-from trame_client.widgets import html
+from trame_client.widgets import html, react
 
 from trame_mui.widgets import mui
 
@@ -82,21 +82,22 @@ class SinglePageLayout(MuiLayout):
         with (
             self,
             mui.Box(
-                style=(
-                    "display: flex; flex-direction: column;"
-                    " height: 100vh; overflow: hidden;"
-                )
+                style={
+                    "display": "flex",
+                    "flexDirection": "column",
+                    "height": "100vh",
+                    "overflow": "hidden",
+                }
             ),
         ):
             with mui.AppBar(position="static"):
-                with mui.Toolbar(variant="dense") as toolbar:
-                    self.toolbar = toolbar
+                with mui.Toolbar(variant="dense") as self.toolbar:
                     self.icon = mui.IconButton(
                         "\u2630",
                         edge="start",
                         color="inherit",
                         size="small",
-                        style="margin-right: 12px;",
+                        style={"marginRight": "12px"},
                     )
                     self.title = mui.Typography(
                         "Trame application",
@@ -105,50 +106,64 @@ class SinglePageLayout(MuiLayout):
                     )
 
             # middle row: SinglePageWithDrawerLayout prepends the drawer
-            with mui.Box(style="flex: 1; display: flex; overflow: hidden;") as row:
+            with mui.Box(
+                style={"flex": "1", "display": "flex", "overflow": "hidden"}
+            ) as row:
                 self._row = row
                 self.content = mui.Box(
                     component="main",
-                    style="flex: 1; position: relative; overflow: auto;",
+                    style={"flex": "1", "position": "relative", "overflow": "auto"},
                 )
 
             with mui.Toolbar(
                 variant="dense",
-                style=(
-                    "min-height: 32px; border-top: 1px solid"
-                    " rgba(128, 128, 128, 0.35); gap: 8px;"
-                ),
-            ) as footer:
-                self.footer = footer
+                style={
+                    "minHeight": "32px",
+                    "borderTop": "1px solid rgba(128, 128, 128, 0.35)",
+                    "gap": "8px",
+                },
+            ) as self.footer:
                 mui.CircularProgress(
-                    r_show="!!trame__busy",
+                    style={
+                        "color": "#04a94d",
+                        "visibility": react.Bind("trame__busy ? 'visible' : 'hidden'"),
+                    },
                     size=16,
-                    style="color: #04a94d;",
                 )
                 html.A(
                     "Powered by trame",
                     href="https://kitware.github.io/trame/",
                     target="_blank",
-                    style=(
-                        "color: #808080; font-size: 0.75rem; text-decoration: none;"
-                    ),
+                    style={
+                        "color": "#808080",
+                        "fontSize": "0.75rem",
+                        "textDecoration": "none",
+                    },
                 )
-                mui.Box(style="flex: 1;")
+                mui.Box(style={"flex": "1"})
                 reload = self.server.controller.on_server_reload
                 if reload.exists():
                     mui.IconButton(
                         "\u21bb",
                         size="small",
-                        click=self.on_server_reload,
+                        on_click=react.Callback(self.on_server_reload),
                     )
                 with mui.Tooltip(
                     placement="top",
                     title=get_trame_versions(),
+                    literal_children=True,
+                    slot_props={
+                        "popper": {
+                            "style": {
+                                "whiteSpace": "pre",
+                            }
+                        }
+                    },
                 ):
                     mui.Typography(
                         "?",
                         variant="caption",
-                        style="cursor: default; opacity: 0.6;",
+                        style={"cursor": "default", "opacity": 0.6},
                     )
 
 
@@ -174,15 +189,13 @@ class SinglePageWithDrawerLayout(SinglePageLayout):
             self.drawer = mui.Drawer(
                 variant="persistent",
                 anchor="left",
-                open=(drawer_name, show_drawer),
-                slot_props=(
-                    "{ paper: { style: { position: 'relative', width: '"
-                    + str(width)
-                    + "px' } } }",
-                ),
+                open=react.Bind(drawer_name, **{drawer_name: show_drawer}),
+                slot_props={
+                    "paper": {"style": {"position": "relative", "width": f"{width}px"}}
+                },
             )
         # drawer before the content
         row_children = self._row.children
         row_children.insert(0, row_children.pop())
 
-        self.icon.click = f"{drawer_name} = !{drawer_name}"
+        self.icon.on_click = react.Callback(f"{drawer_name} = !{drawer_name}")

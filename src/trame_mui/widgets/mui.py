@@ -5,9 +5,18 @@
 
 # ruff: noqa: E501
 
-from .core import MuiHtmlElement  # noqa: F401
+from trame_client.widgets.core import AbstractElement
+from trame_mui import module
 
-# Generated from @mui/material 7.3.11
+
+class MuiHtmlElement(AbstractElement):
+    def __init__(self, _elem_name, children=None, **kwargs):
+        super().__init__(_elem_name, children, **kwargs)
+        if self.server:
+            self.server.enable_module(module)
+
+
+# Generated from @mui/material 9.4.0
 
 __all__ = [
     "Accordion",
@@ -59,7 +68,6 @@ __all__ = [
     "FormLabel",
     "GlobalStyles",
     "Grid",
-    "GridLegacy",
     "Grow",
     "Icon",
     "IconButton",
@@ -137,6 +145,7 @@ __all__ = [
     "Tabs",
     "TextField",
     "TextareaAutosize",
+    "ThemeProvider",
     "ToggleButton",
     "ToggleButtonGroup",
     "Toolbar",
@@ -149,31 +158,25 @@ __all__ = [
 class Accordion(MuiHtmlElement):
     """MUI Accordion - https://mui.com/material-ui/api/accordion/
 
-    :param transition_component: (deprecated) The component used for the transition. Follow this guide to learn more about the requirements for this component. (``elementType``)
-    :param transition_props: (deprecated) Props applied to the transition element. By default, the element is based on this Transition component. (``object``)
     :param default_expanded: If true, expands the accordion by default. (default: false) (``bool``)
     :param disable_gutters: If true, it removes the margin between two expanded accordion items and prevents the increased height when expanded. (default: false) (``bool``)
     :param disabled: If true, the component is disabled. (default: false) (``bool``)
     :param expanded: If true, expands the accordion, otherwise collapses it. Setting this prop enables control over the accordion. (``bool``)
-    :param change: Callback fired when the expand/collapse state is changed.
+    :param on_change: Callback fired when the expand/collapse state is changed. (``func``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ heading?: func | object, region?: func | object, root?: func | object, ...``)
     :param slots: The components used for each slot inside. (default: {}) (``{ heading?: elementType, region?: elementType, root?: elementType, transition?: ...``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-accordion", children, **kwargs)
-        self._attr_names += [
-            ("transition_component", "TransitionComponent"),
-            ("transition_props", "TransitionProps"),
+        self.props += [
             ("default_expanded", "defaultExpanded"),
             ("disable_gutters", "disableGutters"),
             "disabled",
             "expanded",
+            ("on_change", "onChange"),
             ("slot_props", "slotProps"),
             "slots",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -185,7 +188,7 @@ class AccordionActions(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-accordion-actions", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_spacing", "disableSpacing"),
         ]
 
@@ -208,7 +211,7 @@ class AccordionSummary(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-accordion-summary", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("expand_icon", "expandIcon"),
             ("focus_visible_class_name", "focusVisibleClassName"),
             ("slot_props", "slotProps"),
@@ -224,7 +227,7 @@ class Alert(MuiHtmlElement):
     :param color: The color of the component. Unless provided, the value is taken from the severity prop. It supports both default and custom theme colors, which can be added as shown in the palette customization guide. (``'error' | 'info' | 'success' | 'warning' | string``)
     :param icon: Override the icon displayed before the children. Unless provided, the icon is mapped to the value of the severity prop. Set to false to remove the icon. (``node``)
     :param icon_mapping: The component maps the severity prop to a range of different icons, for instance success to <SuccessOutlined>. If you wish to change this mapping, you can provide your own. Alternatively, you can use the icon prop to override the icon displayed. (``{ error?: node, info?: node, success?: node, warning?: node }``)
-    :param close: Callback fired when the component requests to be closed. When provided and no action prop is set, a close icon button is displayed that triggers the callback when clicked.
+    :param on_close: Callback fired when the component requests to be closed. When provided and no action prop is set, a close icon button is displayed that triggers the callback when clicked. (``func``)
     :param role: The ARIA role attribute of the element. (default: 'alert') (``string``)
     :param severity: The severity of the alert. This defines the color and icon used. (default: 'success') (``'error' | 'info' | 'success' | 'warning' | string``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ action?: func | object, closeButton?: func | object, closeIcon?: func | ...``)
@@ -234,20 +237,18 @@ class Alert(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-alert", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "action",
             ("close_text", "closeText"),
             "color",
             "icon",
             ("icon_mapping", "iconMapping"),
+            ("on_close", "onClose"),
             "role",
             "severity",
             ("slot_props", "slotProps"),
             "slots",
             "variant",
-        ]
-        self._event_names += [
-            "close",
         ]
 
 
@@ -270,7 +271,7 @@ class AppBar(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-app-bar", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             "elevation",
             ("enable_color_on_dark", "enableColorOnDark"),
@@ -282,11 +283,6 @@ class AppBar(MuiHtmlElement):
 class Autocomplete(MuiHtmlElement):
     """MUI Autocomplete - https://mui.com/material-ui/api/autocomplete/
 
-    :param chip_props: (deprecated) Props applied to the Chip element. (``object``)
-    :param listbox_component: (deprecated) The component used to render the listbox. (default: 'ul') (``elementType``)
-    :param listbox_props: (deprecated) Props applied to the Listbox element. (``object``)
-    :param paper_component: (deprecated) The component used to render the body of the popup. (default: Paper) (``elementType``)
-    :param popper_component: (deprecated) The component used to position the popup. (default: Popper) (``elementType``)
     :param auto_complete: If true, the portion of the selected suggestion that the user hasn't typed, known as the completion string, appears inline after the input cursor in the textbox. The inline completion string is visually highlighted and has a selected state. (default: false) (``bool``)
     :param auto_highlight: If true, the first option is automatically highlighted. (default: false) (``bool``)
     :param auto_select: If true, the value is updated when the input loses focus under one of these conditions: - An option highlighted via keyboard navigation or autoHighlight is selected. Hover and touch highlights are ignored. - Otherwise, in freeSolo mode, the typed text becomes the value. (default: false) (``bool``)
@@ -307,7 +303,7 @@ class Autocomplete(MuiHtmlElement):
     :param filter_selected_options: If true, hide the selected options from the list box. (default: false) (``bool``)
     :param force_popup_icon: Force the visibility display of the popup icon. (default: 'auto') (``'auto' | bool``)
     :param free_solo: If true, the Autocomplete is free solo, meaning that the user input is not bound to provided options. (default: false) (``bool``)
-    :param full_width: If true, the input will take up the full width of its container. (default: false) (``bool``)
+    :param full_width: If true, the input takes up the full width of its container. Autocomplete treats undefined and false differently. If undefined, the inner input takes up the full width of its container. If false, the inner input is restricted to its intrinsic width. (default: false) (``bool``)
     :param get_limit_tags_text: The label to display when the tags are truncated (limitTags). (default: (more) => `+${more}`) (``func``)
     :param get_option_disabled: Used to determine the disabled state for a given option. (``func``)
     :param get_option_key: Used to determine the key for a given option. This can be useful when the labels of options are not unique (since labels are used as keys by default). (``func``)
@@ -323,11 +319,11 @@ class Autocomplete(MuiHtmlElement):
     :param loading_text: Text to display when in a loading state. For localization purposes, you can use the provided translations. (default: 'Loading…') (``node``)
     :param multiple: If true, value must be an array and the menu will support multiple selections. (default: false) (``bool``)
     :param no_options_text: Text to display when there are no options. For localization purposes, you can use the provided translations. (default: 'No options') (``node``)
-    :param change: Callback fired when the value changes.
-    :param close: Callback fired when the popup requests to be closed. Use in controlled mode (see open).
-    :param highlight_change: Callback fired when the highlight option changes.
-    :param input_change: Callback fired when the input value changes.
-    :param open: Callback fired when the popup requests to be opened. Use in controlled mode (see open).
+    :param on_change: Callback fired when the value changes. (``func``)
+    :param on_close: Callback fired when the popup requests to be closed. Use in controlled mode (see open). (``func``)
+    :param on_highlight_change: Callback fired when the highlight option changes. (``func``)
+    :param on_input_change: Callback fired when the input value changes. (``func``)
+    :param on_open: Callback fired when the popup requests to be opened. Use in controlled mode (see open). (``func``)
     :param open: If true, the component is shown. (``bool``)
     :param open_on_focus: If true, the popup will open on input focus. (default: false) (``bool``)
     :param open_text: Override the default text for the open popup icon button. For localization purposes, you can use the provided translations. (default: 'Open') (``string``)
@@ -337,8 +333,8 @@ class Autocomplete(MuiHtmlElement):
     :param render_group: Render the group. (``func``)
     :param render_input: Render the input. Note: The renderInput prop must return a TextField component or a compatible custom component that correctly forwards InputProps.ref and spreads inputProps. This ensures proper integration with the Autocomplete's internal logic (e.g., focus management and keyboard navigation). Avoid using components like DatePicker or Select directly, as they may not forward the required props, leading to runtime errors or unexpected behavior. (``func``)
     :param render_option: Render the option, use getOptionLabel by default. (``func``)
-    :param render_tags: (deprecated) Render the selected value when doing multiple selections. (``func``)
     :param render_value: Renders the selected value(s) as rich content in the input for both single and multiple selections. (``func``)
+    :param reset_highlight_on_mouse_leave: If true, clears an option highlighted by mouse movement when the mouse leaves the listbox. This behavior will be enabled by default in the next major version. (default: false) (``bool``)
     :param select_on_focus: If true, the input's text is selected on focus. It helps the user clear the selected value. (default: !props.freeSolo) (``bool``)
     :param size: The size of the component. (default: 'medium') (``'small' | 'medium' | string``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ chip?: func | object, clearIndicator?: func | object, listbox?: func | ...``)
@@ -348,12 +344,7 @@ class Autocomplete(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-autocomplete", children, **kwargs)
-        self._attr_names += [
-            ("chip_props", "ChipProps"),
-            ("listbox_component", "ListboxComponent"),
-            ("listbox_props", "ListboxProps"),
-            ("paper_component", "PaperComponent"),
-            ("popper_component", "PopperComponent"),
+        self.props += [
             ("auto_complete", "autoComplete"),
             ("auto_highlight", "autoHighlight"),
             ("auto_select", "autoSelect"),
@@ -390,6 +381,11 @@ class Autocomplete(MuiHtmlElement):
             ("loading_text", "loadingText"),
             "multiple",
             ("no_options_text", "noOptionsText"),
+            ("on_change", "onChange"),
+            ("on_close", "onClose"),
+            ("on_highlight_change", "onHighlightChange"),
+            ("on_input_change", "onInputChange"),
+            ("on_open", "onOpen"),
             "open",
             ("open_on_focus", "openOnFocus"),
             ("open_text", "openText"),
@@ -399,20 +395,13 @@ class Autocomplete(MuiHtmlElement):
             ("render_group", "renderGroup"),
             ("render_input", "renderInput"),
             ("render_option", "renderOption"),
-            ("render_tags", "renderTags"),
             ("render_value", "renderValue"),
+            ("reset_highlight_on_mouse_leave", "resetHighlightOnMouseLeave"),
             ("select_on_focus", "selectOnFocus"),
             "size",
             ("slot_props", "slotProps"),
             "slots",
             "value",
-        ]
-        self._event_names += [
-            "change",
-            "close",
-            ("highlight_change", "highlightChange"),
-            ("input_change", "inputChange"),
-            "open",
         ]
 
 
@@ -420,7 +409,6 @@ class Avatar(MuiHtmlElement):
     """MUI Avatar - https://mui.com/material-ui/api/avatar/
 
     :param alt: Used in combination with src or srcSet to provide an alt attribute for the rendered img element. (``string``)
-    :param img_props: (deprecated) Attributes applied to the img element if the component is used to display an image. It can be used to listen for the loading error event. (``object``)
     :param sizes: The sizes attribute for the img element. (``string``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ fallback?: func | object, img?: func | object, root?: func | object }``)
     :param slots: The components used for each slot inside. (default: {}) (``{ fallback?: elementType, img?: elementType, root?: elementType }``)
@@ -431,9 +419,8 @@ class Avatar(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-avatar", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "alt",
-            ("img_props", "imgProps"),
             "sizes",
             ("slot_props", "slotProps"),
             "slots",
@@ -448,7 +435,7 @@ class AvatarGroup(MuiHtmlElement):
 
     :param max: Max avatars to show before +x. (default: 5) (``number``)
     :param render_surplus: custom renderer of extraAvatars (``func``)
-    :param slot_props: The props used for each slot inside. (default: {}) (``{ additionalAvatar?: object, surplus?: func | object }``)
+    :param slot_props: The props used for each slot inside. (default: {}) (``{ surplus?: func | object }``)
     :param slots: The components used for each slot inside. (default: {}) (``{ surplus?: elementType }``)
     :param spacing: Spacing between avatars. (default: 'medium') (``'medium' | 'small' | number``)
     :param total: The total number of avatars. Used for calculating the number of extra avatars. (default: children.length) (``number``)
@@ -457,7 +444,7 @@ class AvatarGroup(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-avatar-group", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "max",
             ("render_surplus", "renderSurplus"),
             ("slot_props", "slotProps"),
@@ -466,12 +453,12 @@ class AvatarGroup(MuiHtmlElement):
             "total",
             "variant",
         ]
+        self.literal_children = True
 
 
 class Backdrop(MuiHtmlElement):
     """MUI Backdrop - https://mui.com/material-ui/api/backdrop/
 
-    :param transition_component: (deprecated) The component used for the transition. Follow this guide to learn more about the requirements for this component. (default: Fade) (``elementType``)
     :param invisible: If true, the backdrop is invisible. It can be used when rendering a popover or a custom select component. (default: false) (``bool``)
     :param open: If true, the component is shown. (``bool``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ root?: func | object, transition?: func | object }``)
@@ -481,8 +468,7 @@ class Backdrop(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-backdrop", children, **kwargs)
-        self._attr_names += [
-            ("transition_component", "TransitionComponent"),
+        self.props += [
             "invisible",
             "open",
             ("slot_props", "slotProps"),
@@ -511,7 +497,7 @@ class Badge(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-badge", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("anchor_origin", "anchorOrigin"),
             ("badge_content", "badgeContent"),
             "color",
@@ -528,20 +514,19 @@ class Badge(MuiHtmlElement):
 class BottomNavigation(MuiHtmlElement):
     """MUI BottomNavigation - https://mui.com/material-ui/api/bottom-navigation/
 
-    :param change: Callback fired when the value changes.
+    :param on_change: Callback fired when the value changes. (``func``)
     :param show_labels: If true, all BottomNavigationActions will show their labels. By default, only the selected BottomNavigationAction will show its label. (default: false) (``bool``)
     :param value: The value of the currently selected BottomNavigationAction. (``any``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-bottom-navigation", children, **kwargs)
-        self._attr_names += [
+        self.props += [
+            ("on_change", "onChange"),
             ("show_labels", "showLabels"),
             "value",
         ]
-        self._event_names += [
-            "change",
-        ]
+        self.literal_children = True
 
 
 class BottomNavigationAction(MuiHtmlElement):
@@ -557,7 +542,7 @@ class BottomNavigationAction(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-bottom-navigation-action", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "icon",
             "label",
             ("show_label", "showLabel"),
@@ -582,13 +567,13 @@ class Breadcrumbs(MuiHtmlElement):
     :param items_before_collapse: If max items is exceeded, the number of items to show before the ellipsis. (default: 1) (``integer``)
     :param max_items: Specifies the maximum number of breadcrumbs to display. When there are more than the maximum number, only the first itemsBeforeCollapse and last itemsAfterCollapse will be shown, with an ellipsis in between. (default: 8) (``integer``)
     :param separator: Custom separator node. (default: '/') (``node``)
-    :param slot_props: The props used for each slot inside the Breadcumb. (default: {}) (``{ collapsedIcon?: func | object }``)
-    :param slots: The components used for each slot inside the Breadcumb. Either a string to use a HTML element or a component. (default: {}) (``{ CollapsedIcon?: elementType }``)
+    :param slot_props: The props used for each slot inside the Breadcrumb. (default: {}) (``{ collapsedIcon?: func | object }``)
+    :param slots: The components used for each slot inside the Breadcrumb. Either a string to use a HTML element or a component. (default: {}) (``{ CollapsedIcon?: elementType }``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-breadcrumbs", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("expand_text", "expandText"),
             ("items_after_collapse", "itemsAfterCollapse"),
             ("items_before_collapse", "itemsBeforeCollapse"),
@@ -620,7 +605,7 @@ class Button(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-button", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("disable_elevation", "disableElevation"),
             ("disable_focus_ripple", "disableFocusRipple"),
@@ -652,13 +637,15 @@ class ButtonBase(MuiHtmlElement):
     :param disabled: If true, the component is disabled. (default: false) (``bool``)
     :param focus_ripple: If true, the base button will have a keyboard focus ripple. (default: false) (``bool``)
     :param focus_visible_class_name: This prop can help identify which element has keyboard focus. The class name will be applied when the element gains the focus through keyboard interaction. It's a polyfill for the CSS :focus-visible selector. The rationale for using this feature is explained here. A polyfill can be used to apply a focus-visible class to other components if needed. (``string``)
-    :param focus_visible: Callback fired when the component is focused with a keyboard. We trigger a onFocus callback too.
+    :param native_button: Whether the custom component is expected to render a native <button> element when passing a React component to the component or slots prop. (``bool``)
+    :param on_focus_visible: Callback fired when the component is focused with a keyboard. We trigger a onFocus callback too. (``func``)
     :param touch_ripple_ref: A ref that points to the TouchRipple element. (``func | { current?: { pulsate: func, start: func, stop: func } }``)
+    :param type: The HTML type attribute applied to button and a elements. Ignored when rendering non-native buttons. (default: 'button') (``string``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-button-base", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("link_component", "LinkComponent"),
             ("touch_ripple_props", "TouchRippleProps"),
             "action",
@@ -668,10 +655,10 @@ class ButtonBase(MuiHtmlElement):
             "disabled",
             ("focus_ripple", "focusRipple"),
             ("focus_visible_class_name", "focusVisibleClassName"),
+            ("native_button", "nativeButton"),
+            ("on_focus_visible", "onFocusVisible"),
             ("touch_ripple_ref", "touchRippleRef"),
-        ]
-        self._event_names += [
-            ("focus_visible", "focusVisible"),
+            "type",
         ]
 
 
@@ -691,7 +678,7 @@ class ButtonGroup(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-button-group", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("disable_elevation", "disableElevation"),
             ("disable_focus_ripple", "disableFocusRipple"),
@@ -712,7 +699,7 @@ class Card(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-card", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "raised",
         ]
 
@@ -726,7 +713,7 @@ class CardActionArea(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-card-action-area", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("slot_props", "slotProps"),
             "slots",
         ]
@@ -740,7 +727,7 @@ class CardActions(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-card-actions", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_spacing", "disableSpacing"),
         ]
 
@@ -761,23 +748,19 @@ class CardHeader(MuiHtmlElement):
     :param slot_props: The props used for each slot inside. (default: {}) (``{ action?: func | object, avatar?: func | object, content?: func | object, ...``)
     :param slots: The components used for each slot inside. (default: {}) (``{ action?: elementType, avatar?: elementType, content?: elementType, root?: ...``)
     :param subheader: The content of the component. (``node``)
-    :param subheader_typography_props: (deprecated) These props will be forwarded to the subheader (as long as disableTypography is not true). (``object``)
     :param title: The content of the component. (``node``)
-    :param title_typography_props: (deprecated) These props will be forwarded to the title (as long as disableTypography is not true). (``object``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-card-header", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "action",
             "avatar",
             ("disable_typography", "disableTypography"),
             ("slot_props", "slotProps"),
             "slots",
             "subheader",
-            ("subheader_typography_props", "subheaderTypographyProps"),
             "title",
-            ("title_typography_props", "titleTypographyProps"),
         ]
 
 
@@ -790,7 +773,7 @@ class CardMedia(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-card-media", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "image",
             "src",
         ]
@@ -809,8 +792,7 @@ class Checkbox(MuiHtmlElement):
     :param id: The id of the input element. (``string``)
     :param indeterminate: If true, the component appears indeterminate. This does not set the native input element to indeterminate due to inconsistent behavior across browsers. However, we set a data-indeterminate attribute on the input. (default: false) (``bool``)
     :param indeterminate_icon: The icon to display when the component is indeterminate. (default: <IndeterminateCheckBoxIcon />) (``node``)
-    :param input_props: (deprecated) Attributes applied to the input element. (``object``)
-    :param change: Callback fired when the state is changed.
+    :param on_change: Callback fired when the state is changed. (``func``)
     :param required: If true, the input element is required. (default: false) (``bool``)
     :param size: The size of the component. small is equivalent to the dense checkbox styling. (default: 'medium') (``'medium' | 'small' | string``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ input?: func | object, root?: func | object }``)
@@ -820,7 +802,7 @@ class Checkbox(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-checkbox", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "checked",
             ("checked_icon", "checkedIcon"),
             "color",
@@ -831,15 +813,12 @@ class Checkbox(MuiHtmlElement):
             "id",
             "indeterminate",
             ("indeterminate_icon", "indeterminateIcon"),
-            ("input_props", "inputProps"),
+            ("on_change", "onChange"),
             "required",
             "size",
             ("slot_props", "slotProps"),
             "slots",
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -855,7 +834,8 @@ class Chip(MuiHtmlElement):
     :param disabled: If true, the component is disabled. (default: false) (``bool``)
     :param icon: Icon element. (``element``)
     :param label: The content of the component. (``node``)
-    :param delete: Callback fired when the delete icon is clicked. If set, the delete icon will be shown.
+    :param native_button: If true, the component is expected to resolve to a native <button> element. When omitted, custom components inherit the default button semantics of the current wrapper. Set to true when a custom component resolves to a native <button>, or false when it resolves to a non-button host. (``bool``)
+    :param on_delete: Callback fired when the delete icon is clicked. If set, the delete icon will be shown. (``func``)
     :param size: The size of the component. (default: 'medium') (``'medium' | 'small' | string``)
     :param skip_focus_when_disabled: If true, allows the disabled chip to escape focus. If false, allows the disabled chip to receive focus. (default: false) (``bool``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ label?: func | object, root?: func | object }``)
@@ -865,7 +845,7 @@ class Chip(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-chip", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "avatar",
             "clickable",
             "color",
@@ -873,14 +853,13 @@ class Chip(MuiHtmlElement):
             "disabled",
             "icon",
             "label",
+            ("native_button", "nativeButton"),
+            ("on_delete", "onDelete"),
             "size",
             ("skip_focus_when_disabled", "skipFocusWhenDisabled"),
             ("slot_props", "slotProps"),
             "slots",
             "variant",
-        ]
-        self._event_names += [
-            "delete",
         ]
 
 
@@ -892,18 +871,22 @@ class CircularProgress(MuiHtmlElement):
     :param color: The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide. (default: 'primary') (``'inherit' | 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' ...``)
     :param disable_shrink: If true, the shrink animation is disabled. This only works if variant is indeterminate. (default: false) (``bool``)
     :param enable_track_slot: If true, a track circle slot is mounted to show a subtle background for the progress. The size and thickness apply to the track slot to be consistent with the progress circle. (default: false) (``bool``)
+    :param max: The maximum value for the progress indicator for the determinate variant. (default: 100) (``number``)
+    :param min: The minimum value for the progress indicator for the determinate variant. (default: 0) (``number``)
     :param size: The size of the component. If using a number, the pixel unit is assumed. If using a string, you need to provide the CSS unit, for example '3rem'. (default: 40) (``number | string``)
     :param thickness: The thickness of the circle. (default: 3.6) (``number``)
-    :param value: The value of the progress indicator for the determinate variant. Value between 0 and 100. (default: 0) (``number``)
+    :param value: The value of the progress indicator for the determinate variant. Value between min and max. (default: props.min ?? 0) (``number``)
     :param variant: The variant to use. Use indeterminate when there is no progress value. (default: 'indeterminate') (``'determinate' | 'indeterminate'``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-circular-progress", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("disable_shrink", "disableShrink"),
             ("enable_track_slot", "enableTrackSlot"),
+            "max",
+            "min",
             "size",
             "thickness",
             "value",
@@ -918,29 +901,28 @@ class ClickAwayListener(MuiHtmlElement):
 
     :param disable_react_tree: If true, the React tree is ignored and only the DOM tree is considered. This prop changes how portaled elements are handled. (default: false) (``bool``)
     :param mouse_event: The mouse event to listen to. You can disable the listener by providing false. (default: 'onClick') (``'onClick' | 'onMouseDown' | 'onMouseUp' | 'onPointerDown' | 'onPointerUp' | ...``)
-    :param click_away: Callback fired when a "click away" event is detected.
+    :param on_click_away: Callback fired when a "click away" event is detected. (``func``)
     :param touch_event: The touch event to listen to. You can disable the listener by providing false. (default: 'onTouchEnd') (``'onTouchEnd' | 'onTouchStart' | false``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-click-away-listener", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_react_tree", "disableReactTree"),
             ("mouse_event", "mouseEvent"),
+            ("on_click_away", "onClickAway"),
             ("touch_event", "touchEvent"),
-        ]
-        self._event_names += [
-            ("click_away", "clickAway"),
         ]
 
 
 class Collapse(MuiHtmlElement):
     """MUI Collapse - https://mui.com/material-ui/api/collapse/
 
-    The Collapse transition is used by the [Vertical Stepper](/material-ui/react-stepper/#vertical-stepper) StepContent component. It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+    The Collapse transition is used by the [Vertical Stepper](/material-ui/react-stepper/#vertical-stepper) StepContent component.
 
-    :param add_end_listener: Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided. (``func``)
+    :param add_end_listener: Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided. (``func``)
     :param collapsed_size: The width (horizontal) or height (vertical) of the container when collapsed. (default: '0px') (``number | string``)
+    :param disable_prefers_reduced_motion: If true, the transition ignores theme.motion.reducedMotion and keeps its normal timing. (default: false) (``bool``)
     :param easing: The transition timing function. You may specify a single easing or a object containing enter and exit values. (``{ enter?: string, exit?: string } | string``)
     :param in: If true, the component will transition in. (``bool``)
     :param orientation: The transition orientation. (default: 'vertical') (``'horizontal' | 'vertical'``)
@@ -951,9 +933,10 @@ class Collapse(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-collapse", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("add_end_listener", "addEndListener"),
             ("collapsed_size", "collapsedSize"),
+            ("disable_prefers_reduced_motion", "disablePrefersReducedMotion"),
             "easing",
             "in",
             "orientation",
@@ -973,7 +956,7 @@ class Container(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-container", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_gutters", "disableGutters"),
             "fixed",
             ("max_width", "maxWidth"),
@@ -990,7 +973,7 @@ class CssBaseline(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-css-baseline", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("enable_color_scheme", "enableColorScheme"),
         ]
 
@@ -1000,21 +983,11 @@ class Dialog(MuiHtmlElement):
 
         Dialogs are overlaid modal paper based components with a backdrop.
 
-        :param backdrop_component: (deprecated) A backdrop component. This prop enables custom backdrop rendering. (default: styled(Backdrop, {
-      name: 'MuiModal',
-      slot: 'Backdrop',
-    })({
-      zIndex: -1,
-    })) (``elementType``)
         :param paper_component: The component used to render the body of the dialog. (default: Paper) (``elementType``)
-        :param paper_props: (deprecated) Props applied to the Paper element. (default: {}) (``object``)
-        :param transition_component: (deprecated) The component used for the transition. Follow this guide to learn more about the requirements for this component. (default: Fade) (``elementType``)
-        :param transition_props: (deprecated) Props applied to the transition element. By default, the element is based on this Transition component. (``object``)
-        :param disable_escape_key_down: If true, hitting escape will not fire the onClose callback. (default: false) (``bool``)
         :param full_screen: If true, the dialog is full-screen. (default: false) (``bool``)
         :param full_width: If true, the dialog stretches to maxWidth. Notice that the dialog width grow is limited by the default margin. (default: false) (``bool``)
         :param max_width: Determine the max-width of the dialog. The dialog width grows with the size of the screen. Set to false to disable maxWidth. (default: 'sm') (``'xs' | 'sm' | 'md' | 'lg' | 'xl' | false | string``)
-        :param close: Callback fired when the component requests to be closed.
+        :param on_close: Callback fired when the component requests to be closed. (``func``)
         :param open: If true, the component is shown. (``bool``)
         :param role: The ARIA role for the dialog element. The main dialog role is dialog, but alertdialog can be used if the content of the dialog requires immediate attention. See https://www.w3.org/TR/wai-aria-1.2/#dialog and https://www.w3.org/TR/wai-aria-1.2/#alertdialog for more details. (default: 'dialog') (``'alertdialog' | 'dialog'``)
         :param scroll: Determine the container for scrolling the dialog. (default: 'paper') (``'body' | 'paper'``)
@@ -1028,25 +1001,18 @@ class Dialog(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-dialog", children, **kwargs)
-        self._attr_names += [
-            ("backdrop_component", "BackdropComponent"),
+        self.props += [
             ("paper_component", "PaperComponent"),
-            ("paper_props", "PaperProps"),
-            ("transition_component", "TransitionComponent"),
-            ("transition_props", "TransitionProps"),
-            ("disable_escape_key_down", "disableEscapeKeyDown"),
             ("full_screen", "fullScreen"),
             ("full_width", "fullWidth"),
             ("max_width", "maxWidth"),
+            ("on_close", "onClose"),
             "open",
             "role",
             "scroll",
             ("slot_props", "slotProps"),
             "slots",
             ("transition_duration", "transitionDuration"),
-        ]
-        self._event_names += [
-            "close",
         ]
 
 
@@ -1058,7 +1024,7 @@ class DialogActions(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-dialog-actions", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_spacing", "disableSpacing"),
         ]
 
@@ -1071,7 +1037,7 @@ class DialogContent(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-dialog-content", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "dividers",
         ]
 
@@ -1095,7 +1061,6 @@ class Divider(MuiHtmlElement):
 
     :param absolute: Absolutely position the element. (default: false) (``bool``)
     :param flex_item: If true, a vertical divider will have the correct height when used in flex container. (By default, a vertical divider will have a calculated height of 0px if it is the child of a flex container.) (default: false) (``bool``)
-    :param light: (deprecated) If true, the divider will have a lighter color. (default: false) (``bool``)
     :param orientation: The component orientation. (default: 'horizontal') (``'horizontal' | 'vertical'``)
     :param text_align: The text alignment. (default: 'center') (``'center' | 'left' | 'right'``)
     :param variant: The variant to use. (default: 'fullWidth') (``'fullWidth' | 'inset' | 'middle' | string``)
@@ -1103,10 +1068,9 @@ class Divider(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-divider", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "absolute",
             ("flex_item", "flexItem"),
-            "light",
             "orientation",
             ("text_align", "textAlign"),
             "variant",
@@ -1119,12 +1083,10 @@ class Drawer(MuiHtmlElement):
         The props of the [Modal](/material-ui/api/modal/) component are available when `variant="temporary"` is set.
 
         :param modal_props: Props applied to the Modal element. (default: {}) (``object``)
-        :param paper_props: (deprecated) Props applied to the Paper element. (default: {}) (``object``)
-        :param slide_props: (deprecated) Props applied to the Slide element. (``object``)
         :param anchor: Side from which the drawer will appear. (default: 'left') (``'bottom' | 'left' | 'right' | 'top'``)
         :param elevation: The elevation of the drawer. (default: 16) (``integer``)
         :param hide_backdrop: If true, the backdrop is not rendered. (default: false) (``bool``)
-        :param close: Callback fired when the component requests to be closed. The reason parameter can optionally be used to control the response to onClose.
+        :param on_close: Callback fired when the component requests to be closed. The reason parameter can optionally be used to control the response to onClose. (``func``)
         :param open: If true, the component is shown. (default: false) (``bool``)
         :param slot_props: The props used for each slot inside. (default: {}) (``{ backdrop?: func | object, docked?: func | object, paper?: func | object, ...``)
         :param slots: The components used for each slot inside. (default: {}) (``{ backdrop?: elementType, docked?: elementType, paper?: elementType, root?: ...``)
@@ -1137,21 +1099,17 @@ class Drawer(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-drawer", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("modal_props", "ModalProps"),
-            ("paper_props", "PaperProps"),
-            ("slide_props", "SlideProps"),
             "anchor",
             "elevation",
             ("hide_backdrop", "hideBackdrop"),
+            ("on_close", "onClose"),
             "open",
             ("slot_props", "slotProps"),
             "slots",
             ("transition_duration", "transitionDuration"),
             "variant",
-        ]
-        self._event_names += [
-            "close",
         ]
 
 
@@ -1169,7 +1127,7 @@ class Fab(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-fab", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("disable_focus_ripple", "disableFocusRipple"),
             ("disable_ripple", "disableRipple"),
@@ -1183,10 +1141,11 @@ class Fab(MuiHtmlElement):
 class Fade(MuiHtmlElement):
     """MUI Fade - https://mui.com/material-ui/api/fade/
 
-        The Fade transition is used by the [Modal](/material-ui/react-modal/) component. It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+        The Fade transition is used by the [Modal](/material-ui/react-modal/) component.
 
-        :param add_end_listener: Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided. (``func``)
+        :param add_end_listener: Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided. (``func``)
         :param appear: Perform the enter transition when it first mounts if in is also true. Set this to false to disable this behavior. (default: true) (``bool``)
+        :param disable_prefers_reduced_motion: If true, the transition ignores theme.motion.reducedMotion and keeps its normal timing. (default: false) (``bool``)
         :param easing: The transition timing function. You may specify a single easing or a object containing enter and exit values. (``{ enter?: string, exit?: string } | string``)
         :param in: If true, the component will transition in. (``bool``)
         :param timeout: The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object. (default: {
@@ -1197,9 +1156,10 @@ class Fade(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-fade", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("add_end_listener", "addEndListener"),
             "appear",
+            ("disable_prefers_reduced_motion", "disablePrefersReducedMotion"),
             "easing",
             "in",
             "timeout",
@@ -1228,13 +1188,13 @@ class FilledInput(MuiHtmlElement):
     :param min_rows: Minimum number of rows to display when multiline option is set to true. (``number | string``)
     :param multiline: If true, a TextareaAutosize element is rendered. (default: false) (``bool``)
     :param name: Name attribute of the input element. (``string``)
-    :param change: Callback fired when the value is changed.
+    :param on_change: Callback fired when the value is changed. (``func``)
     :param placeholder: The short hint displayed in the input before the user enters a value. (``string``)
     :param read_only: It prevents the user from changing the value of the field (not from interacting with the field). (``bool``)
     :param required: If true, the input element is required. The prop defaults to the value (false) inherited from the parent FormControl component. (``bool``)
     :param rows: Number of rows to display when multiline option is set to true. (``number | string``)
-    :param slot_props: The extra props for the slot components. You can override the existing props or add new ones. This prop is an alias for the componentsProps prop, which will be deprecated in the future. (default: {}) (``{ input?: object, root?: object }``)
-    :param slots: The components used for each slot inside. This prop is an alias for the components prop, which will be deprecated in the future. (default: {}) (``{ input?: elementType, root?: elementType }``)
+    :param slot_props: The extra props for the slot components. You can override the existing props or add new ones. (default: {}) (``{ input?: object, root?: object }``)
+    :param slots: The components used for each slot inside. (default: {}) (``{ input?: elementType, root?: elementType }``)
     :param start_adornment: Start InputAdornment for this component. (``node``)
     :param type: Type of the input element. It should be a valid HTML5 input type. (default: 'text') (``string``)
     :param value: The value of the input element, required for a controlled component. (``any``)
@@ -1242,7 +1202,7 @@ class FilledInput(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-filled-input", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("auto_complete", "autoComplete"),
             ("auto_focus", "autoFocus"),
             "color",
@@ -1262,6 +1222,7 @@ class FilledInput(MuiHtmlElement):
             ("min_rows", "minRows"),
             "multiline",
             "name",
+            ("on_change", "onChange"),
             "placeholder",
             ("read_only", "readOnly"),
             "required",
@@ -1271,9 +1232,6 @@ class FilledInput(MuiHtmlElement):
             ("start_adornment", "startAdornment"),
             "type",
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -1296,7 +1254,7 @@ class FormControl(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-form-control", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             "disabled",
             "error",
@@ -1308,6 +1266,7 @@ class FormControl(MuiHtmlElement):
             "size",
             "variant",
         ]
+        self.literal_children = True
 
 
 class FormControlLabel(MuiHtmlElement):
@@ -1322,7 +1281,7 @@ class FormControlLabel(MuiHtmlElement):
     :param input_ref: Pass a ref to the input element. (``ref``)
     :param label: A text or an element to be used in an enclosing label element. (``node``)
     :param label_placement: The position of the label. (default: 'end') (``'bottom' | 'end' | 'start' | 'top'``)
-    :param change: Callback fired when the state is changed.
+    :param on_change: Callback fired when the state is changed. (``func``)
     :param required: If true, the label will indicate that the input is required. (``bool``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ typography?: func | object }``)
     :param slots: The components used for each slot inside. (default: {}) (``{ typography?: elementType }``)
@@ -1331,7 +1290,7 @@ class FormControlLabel(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-form-control-label", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "checked",
             "control",
             ("disable_typography", "disableTypography"),
@@ -1339,13 +1298,11 @@ class FormControlLabel(MuiHtmlElement):
             ("input_ref", "inputRef"),
             "label",
             ("label_placement", "labelPlacement"),
+            ("on_change", "onChange"),
             "required",
             ("slot_props", "slotProps"),
             "slots",
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -1359,7 +1316,7 @@ class FormGroup(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-form-group", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "row",
         ]
 
@@ -1378,7 +1335,7 @@ class FormHelperText(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-form-helper-text", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "disabled",
             "error",
             "filled",
@@ -1402,7 +1359,7 @@ class FormLabel(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-form-label", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             "disabled",
             "error",
@@ -1420,7 +1377,7 @@ class GlobalStyles(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-global-styles", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "styles",
         ]
 
@@ -1431,7 +1388,7 @@ class Grid(MuiHtmlElement):
     :param column_spacing: Defines the horizontal space between the type item components. It overrides the value of the spacing prop. (``Array<number | string> | number | object | string``)
     :param columns: The number of columns. (default: 12) (``Array<number> | number | object``)
     :param container: If true, the component will have the flex container behavior. You should be wrapping items with a container. (default: false) (``bool``)
-    :param direction: Defines the flex-direction style property. It is applied for all screen sizes. (default: 'row') (``'column-reverse' | 'column' | 'row-reverse' | 'row' | Array<'column-reverse' | ...``)
+    :param direction: Defines the flex-direction style property for the container. ⚠️ Only row and row-reverse are supported. column and column-reverse are not supported, because the Grid component is designed to subdivide layouts into columns, not rows. For vertical layouts, use Stack instead. (default: 'row') (``'row-reverse' | 'row' | Array<'row-reverse' | 'row'> | object``)
     :param offset: Defines the offset value for the type item components. (``string | number | Array<string | number> | object``)
     :param row_spacing: Defines the vertical space between the type item components. It overrides the value of the spacing prop. (``Array<number | string> | number | object | string``)
     :param size: Defines the size of the the type item components. (``string | bool | number | Array<string | bool | number> | object``)
@@ -1441,7 +1398,7 @@ class Grid(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-grid", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("column_spacing", "columnSpacing"),
             "columns",
             "container",
@@ -1454,52 +1411,14 @@ class Grid(MuiHtmlElement):
         ]
 
 
-class GridLegacy(MuiHtmlElement):
-    """MUI GridLegacy - https://mui.com/material-ui/api/grid-legacy/
-
-    :param column_spacing: Defines the horizontal space between the type item components. It overrides the value of the spacing prop. (``Array<number | string> | number | object | string``)
-    :param columns: The number of columns. (default: 12) (``Array<number> | number | object``)
-    :param container: If true, the component will have the flex container behavior. You should be wrapping items with a container. (default: false) (``bool``)
-    :param direction: Defines the flex-direction style property. It is applied for all screen sizes. (default: 'row') (``'column-reverse' | 'column' | 'row-reverse' | 'row' | Array<'column-reverse' | ...``)
-    :param item: If true, the component will have the flex item behavior. You should be wrapping items with a container. (default: false) (``bool``)
-    :param lg: If a number, it sets the number of columns the grid item uses. It can't be greater than the total number of columns of the container (12 by default). If 'auto', the grid item's width matches its content. If false, the prop is ignored. If true, the grid item's width grows to use the space available in the grid container. The value is applied for the lg breakpoint and wider screens if not overridden. (default: false) (``'auto' | number | bool``)
-    :param md: If a number, it sets the number of columns the grid item uses. It can't be greater than the total number of columns of the container (12 by default). If 'auto', the grid item's width matches its content. If false, the prop is ignored. If true, the grid item's width grows to use the space available in the grid container. The value is applied for the md breakpoint and wider screens if not overridden. (default: false) (``'auto' | number | bool``)
-    :param row_spacing: Defines the vertical space between the type item components. It overrides the value of the spacing prop. (``Array<number | string> | number | object | string``)
-    :param sm: If a number, it sets the number of columns the grid item uses. It can't be greater than the total number of columns of the container (12 by default). If 'auto', the grid item's width matches its content. If false, the prop is ignored. If true, the grid item's width grows to use the space available in the grid container. The value is applied for the sm breakpoint and wider screens if not overridden. (default: false) (``'auto' | number | bool``)
-    :param spacing: Defines the space between the type item components. It can only be used on a type container component. (default: 0) (``Array<number | string> | number | object | string``)
-    :param wrap: Defines the flex-wrap style property. It's applied for all screen sizes. (default: 'wrap') (``'nowrap' | 'wrap-reverse' | 'wrap'``)
-    :param xl: If a number, it sets the number of columns the grid item uses. It can't be greater than the total number of columns of the container (12 by default). If 'auto', the grid item's width matches its content. If false, the prop is ignored. If true, the grid item's width grows to use the space available in the grid container. The value is applied for the xl breakpoint and wider screens if not overridden. (default: false) (``'auto' | number | bool``)
-    :param xs: If a number, it sets the number of columns the grid item uses. It can't be greater than the total number of columns of the container (12 by default). If 'auto', the grid item's width matches its content. If false, the prop is ignored. If true, the grid item's width grows to use the space available in the grid container. The value is applied for all the screen sizes with the lowest priority. (default: false) (``'auto' | number | bool``)
-    :param zero_min_width: If true, it sets min-width: 0 on the item. Refer to the limitations section of the documentation to better understand the use case. (default: false) (``bool``)
-    """
-
-    def __init__(self, children=None, **kwargs):
-        super().__init__("mui-grid-legacy", children, **kwargs)
-        self._attr_names += [
-            ("column_spacing", "columnSpacing"),
-            "columns",
-            "container",
-            "direction",
-            "item",
-            "lg",
-            "md",
-            ("row_spacing", "rowSpacing"),
-            "sm",
-            "spacing",
-            "wrap",
-            "xl",
-            "xs",
-            ("zero_min_width", "zeroMinWidth"),
-        ]
-
-
 class Grow(MuiHtmlElement):
     """MUI Grow - https://mui.com/material-ui/api/grow/
 
-    The Grow transition is used by the [Tooltip](/material-ui/react-tooltip/) and [Popover](/material-ui/react-popover/) components. It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+    The Grow transition is used by the [Tooltip](/material-ui/react-tooltip/) and [Popover](/material-ui/react-popover/) components.
 
-    :param add_end_listener: Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided. (``func``)
+    :param add_end_listener: Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided. (``func``)
     :param appear: Perform the enter transition when it first mounts if in is also true. Set this to false to disable this behavior. (default: true) (``bool``)
+    :param disable_prefers_reduced_motion: If true, the transition ignores theme.motion.reducedMotion and keeps its normal timing. (default: false) (``bool``)
     :param easing: The transition timing function. You may specify a single easing or a object containing enter and exit values. (``{ enter?: string, exit?: string } | string``)
     :param in: If true, the component will transition in. (``bool``)
     :param timeout: The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object. Set to 'auto' to automatically calculate transition time based on height. (default: 'auto') (``'auto' | number | { appear?: number, enter?: number, exit?: number }``)
@@ -1507,9 +1426,10 @@ class Grow(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-grow", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("add_end_listener", "addEndListener"),
             "appear",
+            ("disable_prefers_reduced_motion", "disablePrefersReducedMotion"),
             "easing",
             "in",
             "timeout",
@@ -1526,7 +1446,7 @@ class Icon(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-icon", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("base_class_name", "baseClassName"),
             "color",
             ("font_size", "fontSize"),
@@ -1550,7 +1470,7 @@ class IconButton(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-icon-button", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("disable_focus_ripple", "disableFocusRipple"),
             ("disable_ripple", "disableRipple"),
@@ -1573,7 +1493,7 @@ class ImageList(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-image-list", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "cols",
             "gap",
             ("row_height", "rowHeight"),
@@ -1590,10 +1510,11 @@ class ImageListItem(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-image-list-item", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "cols",
             "rows",
         ]
+        self.literal_children = True
 
 
 class ImageListItemBar(MuiHtmlElement):
@@ -1608,7 +1529,7 @@ class ImageListItemBar(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-image-list-item-bar", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("action_icon", "actionIcon"),
             ("action_position", "actionPosition"),
             "position",
@@ -1632,7 +1553,7 @@ class InitColorSchemeScript(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-init-color-scheme-script", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "attribute",
             ("color_scheme_node", "colorSchemeNode"),
             ("color_scheme_storage_key", "colorSchemeStorageKey"),
@@ -1665,13 +1586,13 @@ class Input(MuiHtmlElement):
     :param min_rows: Minimum number of rows to display when multiline option is set to true. (``number | string``)
     :param multiline: If true, a TextareaAutosize element is rendered. (default: false) (``bool``)
     :param name: Name attribute of the input element. (``string``)
-    :param change: Callback fired when the value is changed.
+    :param on_change: Callback fired when the value is changed. (``func``)
     :param placeholder: The short hint displayed in the input before the user enters a value. (``string``)
     :param read_only: It prevents the user from changing the value of the field (not from interacting with the field). (``bool``)
     :param required: If true, the input element is required. The prop defaults to the value (false) inherited from the parent FormControl component. (``bool``)
     :param rows: Number of rows to display when multiline option is set to true. (``number | string``)
-    :param slot_props: The extra props for the slot components. You can override the existing props or add new ones. This prop is an alias for the componentsProps prop, which will be deprecated in the future. (default: {}) (``{ input?: object, root?: object }``)
-    :param slots: The components used for each slot inside. This prop is an alias for the components prop, which will be deprecated in the future. (default: {}) (``{ input?: elementType, root?: elementType }``)
+    :param slot_props: The extra props for the slot components. You can override the existing props or add new ones. (default: {}) (``{ input?: object, root?: object }``)
+    :param slots: The components used for each slot inside. (default: {}) (``{ input?: elementType, root?: elementType }``)
     :param start_adornment: Start InputAdornment for this component. (``node``)
     :param type: Type of the input element. It should be a valid HTML5 input type. (default: 'text') (``string``)
     :param value: The value of the input element, required for a controlled component. (``any``)
@@ -1679,7 +1600,7 @@ class Input(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-input", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("auto_complete", "autoComplete"),
             ("auto_focus", "autoFocus"),
             "color",
@@ -1698,6 +1619,7 @@ class Input(MuiHtmlElement):
             ("min_rows", "minRows"),
             "multiline",
             "name",
+            ("on_change", "onChange"),
             "placeholder",
             ("read_only", "readOnly"),
             "required",
@@ -1707,9 +1629,6 @@ class Input(MuiHtmlElement):
             ("start_adornment", "startAdornment"),
             "type",
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -1724,7 +1643,7 @@ class InputAdornment(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-input-adornment", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_pointer_events", "disablePointerEvents"),
             ("disable_typography", "disableTypography"),
             "position",
@@ -1755,16 +1674,16 @@ class InputBase(MuiHtmlElement):
     :param min_rows: Minimum number of rows to display when multiline option is set to true. (``number | string``)
     :param multiline: If true, a TextareaAutosize element is rendered. (default: false) (``bool``)
     :param name: Name attribute of the input element. (``string``)
-    :param blur: Callback fired when the input is blurred. Notice that the first argument (event) might be undefined.
-    :param change: Callback fired when the value is changed.
-    :param invalid: Callback fired when the input doesn't satisfy its constraints.
+    :param on_blur: Callback fired when the input is blurred. Notice that the first argument (event) might be undefined. (``func``)
+    :param on_change: Callback fired when the value is changed. (``func``)
+    :param on_invalid: Callback fired when the input doesn't satisfy its constraints. (``func``)
     :param placeholder: The short hint displayed in the input before the user enters a value. (``string``)
     :param read_only: It prevents the user from changing the value of the field (not from interacting with the field). (``bool``)
     :param required: If true, the input element is required. The prop defaults to the value (false) inherited from the parent FormControl component. (``bool``)
     :param rows: Number of rows to display when multiline option is set to true. (``number | string``)
     :param size: The size of the component. (``'medium' | 'small' | string``)
-    :param slot_props: The extra props for the slot components. You can override the existing props or add new ones. This prop is an alias for the componentsProps prop, which will be deprecated in the future. (default: {}) (``{ input?: object, root?: object }``)
-    :param slots: The components used for each slot inside. This prop is an alias for the components prop, which will be deprecated in the future. (default: {}) (``{ input?: elementType, root?: elementType }``)
+    :param slot_props: The extra props for the slot components. You can override the existing props or add new ones. (default: {}) (``{ input?: object, root?: object }``)
+    :param slots: The components used for each slot inside. (default: {}) (``{ input?: elementType, root?: elementType }``)
     :param start_adornment: Start InputAdornment for this component. (``node``)
     :param type: Type of the input element. It should be a valid HTML5 input type. (default: 'text') (``string``)
     :param value: The value of the input element, required for a controlled component. (``any``)
@@ -1772,7 +1691,7 @@ class InputBase(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-input-base", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("auto_complete", "autoComplete"),
             ("auto_focus", "autoFocus"),
             "color",
@@ -1791,6 +1710,9 @@ class InputBase(MuiHtmlElement):
             ("min_rows", "minRows"),
             "multiline",
             "name",
+            ("on_blur", "onBlur"),
+            ("on_change", "onChange"),
+            ("on_invalid", "onInvalid"),
             "placeholder",
             ("read_only", "readOnly"),
             "required",
@@ -1801,11 +1723,6 @@ class InputBase(MuiHtmlElement):
             ("start_adornment", "startAdornment"),
             "type",
             "value",
-        ]
-        self._event_names += [
-            "blur",
-            "change",
-            "invalid",
         ]
 
 
@@ -1826,7 +1743,7 @@ class InputLabel(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-input-label", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("disable_animation", "disableAnimation"),
             "disabled",
@@ -1846,15 +1763,19 @@ class LinearProgress(MuiHtmlElement):
     ## ARIA If the progress bar is describing the loading progress of a particular region of a page, you should use `aria-describedby` to point to the progress bar, and set the `aria-busy` attribute to `true` on that region until it has finished loading.
 
     :param color: The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide. (default: 'primary') (``'inherit' | 'primary' | 'secondary' | string``)
-    :param value: The value of the progress indicator for the determinate and buffer variants. Value between 0 and 100. (``number``)
-    :param value_buffer: The value for the buffer variant. Value between 0 and 100. (``number``)
+    :param max: The maximum value for the progress indicator for the determinate and buffer variants. (default: 100) (``number``)
+    :param min: The minimum value for the progress indicator for the determinate and buffer variants. (default: 0) (``number``)
+    :param value: The value of the progress indicator for the determinate and buffer variants. Value between min and max. (``number``)
+    :param value_buffer: The value for the buffer variant. Value between min and max. (``number``)
     :param variant: The variant to use. Use indeterminate or query when there is no progress value. (default: 'indeterminate') (``'buffer' | 'determinate' | 'indeterminate' | 'query'``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-linear-progress", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
+            "max",
+            "min",
             "value",
             ("value_buffer", "valueBuffer"),
             "variant",
@@ -1872,7 +1793,7 @@ class Link(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-link", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("typography_classes", "TypographyClasses"),
             "color",
             "underline",
@@ -1890,7 +1811,7 @@ class List(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-list", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "dense",
             ("disable_padding", "disablePadding"),
             "subheader",
@@ -1900,25 +1821,19 @@ class List(MuiHtmlElement):
 class ListItem(MuiHtmlElement):
     """MUI ListItem - https://mui.com/material-ui/api/list-item/
 
-    Uses an additional container component if `ListItemSecondaryAction` is the last child.
-
-    :param container_component: (deprecated) The container component used when a ListItemSecondaryAction is the last child. (default: 'li') (``element type``)
-    :param container_props: (deprecated) Props applied to the container component if used. (default: {}) (``object``)
     :param align_items: Defines the align-items style property. (default: 'center') (``'center' | 'flex-start'``)
     :param dense: If true, compact vertical padding designed for keyboard and mouse input is used. The prop defaults to the value inherited from the parent List component. (default: false) (``bool``)
     :param disable_gutters: If true, the left and right padding is removed. (default: false) (``bool``)
     :param disable_padding: If true, all padding is removed. (default: false) (``bool``)
     :param divider: If true, a 1px light border is added to the bottom of the list item. (default: false) (``bool``)
     :param secondary_action: The element to display at the end of ListItem. (``node``)
-    :param slot_props: The extra props for the slot components. You can override the existing props or add new ones. (default: {}) (``{ root?: object, secondaryAction?: func | object }``)
+    :param slot_props: The extra props for the slot components. You can override the existing props or add new ones. (default: {}) (``{ root?: func | object, secondaryAction?: func | object }``)
     :param slots: The components used for each slot inside. (default: {}) (``{ root?: elementType, secondaryAction?: elementType }``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-list-item", children, **kwargs)
-        self._attr_names += [
-            ("container_component", "ContainerComponent"),
-            ("container_props", "ContainerProps"),
+        self.props += [
             ("align_items", "alignItems"),
             "dense",
             ("disable_gutters", "disableGutters"),
@@ -1955,7 +1870,7 @@ class ListItemButton(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-list-item-button", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("align_items", "alignItems"),
             ("auto_focus", "autoFocus"),
             "dense",
@@ -1993,22 +1908,18 @@ class ListItemText(MuiHtmlElement):
     :param disable_typography: If true, the children won't be wrapped by a Typography component. This can be useful to render an alternative Typography variant by wrapping the children (or primary) text, and optional secondary text with the Typography component. (default: false) (``bool``)
     :param inset: If true, the children are indented. This should be used if there is no left avatar or left icon. (default: false) (``bool``)
     :param primary: The main content element. (``node``)
-    :param primary_typography_props: (deprecated) These props will be forwarded to the primary typography component (as long as disableTypography is not true). (``object``)
     :param secondary: The secondary content element. (``node``)
-    :param secondary_typography_props: (deprecated) These props will be forwarded to the secondary typography component (as long as disableTypography is not true). (``object``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ primary?: func | object, root?: func | object, secondary?: func | object }``)
     :param slots: The components used for each slot inside. (default: {}) (``{ primary?: elementType, root?: elementType, secondary?: elementType }``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-list-item-text", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_typography", "disableTypography"),
             "inset",
             "primary",
-            ("primary_typography_props", "primaryTypographyProps"),
             "secondary",
-            ("secondary_typography_props", "secondaryTypographyProps"),
             ("slot_props", "slotProps"),
             "slots",
         ]
@@ -2025,7 +1936,7 @@ class ListSubheader(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-list-subheader", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("disable_gutters", "disableGutters"),
             ("disable_sticky", "disableSticky"),
@@ -2036,13 +1947,11 @@ class ListSubheader(MuiHtmlElement):
 class Menu(MuiHtmlElement):
     """MUI Menu - https://mui.com/material-ui/api/menu/
 
-    :param menu_list_props: (deprecated) Props applied to the MenuList element. (default: {}) (``object``)
     :param popover_classes: classes prop applied to the Popover element. (``object``)
-    :param transition_props: (deprecated) Props applied to the transition element. By default, the element is based on this Transition component. (default: {}) (``object``)
     :param anchor_el: An HTML element, or a function that returns one. It's used to set the position of the menu. (``HTML element | func``)
     :param auto_focus: If true (Default) will focus the [role="menu"] if no focusable child is found. Disabled children are not focusable. If you set this prop to false focus will be placed on the parent modal container. This has severe accessibility implications and should only be considered if you manage focus otherwise. (default: true) (``bool``)
     :param disable_auto_focus_item: When opening the menu will not focus the active item but the [role="menu"] unless autoFocus is also set to false. Not using the default means not following WAI-ARIA authoring practices. Please be considerate about possible accessibility implications. (default: false) (``bool``)
-    :param close: Callback fired when the component requests to be closed.
+    :param on_close: Callback fired when the component requests to be closed. (``func``)
     :param open: If true, the component is shown. (``bool``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ backdrop?: func | object, list?: func | object, paper?: func | object, root?: ...``)
     :param slots: The components used for each slot inside. (default: {}) (``{ backdrop?: elementType, list?: elementType, paper?: elementType, root?: ...``)
@@ -2052,21 +1961,17 @@ class Menu(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-menu", children, **kwargs)
-        self._attr_names += [
-            ("menu_list_props", "MenuListProps"),
+        self.props += [
             ("popover_classes", "PopoverClasses"),
-            ("transition_props", "TransitionProps"),
             ("anchor_el", "anchorEl"),
             ("auto_focus", "autoFocus"),
             ("disable_auto_focus_item", "disableAutoFocusItem"),
+            ("on_close", "onClose"),
             "open",
             ("slot_props", "slotProps"),
             "slots",
             ("transition_duration", "transitionDuration"),
             "variant",
-        ]
-        self._event_names += [
-            "close",
         ]
 
 
@@ -2078,12 +1983,12 @@ class MenuItem(MuiHtmlElement):
     :param disable_gutters: If true, the left and right padding is removed. (default: false) (``bool``)
     :param divider: If true, a 1px light border is added to the bottom of the menu item. (default: false) (``bool``)
     :param focus_visible_class_name: This prop can help identify which element has keyboard focus. The class name will be applied when the element gains the focus through keyboard interaction. It's a polyfill for the CSS :focus-visible selector. The rationale for using this feature is explained here. A polyfill can be used to apply a focus-visible class to other components if needed. (``string``)
-    :param selected: If true, the component is selected. (default: false) (``bool``)
+    :param selected: If true, the component is selected. For menuitemcheckbox and menuitemradio roles, this also drives aria-checked. (default: false) (``bool``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-menu-item", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("auto_focus", "autoFocus"),
             "dense",
             ("disable_gutters", "disableGutters"),
@@ -2107,7 +2012,7 @@ class MenuList(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-menu-list", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("auto_focus", "autoFocus"),
             ("auto_focus_item", "autoFocusItem"),
             ("disable_list_wrap", "disableListWrap"),
@@ -2119,7 +2024,6 @@ class MenuList(MuiHtmlElement):
 class MobileStepper(MuiHtmlElement):
     """MUI MobileStepper - https://mui.com/material-ui/api/mobile-stepper/
 
-    :param linear_progress_props: (deprecated) Props applied to the LinearProgress element. (``object``)
     :param active_step: Set the active step (zero based index). Defines which dot is highlighted when the variant is 'dots'. (default: 0) (``integer``)
     :param back_button: A back button element. For instance, it can be a Button or an IconButton. (``node``)
     :param next_button: A next button element. For instance, it can be a Button or an IconButton. (``node``)
@@ -2132,8 +2036,7 @@ class MobileStepper(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-mobile-stepper", children, **kwargs)
-        self._attr_names += [
-            ("linear_progress_props", "LinearProgressProps"),
+        self.props += [
             ("active_step", "activeStep"),
             ("back_button", "backButton"),
             ("next_button", "nextButton"),
@@ -2148,56 +2051,43 @@ class MobileStepper(MuiHtmlElement):
 class Modal(MuiHtmlElement):
     """MUI Modal - https://mui.com/material-ui/api/modal/
 
-        Modal is a lower-level construct that is leveraged by the following components: - [Dialog](/material-ui/api/dialog/) - [Drawer](/material-ui/api/drawer/) - [Menu](/material-ui/api/menu/) - [Popover](/material-ui/api/popover/) If you are creating a modal dialog, you probably want to use the [Dialog](/material-ui/api/dialog/) component rather than directly using Modal. This component shares many concepts with [react-overlays](https://react-bootstrap.github.io/react-overlays/#modals).
+    Modal is a lower-level construct that is leveraged by the following components: - [Dialog](/material-ui/api/dialog/) - [Drawer](/material-ui/api/drawer/) - [Menu](/material-ui/api/menu/) - [Popover](/material-ui/api/popover/) If you are creating a modal dialog, you probably want to use the [Dialog](/material-ui/api/dialog/) component rather than directly using Modal. This component shares many concepts with [react-overlays](https://react-bootstrap.github.io/react-overlays/#modals).
 
-        :param backdrop_component: (deprecated) A backdrop component. This prop enables custom backdrop rendering. (default: styled(Backdrop, {
-      name: 'MuiModal',
-      slot: 'Backdrop',
-    })({
-      zIndex: -1,
-    })) (``elementType``)
-        :param backdrop_props: (deprecated) Props applied to the Backdrop element. (``object``)
-        :param close_after_transition: When set to true the Modal waits until a nested Transition is completed before closing. (default: false) (``bool``)
-        :param container: An HTML element or function that returns one. The container will have the portal children appended to it. You can also provide a callback, which is called in a React layout effect. This lets you set the container from a ref, and also makes server-side rendering possible. By default, it uses the body of the top-level document object, so it's simply document.body most of the time. (``HTML element | func``)
-        :param disable_auto_focus: If true, the modal will not automatically shift focus to itself when it opens, and replace it to the last focused element when it closes. This also works correctly with any modal children that have the disableAutoFocus prop. Generally this should never be set to true as it makes the modal less accessible to assistive technologies, like screen readers. (default: false) (``bool``)
-        :param disable_enforce_focus: If true, the modal will not prevent focus from leaving the modal while open. Generally this should never be set to true as it makes the modal less accessible to assistive technologies, like screen readers. (default: false) (``bool``)
-        :param disable_escape_key_down: If true, hitting escape will not fire the onClose callback. (default: false) (``bool``)
-        :param disable_portal: The children will be under the DOM hierarchy of the parent component. (default: false) (``bool``)
-        :param disable_restore_focus: If true, the modal will not restore focus to previously focused element once modal is hidden or unmounted. (default: false) (``bool``)
-        :param disable_scroll_lock: Disable the scroll lock behavior. (default: false) (``bool``)
-        :param hide_backdrop: If true, the backdrop is not rendered. (default: false) (``bool``)
-        :param keep_mounted: Always keep the children in the DOM. This prop can be useful in SEO situation or when you want to maximize the responsiveness of the Modal. (default: false) (``bool``)
-        :param close: Callback fired when the component requests to be closed. The reason parameter can optionally be used to control the response to onClose.
-        :param transition_enter: A function called when a transition enters.
-        :param transition_exited: A function called when a transition has exited.
-        :param open: If true, the component is shown. (``bool``)
-        :param slot_props: The props used for each slot inside the Modal. (default: {}) (``{ backdrop?: func | object, root?: func | object }``)
-        :param slots: The components used for each slot inside the Modal. Either a string to use a HTML element or a component. (default: {}) (``{ backdrop?: elementType, root?: elementType }``)
+    :param close_after_transition: When set to true the Modal waits until a nested Transition is completed before closing. (default: false) (``bool``)
+    :param container: An HTML element or function that returns one. The container will have the portal children appended to it. You can also provide a callback, which is called in a React layout effect. This lets you set the container from a ref, and also makes server-side rendering possible. By default, it uses the body of the top-level document object, so it's simply document.body most of the time. (``HTML element | func``)
+    :param disable_auto_focus: If true, the modal will not automatically shift focus to itself when it opens, and replace it to the last focused element when it closes. This also works correctly with any modal children that have the disableAutoFocus prop. Generally this should never be set to true as it makes the modal less accessible to assistive technologies, like screen readers. (default: false) (``bool``)
+    :param disable_enforce_focus: If true, the modal will not prevent focus from leaving the modal while open. Generally this should never be set to true as it makes the modal less accessible to assistive technologies, like screen readers. (default: false) (``bool``)
+    :param disable_portal: The children will be under the DOM hierarchy of the parent component. (default: false) (``bool``)
+    :param disable_restore_focus: If true, the modal will not restore focus to previously focused element once modal is hidden or unmounted. (default: false) (``bool``)
+    :param disable_scroll_lock: Disable the scroll lock behavior. (default: false) (``bool``)
+    :param hide_backdrop: If true, the backdrop is not rendered. (default: false) (``bool``)
+    :param keep_mounted: Always keep the children in the DOM. This prop can be useful in SEO situation or when you want to maximize the responsiveness of the Modal. (default: false) (``bool``)
+    :param on_close: Callback fired when the component requests to be closed. The reason parameter can optionally be used to control the response to onClose. (``func``)
+    :param on_transition_enter: A function called when a transition enters. (``func``)
+    :param on_transition_exited: A function called when a transition has exited. (``func``)
+    :param open: If true, the component is shown. (``bool``)
+    :param slot_props: The props used for each slot inside the Modal. (default: {}) (``{ backdrop?: func | object, root?: func | object }``)
+    :param slots: The components used for each slot inside the Modal. Either a string to use a HTML element or a component. (default: {}) (``{ backdrop?: elementType, root?: elementType }``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-modal", children, **kwargs)
-        self._attr_names += [
-            ("backdrop_component", "BackdropComponent"),
-            ("backdrop_props", "BackdropProps"),
+        self.props += [
             ("close_after_transition", "closeAfterTransition"),
             "container",
             ("disable_auto_focus", "disableAutoFocus"),
             ("disable_enforce_focus", "disableEnforceFocus"),
-            ("disable_escape_key_down", "disableEscapeKeyDown"),
             ("disable_portal", "disablePortal"),
             ("disable_restore_focus", "disableRestoreFocus"),
             ("disable_scroll_lock", "disableScrollLock"),
             ("hide_backdrop", "hideBackdrop"),
             ("keep_mounted", "keepMounted"),
+            ("on_close", "onClose"),
+            ("on_transition_enter", "onTransitionEnter"),
+            ("on_transition_exited", "onTransitionExited"),
             "open",
             ("slot_props", "slotProps"),
             "slots",
-        ]
-        self._event_names += [
-            "close",
-            ("transition_enter", "transitionEnter"),
-            ("transition_exited", "transitionExited"),
         ]
 
 
@@ -2209,22 +2099,20 @@ class NativeSelect(MuiHtmlElement):
     :param icon_component: The icon that displays the arrow. (default: ArrowDropDownIcon) (``elementType``)
     :param input: An Input element; does not have to be a material-ui specific Input. (default: <Input />) (``element``)
     :param input_props: Attributes applied to the select element. (``object``)
-    :param change: Callback fired when a menu item is selected.
+    :param on_change: Callback fired when a menu item is selected. (``func``)
     :param value: The input value. The DOM API casts this to a string. (``any``)
     :param variant: The variant to use. (``'filled' | 'outlined' | 'standard'``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-native-select", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("icon_component", "IconComponent"),
             "input",
             ("input_props", "inputProps"),
+            ("on_change", "onChange"),
             "value",
             "variant",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -2239,7 +2127,7 @@ class NoSsr(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-no-ssr", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "defer",
             "fallback",
         ]
@@ -2267,7 +2155,7 @@ class OutlinedInput(MuiHtmlElement):
     :param multiline: If true, a TextareaAutosize element is rendered. (default: false) (``bool``)
     :param name: Name attribute of the input element. (``string``)
     :param notched: If true, the outline is notched to accommodate the label. (``bool``)
-    :param change: Callback fired when the value is changed.
+    :param on_change: Callback fired when the value is changed. (``func``)
     :param placeholder: The short hint displayed in the input before the user enters a value. (``string``)
     :param read_only: It prevents the user from changing the value of the field (not from interacting with the field). (``bool``)
     :param required: If true, the input element is required. The prop defaults to the value (false) inherited from the parent FormControl component. (``bool``)
@@ -2281,7 +2169,7 @@ class OutlinedInput(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-outlined-input", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("auto_complete", "autoComplete"),
             ("auto_focus", "autoFocus"),
             "color",
@@ -2301,6 +2189,7 @@ class OutlinedInput(MuiHtmlElement):
             "multiline",
             "name",
             "notched",
+            ("on_change", "onChange"),
             "placeholder",
             ("read_only", "readOnly"),
             "required",
@@ -2310,9 +2199,6 @@ class OutlinedInput(MuiHtmlElement):
             ("start_adornment", "startAdornment"),
             "type",
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -2327,7 +2213,7 @@ class Pagination(MuiHtmlElement):
     :param get_item_aria_label: Accepts a function which returns a string value that provides a user-friendly name for the current page. This is important for screen reader users. For localization purposes, you can use the provided translations. (``func``)
     :param hide_next_button: If true, hide the next-page button. (default: false) (``bool``)
     :param hide_prev_button: If true, hide the previous-page button. (default: false) (``bool``)
-    :param change: Callback fired when the page is changed.
+    :param on_change: Callback fired when the page is changed. (``func``)
     :param page: The current page. Unlike TablePagination, which starts numbering from 0, this pagination starts from 1. (``integer``)
     :param render_item: Render the item. (default: (item) => <PaginationItem {...item} />) (``func``)
     :param shape: The shape of the pagination items. (default: 'circular') (``'circular' | 'rounded'``)
@@ -2340,7 +2226,7 @@ class Pagination(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-pagination", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("boundary_count", "boundaryCount"),
             "color",
             "count",
@@ -2349,6 +2235,7 @@ class Pagination(MuiHtmlElement):
             ("get_item_aria_label", "getItemAriaLabel"),
             ("hide_next_button", "hideNextButton"),
             ("hide_prev_button", "hidePrevButton"),
+            ("on_change", "onChange"),
             "page",
             ("render_item", "renderItem"),
             "shape",
@@ -2358,9 +2245,6 @@ class Pagination(MuiHtmlElement):
             "size",
             "variant",
         ]
-        self._event_names += [
-            "change",
-        ]
 
 
 class PaginationItem(MuiHtmlElement):
@@ -2368,6 +2252,7 @@ class PaginationItem(MuiHtmlElement):
 
     :param color: The active color. It supports both default and custom theme colors, which can be added as shown in the palette customization guide. (default: 'standard') (``'primary' | 'secondary' | 'standard' | string``)
     :param disabled: If true, the component is disabled. (default: false) (``bool``)
+    :param native_button: Whether the custom component should render a native <button> element when rendering a React component with the component or slots prop. (``bool``)
     :param page: The current page number. (``node``)
     :param selected: If true the pagination item is selected. (default: false) (``bool``)
     :param shape: The shape of the pagination item. (default: 'circular') (``'circular' | 'rounded'``)
@@ -2380,9 +2265,10 @@ class PaginationItem(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-pagination-item", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             "disabled",
+            ("native_button", "nativeButton"),
             "page",
             "selected",
             "shape",
@@ -2404,7 +2290,7 @@ class Paper(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-paper", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "elevation",
             "square",
             "variant",
@@ -2421,7 +2307,7 @@ class PigmentContainer(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-pigment-container", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_gutters", "disableGutters"),
             "fixed",
             ("max_width", "maxWidth"),
@@ -2434,7 +2320,7 @@ class PigmentGrid(MuiHtmlElement):
     :param column_spacing: Defines the horizontal space between the type item components. It overrides the value of the spacing prop. (``Array<number | string> | number | object | string``)
     :param columns: The number of columns. (default: 12) (``Array<number> | number | object``)
     :param container: If true, the component will have the flex container behavior. You should be wrapping items with a container. (default: false) (``bool``)
-    :param direction: Defines the flex-direction style property. It is applied for all screen sizes. (default: 'row') (``'column' | 'column-reverse' | 'row' | 'row-reverse' | Array<'column' | ...``)
+    :param direction: Defines the flex-direction style property. It is applied for all screen sizes. (default: 'row') (``'row' | 'row-reverse' | Array<'row' | 'row-reverse'> | object``)
     :param offset: Defines the offset of the grid. (``Array<number> | number | object``)
     :param row_spacing: Defines the vertical space between the type item components. It overrides the value of the spacing prop. (``Array<number | string> | number | object | string``)
     :param size: Defines the column size of the grid. (``Array<number> | number | object``)
@@ -2444,7 +2330,7 @@ class PigmentGrid(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-pigment-grid", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("column_spacing", "columnSpacing"),
             "columns",
             "container",
@@ -2467,7 +2353,7 @@ class PigmentStack(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-pigment-stack", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "direction",
             "divider",
             "spacing",
@@ -2477,19 +2363,6 @@ class PigmentStack(MuiHtmlElement):
 class Popover(MuiHtmlElement):
     """MUI Popover - https://mui.com/material-ui/api/popover/
 
-        :param backdrop_component: (deprecated) A backdrop component. This prop enables custom backdrop rendering. (default: styled(Backdrop, {
-      name: 'MuiModal',
-      slot: 'Backdrop',
-      overridesResolver: (props, styles) => {
-        return styles.backdrop;
-      },
-    })({
-      zIndex: -1,
-    })) (``elementType``)
-        :param backdrop_props: (deprecated) Props applied to the Backdrop element. (``object``)
-        :param paper_props: (deprecated) Props applied to the Paper element. This prop is an alias for slotProps.paper and will be overridden by it if both are used. (default: {}) (``{ component?: element type }``)
-        :param transition_component: (deprecated) The component used for the transition. Follow this guide to learn more about the requirements for this component. (default: Grow) (``elementType``)
-        :param transition_props: (deprecated) Props applied to the transition element. By default, the element is based on this Transition component. (default: {}) (``object``)
         :param action: A ref for imperative actions. It currently only supports updatePosition() action. (``ref``)
         :param anchor_el: An HTML element, PopoverVirtualElement, or a function that returns either. It's used to set the position of the popover. (``HTML element | func``)
         :param anchor_origin: This is the point on the anchor where the popover's anchorEl will attach to. This is not used when the anchorReference is 'anchorPosition'. Options: vertical: [top, center, bottom]; horizontal: [left, center, right]. (default: {
@@ -2499,10 +2372,11 @@ class Popover(MuiHtmlElement):
         :param anchor_position: This is the position that may be used to set the position of the popover. The coordinates are relative to the application's client area. (``{ left: number, top: number }``)
         :param anchor_reference: This determines which anchor prop to refer to when setting the position of the popover. (default: 'anchorEl') (``'anchorEl' | 'anchorPosition' | 'none'``)
         :param container: An HTML element, component instance, or function that returns either. The container will passed to the Modal component. By default, it uses the body of the anchorEl's top-level document object, so it's simply document.body most of the time. (``HTML element | func``)
+        :param disable_auto_focus: If true, the modal will not automatically shift focus to itself when it opens, and replace it to the last focused element when it closes. This also works correctly with any modal children that have the disableAutoFocus prop. Generally this should never be set to true as it makes the modal less accessible to assistive technologies, like screen readers. (default: false) (``bool``)
         :param disable_scroll_lock: Disable the scroll lock behavior. (default: false) (``bool``)
         :param elevation: The elevation of the popover. (default: 8) (``integer``)
         :param margin_threshold: Specifies how close to the edge of the window the popover can appear. If null, the popover will not be constrained by the window. (default: 16) (``number``)
-        :param close: Callback fired when the component requests to be closed. The reason parameter can optionally be used to control the response to onClose.
+        :param on_close: Callback fired when the component requests to be closed. The reason parameter can optionally be used to control the response to onClose. (``func``)
         :param open: If true, the component is shown. (``bool``)
         :param slot_props: The props used for each slot inside. (default: {}) (``{ backdrop?: func | object, paper?: func | object, root?: func | object, ...``)
         :param slots: The components used for each slot inside. (default: {}) (``{ backdrop?: elementType, paper?: elementType, root?: elementType, transition?: ...``)
@@ -2515,29 +2389,23 @@ class Popover(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-popover", children, **kwargs)
-        self._attr_names += [
-            ("backdrop_component", "BackdropComponent"),
-            ("backdrop_props", "BackdropProps"),
-            ("paper_props", "PaperProps"),
-            ("transition_component", "TransitionComponent"),
-            ("transition_props", "TransitionProps"),
+        self.props += [
             "action",
             ("anchor_el", "anchorEl"),
             ("anchor_origin", "anchorOrigin"),
             ("anchor_position", "anchorPosition"),
             ("anchor_reference", "anchorReference"),
             "container",
+            ("disable_auto_focus", "disableAutoFocus"),
             ("disable_scroll_lock", "disableScrollLock"),
             "elevation",
             ("margin_threshold", "marginThreshold"),
+            ("on_close", "onClose"),
             "open",
             ("slot_props", "slotProps"),
             "slots",
             ("transform_origin", "transformOrigin"),
             ("transition_duration", "transitionDuration"),
-        ]
-        self._event_names += [
-            "close",
         ]
 
 
@@ -2560,7 +2428,7 @@ class Popper(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-popper", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("anchor_el", "anchorEl"),
             "container",
             ("disable_portal", "disablePortal"),
@@ -2587,7 +2455,7 @@ class Portal(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-portal", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "container",
             ("disable_portal", "disablePortal"),
         ]
@@ -2603,10 +2471,8 @@ class Radio(MuiHtmlElement):
     :param disabled: If true, the component is disabled. (``bool``)
     :param icon: The icon to display when the component is unchecked. (default: <RadioButtonIcon />) (``node``)
     :param id: The id of the input element. (``string``)
-    :param input_props: (deprecated) Attributes applied to the input element. (``object``)
-    :param input_ref: (deprecated) Pass a ref to the input element. (``ref``)
     :param name: Name attribute of the input element. (``string``)
-    :param change: Callback fired when the state is changed.
+    :param on_change: Callback fired when the state is changed. (``func``)
     :param required: If true, the input element is required. (default: false) (``bool``)
     :param size: The size of the component. small is equivalent to the dense radio styling. (default: 'medium') (``'medium' | 'small' | string``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ input?: func | object, root?: func | object }``)
@@ -2616,7 +2482,7 @@ class Radio(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-radio", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "checked",
             ("checked_icon", "checkedIcon"),
             "color",
@@ -2624,17 +2490,13 @@ class Radio(MuiHtmlElement):
             "disabled",
             "icon",
             "id",
-            ("input_props", "inputProps"),
-            ("input_ref", "inputRef"),
             "name",
+            ("on_change", "onChange"),
             "required",
             "size",
             ("slot_props", "slotProps"),
             "slots",
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -2643,29 +2505,23 @@ class RadioGroup(MuiHtmlElement):
 
     :param default_value: The default value. Use when the component is not controlled. (``any``)
     :param name: The name used to reference the value of the control. If you don't provide this prop, it falls back to a randomly generated name. (``string``)
-    :param change: Callback fired when a radio button is selected.
+    :param on_change: Callback fired when a radio button is selected. (``func``)
     :param value: Value of the selected radio button. The DOM API casts this to a string. (``any``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-radio-group", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("default_value", "defaultValue"),
             "name",
+            ("on_change", "onChange"),
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
 class Rating(MuiHtmlElement):
     """MUI Rating - https://mui.com/material-ui/api/rating/
 
-        :param icon_container_component: (deprecated) The component containing the icon. (default: function IconContainer(props) {
-      const { value, ...other } = props;
-      return <span {...other} />;
-    }) (``elementType``)
         :param default_value: The default value. Use when the component is not controlled. (default: null) (``number``)
         :param disabled: If true, the component is disabled. (default: false) (``bool``)
         :param empty_icon: The icon to display when empty. (default: <StarBorder fontSize="inherit" />) (``node``)
@@ -2677,8 +2533,8 @@ class Rating(MuiHtmlElement):
         :param icon: The icon to display. (default: <Star fontSize="inherit" />) (``node``)
         :param max: Maximum rating. (default: 5) (``number``)
         :param name: The name attribute of the radio input elements. This input name should be unique within the page. Being unique within a form is insufficient since the name is used to generate IDs. (``string``)
-        :param change: Callback fired when the value changes.
-        :param change_active: Callback function that is fired when the hover state changes.
+        :param on_change: Callback fired when the value changes. (``func``)
+        :param on_change_active: Callback function that is fired when the hover state changes. (``func``)
         :param precision: The minimum increment value change allowed. (default: 1) (``number``)
         :param read_only: Removes all hover effects and pointer events. (default: false) (``bool``)
         :param size: The size of the component. (default: 'medium') (``'small' | 'medium' | 'large' | string``)
@@ -2689,8 +2545,7 @@ class Rating(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-rating", children, **kwargs)
-        self._attr_names += [
-            ("icon_container_component", "IconContainerComponent"),
+        self.props += [
             ("default_value", "defaultValue"),
             "disabled",
             ("empty_icon", "emptyIcon"),
@@ -2700,16 +2555,14 @@ class Rating(MuiHtmlElement):
             "icon",
             "max",
             "name",
+            ("on_change", "onChange"),
+            ("on_change_active", "onChangeActive"),
             "precision",
             ("read_only", "readOnly"),
             "size",
             ("slot_props", "slotProps"),
             "slots",
             "value",
-        ]
-        self._event_names += [
-            "change",
-            ("change_active", "changeActive"),
         ]
 
 
@@ -2721,7 +2574,7 @@ class ScopedCssBaseline(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-scoped-css-baseline", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("enable_color_scheme", "enableColorScheme"),
         ]
 
@@ -2743,9 +2596,9 @@ class Select(MuiHtmlElement):
     :param label_id: The ID of an element that acts as an additional label. The Select will be labelled by the additional label and the selected value. (``string``)
     :param multiple: If true, value must be an array and the menu will support multiple selections. (default: false) (``bool``)
     :param native: If true, the component uses a native select element. (default: false) (``bool``)
-    :param change: Callback fired when a menu item is selected.
-    :param close: Callback fired when the component requests to be closed. Use it in either controlled (see the open prop), or uncontrolled mode (to detect when the Select collapses).
-    :param open: Callback fired when the component requests to be opened. Use it in either controlled (see the open prop), or uncontrolled mode (to detect when the Select expands).
+    :param on_change: Callback fired when a menu item is selected. (``func``)
+    :param on_close: Callback fired when the component requests to be closed. Use it in either controlled (see the open prop), or uncontrolled mode (to detect when the Select collapses). (``func``)
+    :param on_open: Callback fired when the component requests to be opened. Use it in either controlled (see the open prop), or uncontrolled mode (to detect when the Select expands). (``func``)
     :param open: If true, the component is shown. You can only use it when the native prop is false (default). (``bool``)
     :param render_value: Render the selected value. You can only use it when the native prop is false (default). (``func``)
     :param value: The input value. Providing an empty string will select no options. Set to an empty string '' if you don't want any of the available options to be selected. If the value is an object it must have reference equality with the option in order to be selected. If the value is not an object, the string representation must match with the string representation of the option in order to be selected. (``'' | any``)
@@ -2754,7 +2607,7 @@ class Select(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-select", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("icon_component", "IconComponent"),
             ("menu_props", "MenuProps"),
             ("select_display_props", "SelectDisplayProps"),
@@ -2769,16 +2622,15 @@ class Select(MuiHtmlElement):
             ("label_id", "labelId"),
             "multiple",
             "native",
+            ("on_change", "onChange"),
+            ("on_close", "onClose"),
+            ("on_open", "onOpen"),
             "open",
             ("render_value", "renderValue"),
             "value",
             "variant",
         ]
-        self._event_names += [
-            "change",
-            "close",
-            "open",
-        ]
+        self.literal_children = True
 
 
 class Skeleton(MuiHtmlElement):
@@ -2792,7 +2644,7 @@ class Skeleton(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-skeleton", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "animation",
             "height",
             "variant",
@@ -2803,12 +2655,13 @@ class Skeleton(MuiHtmlElement):
 class Slide(MuiHtmlElement):
     """MUI Slide - https://mui.com/material-ui/api/slide/
 
-        The Slide transition is used by the [Drawer](/material-ui/react-drawer/) component. It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+        The Slide transition is used by the [Drawer](/material-ui/react-drawer/) component.
 
-        :param add_end_listener: Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided. (``func``)
+        :param add_end_listener: Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided. (``func``)
         :param appear: Perform the enter transition when it first mounts if in is also true. Set this to false to disable this behavior. (default: true) (``bool``)
         :param container: An HTML element, or a function that returns one. It's used to set the container the Slide is transitioning from. (``HTML element | func``)
         :param direction: Direction the child node will enter from. (default: 'down') (``'down' | 'left' | 'right' | 'up'``)
+        :param disable_prefers_reduced_motion: If true, the transition ignores theme.motion.reducedMotion and keeps its normal timing. (default: false) (``bool``)
         :param easing: The transition timing function. You may specify a single easing or a object containing enter and exit values. (default: {
       enter: theme.transitions.easing.easeOut,
       exit: theme.transitions.easing.sharp,
@@ -2822,11 +2675,12 @@ class Slide(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-slide", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("add_end_listener", "addEndListener"),
             "appear",
             "container",
             "direction",
+            ("disable_prefers_reduced_motion", "disablePrefersReducedMotion"),
             "easing",
             "in",
             "timeout",
@@ -2846,16 +2700,16 @@ class Slider(MuiHtmlElement):
         :param max: The maximum allowed value of the slider. Should not be equal to min. (default: 100) (``number``)
         :param min: The minimum allowed value of the slider. Should not be equal to max. (default: 0) (``number``)
         :param name: Name attribute of the hidden input element. (``string``)
-        :param change: Callback function that is fired when the slider's value changed.
-        :param change_committed: Callback function that is fired when the mouseup is triggered.
+        :param on_change: Callback function that is fired when the slider's value changed. (``func``)
+        :param on_change_committed: Callback function that is fired when the pointer or touch interaction ends. (``func``)
         :param orientation: The component orientation. (default: 'horizontal') (``'horizontal' | 'vertical'``)
         :param scale: A transformation function, to change the scale of the slider. (default: function Identity(x) {
       return x;
     }) (``func``)
         :param shift_step: The granularity with which the slider can step through values when using Page Up/Page Down or Shift + Arrow Up/Arrow Down. (default: 10) (``number``)
         :param size: The size of the slider. (default: 'medium') (``'small' | 'medium' | string``)
-        :param slot_props: The props used for each slot inside the Slider. (default: {}) (``{ input?: func | object, mark?: func | object, markLabel?: func | object, ...``)
-        :param slots: The components used for each slot inside the Slider. Either a string to use a HTML element or a component. (default: {}) (``{ input?: elementType, mark?: elementType, markLabel?: elementType, rail?: ...``)
+        :param slot_props: The props used for each slot inside. (default: {}) (``{ input?: func | object, mark?: func | object, markLabel?: func | object, ...``)
+        :param slots: The components used for each slot inside. (default: {}) (``{ input?: elementType, mark?: elementType, markLabel?: elementType, rail?: ...``)
         :param step: The granularity with which the slider can step through values. (A "discrete" slider.) The min prop serves as the origin for the valid values. We recommend (max - min) to be evenly divisible by the step. When step is null, the thumb can only be slid onto marks provided with the marks prop. (default: 1) (``number``)
         :param tab_index: Tab index attribute of the hidden input element. (``number``)
         :param track: The track presentation: normal the track will render a bar representing the slider value. inverted the track will render a bar representing the remaining slider value. false the track will render without a bar. (default: 'normal') (``'inverted' | 'normal' | false``)
@@ -2868,7 +2722,7 @@ class Slider(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-slider", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("default_value", "defaultValue"),
             ("disable_swap", "disableSwap"),
@@ -2879,6 +2733,8 @@ class Slider(MuiHtmlElement):
             "max",
             "min",
             "name",
+            ("on_change", "onChange"),
+            ("on_change_committed", "onChangeCommitted"),
             "orientation",
             "scale",
             ("shift_step", "shiftStep"),
@@ -2892,25 +2748,17 @@ class Slider(MuiHtmlElement):
             ("value_label_display", "valueLabelDisplay"),
             ("value_label_format", "valueLabelFormat"),
         ]
-        self._event_names += [
-            "change",
-            ("change_committed", "changeCommitted"),
-        ]
 
 
 class Snackbar(MuiHtmlElement):
     """MUI Snackbar - https://mui.com/material-ui/api/snackbar/
 
-        :param click_away_listener_props: (deprecated) Props applied to the ClickAwayListener element. (``object``)
-        :param content_props: (deprecated) Props applied to the SnackbarContent element. (``object``)
-        :param transition_component: (deprecated) The component used for the transition. Follow this guide to learn more about the requirements for this component. (default: Grow) (``elementType``)
-        :param transition_props: (deprecated) Props applied to the transition element. By default, the element is based on this Transition component. (default: {}) (``object``)
         :param action: The action to display. It renders after the message, at the end of the snackbar. (``node``)
         :param anchor_origin: The anchor of the Snackbar. On smaller screens, the component grows to occupy all the available width, the horizontal alignment is ignored. (default: { vertical: 'bottom', horizontal: 'left' }) (``{ horizontal: 'center' | 'left' | 'right', vertical: 'bottom' | 'top' }``)
         :param auto_hide_duration: The number of milliseconds to wait before automatically calling the onClose function. onClose should then set the state of the open prop to hide the Snackbar. This behavior is disabled by default with the null value. (default: null) (``number``)
         :param disable_window_blur_listener: If true, the autoHideDuration timer will expire even if the window is not focused. (default: false) (``bool``)
         :param message: The message to display. (``node``)
-        :param close: Callback fired when the component requests to be closed. Typically onClose is used to set state in the parent component, which is used to control the Snackbar open prop. The reason parameter can optionally be used to control the response to onClose, for example ignoring clickaway.
+        :param on_close: Callback fired when the component requests to be closed. Typically onClose is used to set state in the parent component, which is used to control the Snackbar open prop. The reason parameter can optionally be used to control the response to onClose, for example ignoring clickaway. (``func``)
         :param open: If true, the component is shown. (``bool``)
         :param resume_hide_duration: The number of milliseconds to wait before dismissing after user interaction. If autoHideDuration prop isn't specified, it does nothing. If autoHideDuration prop is specified but resumeHideDuration isn't, we default to autoHideDuration / 2 ms. (``number``)
         :param slot_props: The props used for each slot inside. (default: {}) (``{ clickAwayListener?: func | object, content?: func | object, root?: func | ...``)
@@ -2923,24 +2771,18 @@ class Snackbar(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-snackbar", children, **kwargs)
-        self._attr_names += [
-            ("click_away_listener_props", "ClickAwayListenerProps"),
-            ("content_props", "ContentProps"),
-            ("transition_component", "TransitionComponent"),
-            ("transition_props", "TransitionProps"),
+        self.props += [
             "action",
             ("anchor_origin", "anchorOrigin"),
             ("auto_hide_duration", "autoHideDuration"),
             ("disable_window_blur_listener", "disableWindowBlurListener"),
             "message",
+            ("on_close", "onClose"),
             "open",
             ("resume_hide_duration", "resumeHideDuration"),
             ("slot_props", "slotProps"),
             "slots",
             ("transition_duration", "transitionDuration"),
-        ]
-        self._event_names += [
-            "close",
         ]
 
 
@@ -2954,7 +2796,7 @@ class SnackbarContent(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-snackbar-content", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "action",
             "message",
             "role",
@@ -2965,15 +2807,12 @@ class SpeedDial(MuiHtmlElement):
     """MUI SpeedDial - https://mui.com/material-ui/api/speed-dial/
 
         :param fab_props: Props applied to the Fab element. (default: {}) (``object``)
-        :param transition_component: (deprecated) The component used for the transition. Follow this guide to learn more about the requirements for this component. (default: Zoom
-    * @deprecated Use `slots.transition` instead. This prop will be removed in a future major release. [How to migrate](/material-ui/migration/migrating-from-deprecated-apis/)) (``elementType``)
-        :param transition_props: (deprecated) Props applied to the transition element. By default, the element is based on this Transition component. (``object``)
         :param aria_label: The aria-label of the button element. Also used to provide the id for the SpeedDial element and its children. (``string``)
         :param direction: The direction the actions open relative to the floating action button. (default: 'up') (``'down' | 'left' | 'right' | 'up'``)
         :param hidden: If true, the SpeedDial is hidden. (default: false) (``bool``)
         :param icon: The icon to display in the SpeedDial Fab. The SpeedDialIcon component provides a default Icon with animation. (``node``)
-        :param close: Callback fired when the component requests to be closed.
-        :param open: Callback fired when the component requests to be open.
+        :param on_close: Callback fired when the component requests to be closed. (``func``)
+        :param on_open: Callback fired when the component requests to be open. (``func``)
         :param open: If true, the component is shown. (``bool``)
         :param open_icon: The icon to display in the SpeedDial Fab when the SpeedDial is open. (``node``)
         :param slot_props: The props used for each slot inside. (default: {}) (``{ root?: func | object, transition?: func | object }``)
@@ -2986,56 +2825,43 @@ class SpeedDial(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-speed-dial", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("fab_props", "FabProps"),
-            ("transition_component", "TransitionComponent"),
-            ("transition_props", "TransitionProps"),
             ("aria_label", "ariaLabel"),
             "direction",
             "hidden",
             "icon",
+            ("on_close", "onClose"),
+            ("on_open", "onOpen"),
             "open",
             ("open_icon", "openIcon"),
             ("slot_props", "slotProps"),
             "slots",
             ("transition_duration", "transitionDuration"),
         ]
-        self._event_names += [
-            "close",
-            "open",
-        ]
+        self.literal_children = True
 
 
 class SpeedDialAction(MuiHtmlElement):
     """MUI SpeedDialAction - https://mui.com/material-ui/api/speed-dial-action/
 
-    :param fab_props: (deprecated) Props applied to the Fab component. (default: {}) (``object``)
-    :param tooltip_classes: (deprecated) classes prop applied to the Tooltip element. (``object``)
     :param delay: Adds a transition delay, to allow a series of SpeedDialActions to be animated. (default: 0) (``number``)
     :param icon: The icon to display in the SpeedDial Fab. (``node``)
     :param id: This prop is used to help implement the accessibility logic. If you don't provide this prop. It falls back to a randomly generated id. (``string``)
     :param open: If true, the component is shown. (``bool``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ fab?: func | object, staticTooltip?: func | object, staticTooltipLabel?: func ...``)
     :param slots: The components used for each slot inside. (default: {}) (``{ fab?: elementType, staticTooltip?: elementType, staticTooltipLabel?: ...``)
-    :param tooltip_open: (deprecated) Make the tooltip always visible when the SpeedDial is open. (default: false) (``bool``)
-    :param tooltip_placement: (deprecated) Placement of the tooltip. (default: 'left') (``'auto-end' | 'auto-start' | 'auto' | 'bottom-end' | 'bottom-start' | 'bottom' | ...``)
-    :param tooltip_title: (deprecated) Label to display in the tooltip. (``node``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-speed-dial-action", children, **kwargs)
-        self._attr_names += [
-            ("fab_props", "FabProps"),
-            ("tooltip_classes", "TooltipClasses"),
+        self.props += [
             "delay",
             "icon",
             "id",
             "open",
             ("slot_props", "slotProps"),
             "slots",
-            ("tooltip_open", "tooltipOpen"),
-            ("tooltip_placement", "tooltipPlacement"),
-            ("tooltip_title", "tooltipTitle"),
         ]
 
 
@@ -3048,7 +2874,7 @@ class SpeedDialIcon(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-speed-dial-icon", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "icon",
             ("open_icon", "openIcon"),
         ]
@@ -3065,7 +2891,7 @@ class Stack(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-stack", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "direction",
             "divider",
             "spacing",
@@ -3086,7 +2912,7 @@ class Step(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-step", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "active",
             "completed",
             "disabled",
@@ -3105,7 +2931,7 @@ class StepButton(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-step-button", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "icon",
             "optional",
         ]
@@ -3121,8 +2947,6 @@ class StepConnector(MuiHtmlElement):
 class StepContent(MuiHtmlElement):
     """MUI StepContent - https://mui.com/material-ui/api/step-content/
 
-    :param transition_component: (deprecated) The component used for the transition. Follow this guide to learn more about the requirements for this component. (default: Collapse) (``elementType``)
-    :param transition_props: (deprecated) Props applied to the transition element. By default, the element is based on this Transition component. (``object``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ transition?: func | object }``)
     :param slots: The components used for each slot inside. (default: {}) (``{ transition?: elementType }``)
     :param transition_duration: Adjust the duration of the content expand transition. Passed as a prop to the transition component. Set to 'auto' to automatically calculate transition time based on height. (default: 'auto') (``'auto' | number | { appear?: number, enter?: number, exit?: number }``)
@@ -3130,9 +2954,7 @@ class StepContent(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-step-content", children, **kwargs)
-        self._attr_names += [
-            ("transition_component", "TransitionComponent"),
-            ("transition_props", "TransitionProps"),
+        self.props += [
             ("slot_props", "slotProps"),
             "slots",
             ("transition_duration", "transitionDuration"),
@@ -3150,7 +2972,7 @@ class StepIcon(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-step-icon", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "active",
             "completed",
             "error",
@@ -3161,8 +2983,6 @@ class StepIcon(MuiHtmlElement):
 class StepLabel(MuiHtmlElement):
     """MUI StepLabel - https://mui.com/material-ui/api/step-label/
 
-    :param step_icon_component: (deprecated) The component to render in place of the StepIcon. (``elementType``)
-    :param step_icon_props: (deprecated) Props applied to the StepIcon element. (``object``)
     :param error: If true, the step is marked as failed. (default: false) (``bool``)
     :param icon: Override the default label of the step icon. (``node``)
     :param optional: The optional node to display. (``node``)
@@ -3172,9 +2992,7 @@ class StepLabel(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-step-label", children, **kwargs)
-        self._attr_names += [
-            ("step_icon_component", "StepIconComponent"),
-            ("step_icon_props", "StepIconProps"),
+        self.props += [
             "error",
             "icon",
             "optional",
@@ -3187,7 +3005,7 @@ class Stepper(MuiHtmlElement):
     """MUI Stepper - https://mui.com/material-ui/api/stepper/
 
     :param active_step: Set the active step (zero based index). Set to -1 to disable all the steps. (default: 0) (``integer``)
-    :param alternative_label: If set to 'true' and orientation is horizontal, then the step label will be positioned under the icon. (default: false) (``bool``)
+    :param alternative_label: If set to 'true' and orientation is horizontal, then the step label will be positioned under the icon. If set to 'true' and orientation is vertical, it reverses the position of the label and content. (default: false) (``bool``)
     :param connector: An element to be placed between each step. (default: <StepConnector />) (``element``)
     :param non_linear: If set the Stepper will not assist in controlling steps for linear flow. (default: false) (``bool``)
     :param orientation: The component orientation (layout flow direction). (default: 'horizontal') (``'horizontal' | 'vertical'``)
@@ -3195,13 +3013,14 @@ class Stepper(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-stepper", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("active_step", "activeStep"),
             ("alternative_label", "alternativeLabel"),
             "connector",
             ("non_linear", "nonLinear"),
             "orientation",
         ]
+        self.literal_children = True
 
 
 class SvgIcon(MuiHtmlElement):
@@ -3218,7 +3037,7 @@ class SvgIcon(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-svg-icon", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("font_size", "fontSize"),
             ("html_color", "htmlColor"),
@@ -3232,15 +3051,14 @@ class SvgIcon(MuiHtmlElement):
 class SwipeableDrawer(MuiHtmlElement):
     """MUI SwipeableDrawer - https://mui.com/material-ui/api/swipeable-drawer/
 
-        :param swipe_area_props: (deprecated) The element is used to intercept the touch events on the edge. (``object``)
         :param allow_swipe_in_children: If set to true, the swipe event will open the drawer even if the user begins the swipe on one of the drawer's children. This can be useful in scenarios where the drawer is partially visible. You can customize it further with a callback that determines which children the user can drag over to open the drawer (for example, to ignore other elements that handle touch move events, like sliders). (default: false) (``func | bool``)
         :param disable_backdrop_transition: Disable the backdrop transition. This can improve the FPS on low-end devices. (default: false) (``bool``)
         :param disable_discovery: If true, touching the screen near the edge of the drawer will not slide in the drawer a bit to promote accidental discovery of the swipe gesture. (default: false) (``bool``)
         :param disable_swipe_to_open: If true, swipe to open is disabled. This is useful in browsers where swiping triggers navigation actions. Swipe to open is disabled on iOS browsers by default. (default: typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent)) (``bool``)
         :param hysteresis: Affects how far the drawer must be opened/closed to change its state. Specified as percent (0-1) of the width of the drawer (default: 0.52) (``number``)
         :param min_fling_velocity: Defines, from which (average) velocity on, the swipe is defined as complete although hysteresis isn't reached. Good threshold is between 250 - 1000 px/s (default: 450) (``number``)
-        :param close: Callback fired when the component requests to be closed.
-        :param open: Callback fired when the component requests to be opened.
+        :param on_close: Callback fired when the component requests to be closed. (``func``)
+        :param on_open: Callback fired when the component requests to be opened. (``func``)
         :param open: If true, the component is shown. (default: false) (``bool``)
         :param slot_props: The props used for each slot inside. (default: {}) (``{ backdrop?: func | object, docked?: func | object, paper?: func | object, ...``)
         :param slots: The components used for each slot inside. (default: {}) (``{ backdrop?: elementType, docked?: elementType, paper?: elementType, root?: ...``)
@@ -3253,23 +3071,20 @@ class SwipeableDrawer(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-swipeable-drawer", children, **kwargs)
-        self._attr_names += [
-            ("swipe_area_props", "SwipeAreaProps"),
+        self.props += [
             ("allow_swipe_in_children", "allowSwipeInChildren"),
             ("disable_backdrop_transition", "disableBackdropTransition"),
             ("disable_discovery", "disableDiscovery"),
             ("disable_swipe_to_open", "disableSwipeToOpen"),
             "hysteresis",
             ("min_fling_velocity", "minFlingVelocity"),
+            ("on_close", "onClose"),
+            ("on_open", "onOpen"),
             "open",
             ("slot_props", "slotProps"),
             "slots",
             ("swipe_area_width", "swipeAreaWidth"),
             ("transition_duration", "transitionDuration"),
-        ]
-        self._event_names += [
-            "close",
-            "open",
         ]
 
 
@@ -3285,9 +3100,7 @@ class Switch(MuiHtmlElement):
     :param edge: If given, uses a negative margin to counteract the padding on one side (this is often helpful for aligning the left or right side of the icon with content above or below, without ruining the border size and shape). (default: false) (``'end' | 'start' | false``)
     :param icon: The icon to display when the component is unchecked. (``node``)
     :param id: The id of the input element. (``string``)
-    :param input_props: (deprecated) Attributes applied to the input element. (``object``)
-    :param input_ref: (deprecated) Pass a ref to the input element. (``ref``)
-    :param change: Callback fired when the state is changed.
+    :param on_change: Callback fired when the state is changed. (``func``)
     :param required: If true, the input element is required. (default: false) (``bool``)
     :param size: The size of the component. small is equivalent to the dense switch styling. (default: 'medium') (``'medium' | 'small' | string``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ input?: func | object, root?: func | object, switchBase?: func | object, ...``)
@@ -3297,7 +3110,7 @@ class Switch(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-switch", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "checked",
             ("checked_icon", "checkedIcon"),
             "color",
@@ -3307,16 +3120,12 @@ class Switch(MuiHtmlElement):
             "edge",
             "icon",
             "id",
-            ("input_props", "inputProps"),
-            ("input_ref", "inputRef"),
+            ("on_change", "onChange"),
             "required",
             "size",
             ("slot_props", "slotProps"),
             "slots",
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -3335,7 +3144,7 @@ class Tab(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-tab", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_focus_ripple", "disableFocusRipple"),
             ("disable_ripple", "disableRipple"),
             "disabled",
@@ -3359,7 +3168,7 @@ class TabScrollButton(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-tab-scroll-button", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "direction",
             "disabled",
             "orientation",
@@ -3378,7 +3187,7 @@ class Table(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-table", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "padding",
             "size",
             ("sticky_header", "stickyHeader"),
@@ -3407,7 +3216,7 @@ class TableCell(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-table-cell", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "align",
             "padding",
             "scope",
@@ -3444,20 +3253,17 @@ class TablePagination(MuiHtmlElement):
         A `TableCell` based component for placing inside `TableFooter` for pagination.
 
         :param actions_component: The component used for displaying the actions. Either a string to use a HTML element or a component. (default: TablePaginationActions) (``elementType``)
-        :param select_props: (deprecated) Props applied to the rows per page Select element. This prop is an alias for slotProps.select and will be overridden by it if both are used. (default: {}) (``object``)
-        :param back_icon_button_props: (deprecated) Props applied to the back arrow IconButton component. This prop is an alias for slotProps.actions.previousButton and will be overridden by it if both are used. (``object``)
         :param count: The total number of rows. To enable server side pagination for an unknown number of items, provide -1. (``integer``)
         :param disabled: If true, the component is disabled. (default: false) (``bool``)
         :param get_item_aria_label: Accepts a function which returns a string value that provides a user-friendly name for the current page. This is important for screen reader users. For localization purposes, you can use the provided translations. (default: function defaultGetAriaLabel(type) {
       return `Go to ${type} page`;
     }) (``func``)
         :param label_displayed_rows: Customize the displayed rows label. Invoked with a { from, to, count, page } object. For localization purposes, you can use the provided translations. (default: function defaultLabelDisplayedRows({ from, to, count }) {
-      return `${from}–${to} of ${count !== -1 ? count : `more than ${to}`}`;
+      return `${formatNumber(from)}–${formatNumber(to)} of ${count !== -1 ? formatNumber(count) : `more than ${formatNumber(to)}`}`;
     }) (``func``)
         :param label_rows_per_page: Customize the rows per page label. For localization purposes, you can use the provided translations. (default: 'Rows per page:') (``node``)
-        :param next_icon_button_props: (deprecated) Props applied to the next arrow IconButton element. This prop is an alias for slotProps.actions.nextButton and will be overridden by it if both are used. (``object``)
-        :param page_change: Callback fired when the page is changed.
-        :param rows_per_page_change: Callback fired when the number of rows per page is changed.
+        :param on_page_change: Callback fired when the page is changed. (``func``)
+        :param on_rows_per_page_change: Callback fired when the number of rows per page is changed. (``func``)
         :param page: The zero-based index of the current page. (``integer``)
         :param rows_per_page: The number of rows per page. Set -1 to display all the rows. (``integer``)
         :param rows_per_page_options: Customizes the options of the rows per page select field. If less than two options are available, no select field will be displayed. Use -1 for the value with a custom label to show all the rows. (default: [10, 25, 50, 100]) (``Array<number | { label: string, value: number }>``)
@@ -3469,16 +3275,15 @@ class TablePagination(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-table-pagination", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("actions_component", "ActionsComponent"),
-            ("select_props", "SelectProps"),
-            ("back_icon_button_props", "backIconButtonProps"),
             "count",
             "disabled",
             ("get_item_aria_label", "getItemAriaLabel"),
             ("label_displayed_rows", "labelDisplayedRows"),
             ("label_rows_per_page", "labelRowsPerPage"),
-            ("next_icon_button_props", "nextIconButtonProps"),
+            ("on_page_change", "onPageChange"),
+            ("on_rows_per_page_change", "onRowsPerPageChange"),
             "page",
             ("rows_per_page", "rowsPerPage"),
             ("rows_per_page_options", "rowsPerPageOptions"),
@@ -3487,28 +3292,20 @@ class TablePagination(MuiHtmlElement):
             ("slot_props", "slotProps"),
             "slots",
         ]
-        self._event_names += [
-            ("page_change", "pageChange"),
-            ("rows_per_page_change", "rowsPerPageChange"),
-        ]
 
 
 class TablePaginationActions(MuiHtmlElement):
     """MUI TablePaginationActions - https://mui.com/material-ui/api/table-pagination-actions/
 
-    :param back_icon_button_props: (deprecated) This prop is an alias for slotProps.previousButton and will be overridden by it if both are used. (``object``)
     :param disabled: If true, the component is disabled. (default: false) (``bool``)
     :param get_item_aria_label: Accepts a function which returns a string value that provides a user-friendly name for the current page. This is important for screen reader users. For localization purposes, you can use the provided translations. (``func``)
-    :param next_icon_button_props: (deprecated) This prop is an alias for slotProps.nextButton and will be overridden by it if both are used. (``object``)
     """
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-table-pagination-actions", children, **kwargs)
-        self._attr_names += [
-            ("back_icon_button_props", "backIconButtonProps"),
+        self.props += [
             "disabled",
             ("get_item_aria_label", "getItemAriaLabel"),
-            ("next_icon_button_props", "nextIconButtonProps"),
         ]
 
 
@@ -3523,7 +3320,7 @@ class TableRow(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-table-row", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "hover",
             "selected",
         ]
@@ -3544,7 +3341,7 @@ class TableSortLabel(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-table-sort-label", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("icon_component", "IconComponent"),
             "active",
             "direction",
@@ -3557,19 +3354,16 @@ class TableSortLabel(MuiHtmlElement):
 class Tabs(MuiHtmlElement):
     """MUI Tabs - https://mui.com/material-ui/api/tabs/
 
-    :param scroll_button_component: (deprecated) The component used to render the scroll buttons. (default: TabScrollButton) (``elementType``)
-    :param tab_indicator_props: (deprecated) Props applied to the tab indicator element. (default: {}) (``object``)
-    :param tab_scroll_button_props: (deprecated) Props applied to the TabScrollButton element. (default: {}) (``object``)
     :param action: Callback fired when the component mounts. This is useful when you want to trigger an action programmatically. It supports two actions: updateIndicator() and updateScrollButtons() (``ref``)
     :param allow_scroll_buttons_mobile: If true, the scroll buttons aren't forced hidden on mobile. By default the scroll buttons are hidden on mobile and takes precedence over scrollButtons. (default: false) (``bool``)
     :param centered: If true, the tabs are centered. This prop is intended for large views. (default: false) (``bool``)
     :param indicator_color: Determines the color of the indicator. (default: 'primary') (``'primary' | 'secondary' | string``)
-    :param change: Callback fired when the value changes.
+    :param on_change: Callback fired when the value changes. (``func``)
     :param orientation: The component orientation (layout flow direction). (default: 'horizontal') (``'horizontal' | 'vertical'``)
     :param scroll_buttons: Determine behavior of scroll buttons when tabs are set to scroll: auto will only present them when not all the items are visible. true will always present them. false will never present them. By default the scroll buttons are hidden on mobile. This behavior can be disabled with allowScrollButtonsMobile. (default: 'auto') (``'auto' | false | true``)
     :param selection_follows_focus: If true the selected tab changes on focus. Otherwise it only changes on activation. (``bool``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ endScrollButtonIcon?: func | object, indicator?: func | object, list?: func | ...``)
-    :param slots: The components used for each slot inside. (default: {}) (``{ endScrollButtonIcon?: elementType, EndScrollButtonIcon?: elementType, ...``)
+    :param slots: The components used for each slot inside. (default: {}) (``{ endScrollButtonIcon?: elementType, indicator?: elementType, list?: ...``)
     :param text_color: Determines the color of the Tab. (default: 'primary') (``'inherit' | 'primary' | 'secondary'``)
     :param value: The value of the currently selected Tab. If you don't want any selected Tab, you can set this prop to false. (``any``)
     :param variant: Determines additional display behavior of the tabs: scrollable will invoke scrolling properties and allow for horizontally scrolling (or swiping) of the tab bar. fullWidth will make the tabs grow to use all the available space, which should be used for small views, like on mobile. standard will render the default state. (default: 'standard') (``'fullWidth' | 'scrollable' | 'standard'``)
@@ -3578,14 +3372,12 @@ class Tabs(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-tabs", children, **kwargs)
-        self._attr_names += [
-            ("scroll_button_component", "ScrollButtonComponent"),
-            ("tab_indicator_props", "TabIndicatorProps"),
-            ("tab_scroll_button_props", "TabScrollButtonProps"),
+        self.props += [
             "action",
             ("allow_scroll_buttons_mobile", "allowScrollButtonsMobile"),
             "centered",
             ("indicator_color", "indicatorColor"),
+            ("on_change", "onChange"),
             "orientation",
             ("scroll_buttons", "scrollButtons"),
             ("selection_follows_focus", "selectionFollowsFocus"),
@@ -3596,20 +3388,14 @@ class Tabs(MuiHtmlElement):
             "variant",
             ("visible_scrollbar", "visibleScrollbar"),
         ]
-        self._event_names += [
-            "change",
-        ]
+        self.literal_children = True
 
 
 class TextField(MuiHtmlElement):
     """MUI TextField - https://mui.com/material-ui/api/text-field/
 
-    The `TextField` is a convenience wrapper for the most common cases (80%). It cannot be all things to all people, otherwise the API would grow out of control. ## Advanced Configuration It's important to understand that the text field is a simple abstraction on top of the following components: - [FormControl](/material-ui/api/form-control/) - [InputLabel](/material-ui/api/input-label/) - [FilledInput](/material-ui/api/filled-input/) - [OutlinedInput](/material-ui/api/outlined-input/) - [Input](/material-ui/api/input/) - [FormHelperText](/material-ui/api/form-helper-text/) If you wish to alter the props applied to the `input` element, you can do so as follows: ```jsx const inputProps = { step: 300, }; return ; ``` For advanced cases, please look at the source of TextField by clicking on the "Edit this page" button above. Consider either: - using the upper case props for passing values directly to the components - using the underlying components directly as shown in the demos
+    The `TextField` is a convenience wrapper for the most common cases (80%). It cannot be all things to all people, otherwise the API would grow out of control. ## Advanced Configuration It's important to understand that the text field is a simple abstraction on top of the following components: - [FormControl](/material-ui/api/form-control/) - [InputLabel](/material-ui/api/input-label/) - [FilledInput](/material-ui/api/filled-input/) - [OutlinedInput](/material-ui/api/outlined-input/) - [Input](/material-ui/api/input/) - [FormHelperText](/material-ui/api/form-helper-text/) If you wish to alter the props applied to the `input` element, you can do so as follows: ```jsx const slotProps = { htmlInput: { step: 300 } }; return ; ``` For advanced cases, please look at the source of TextField by clicking on the "Edit this page" button above. Consider either: - using the `slotProps` prop for passing values directly to the components - using the underlying components directly as shown in the demos
 
-    :param form_helper_text_props: (deprecated) Props applied to the FormHelperText element. (``object``)
-    :param input_label_props: (deprecated) Props applied to the InputLabel element. Pointer events like onClick are enabled if and only if shrink is true. (``object``)
-    :param input_props: (deprecated) Props applied to the Input element. It will be a FilledInput, OutlinedInput or Input component depending on the variant prop value. (``object``)
-    :param select_props: (deprecated) Props applied to the Select element. (``object``)
     :param auto_complete: This prop helps users to fill forms faster, especially on mobile devices. The name can be confusing, as it's more like an autofill. You can learn more about it following the specification. (``string``)
     :param auto_focus: If true, the input element is focused during the first mount. (default: false) (``bool``)
     :param color: The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide. (default: 'primary') (``'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' | string``)
@@ -3619,7 +3405,6 @@ class TextField(MuiHtmlElement):
     :param full_width: If true, the input will take up the full width of its container. (default: false) (``bool``)
     :param helper_text: The helper text content. (``node``)
     :param id: The id of the input element. Use this prop to make label and helperText accessible for screen readers. (``string``)
-    :param input_props: (deprecated) Attributes applied to the input element. (``object``)
     :param input_ref: Pass a ref to the input element. (``ref``)
     :param label: The label content. (``node``)
     :param margin: If dense or normal, will adjust vertical spacing of this and contained components. (default: 'none') (``'dense' | 'none' | 'normal'``)
@@ -3627,7 +3412,7 @@ class TextField(MuiHtmlElement):
     :param min_rows: Minimum number of rows to display when multiline option is set to true. (``number | string``)
     :param multiline: If true, a textarea element is rendered instead of an input. (default: false) (``bool``)
     :param name: Name attribute of the input element. (``string``)
-    :param change: Callback fired when the value is changed.
+    :param on_change: Callback fired when the value is changed. (``func``)
     :param placeholder: The short hint displayed in the input before the user enters a value. (``string``)
     :param required: If true, the label is displayed as required and the input element is required. (default: false) (``bool``)
     :param rows: Number of rows to display when multiline option is set to true. (``number | string``)
@@ -3642,11 +3427,7 @@ class TextField(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-text-field", children, **kwargs)
-        self._attr_names += [
-            ("form_helper_text_props", "FormHelperTextProps"),
-            ("input_label_props", "InputLabelProps"),
-            ("input_props", "InputProps"),
-            ("select_props", "SelectProps"),
+        self.props += [
             ("auto_complete", "autoComplete"),
             ("auto_focus", "autoFocus"),
             "color",
@@ -3656,7 +3437,6 @@ class TextField(MuiHtmlElement):
             ("full_width", "fullWidth"),
             ("helper_text", "helperText"),
             "id",
-            ("input_props", "inputProps"),
             ("input_ref", "inputRef"),
             "label",
             "margin",
@@ -3664,6 +3444,7 @@ class TextField(MuiHtmlElement):
             ("min_rows", "minRows"),
             "multiline",
             "name",
+            ("on_change", "onChange"),
             "placeholder",
             "required",
             "rows",
@@ -3674,9 +3455,6 @@ class TextField(MuiHtmlElement):
             "type",
             "value",
             "variant",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -3689,9 +3467,26 @@ class TextareaAutosize(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-textarea-autosize", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("max_rows", "maxRows"),
             ("min_rows", "minRows"),
+        ]
+
+
+class ThemeProvider(MuiHtmlElement):
+    """MUI ThemeProvider - https://mui.com/material-ui/customization/theming/
+
+    Wraps its children with a MUI theme and mounts CssBaseline for consistent baseline styles. Place at the root of the UI.
+
+    :param mode: MUI palette mode. (default: 'light') (``'light' | 'dark'``)
+    :param theme: Theme options merged on top of the palette mode (forwarded to MUI's createTheme). (``object``)
+    """
+
+    def __init__(self, children=None, **kwargs):
+        super().__init__("mui-theme-provider", children, **kwargs)
+        self.props += [
+            "mode",
+            "theme",
         ]
 
 
@@ -3703,8 +3498,8 @@ class ToggleButton(MuiHtmlElement):
     :param disable_ripple: If true, the ripple effect is disabled. ⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class. (default: false) (``bool``)
     :param disabled: If true, the component is disabled. (default: false) (``bool``)
     :param full_width: If true, the button will take up the full width of its container. (default: false) (``bool``)
-    :param change: Callback fired when the state changes.
-    :param click: Callback fired when the button is clicked.
+    :param on_change: Callback fired when the state changes. (``func``)
+    :param on_click: Callback fired when the button is clicked. (``func``)
     :param selected: If true, the button is rendered in an active state. (``bool``)
     :param size: The size of the component. The prop defaults to the value inherited from the parent ToggleButtonGroup component. (default: 'medium') (``'small' | 'medium' | 'large' | string``)
     :param value: The value to associate with the button when selected in a ToggleButtonGroup. (``any``)
@@ -3712,19 +3507,17 @@ class ToggleButton(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-toggle-button", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             ("disable_focus_ripple", "disableFocusRipple"),
             ("disable_ripple", "disableRipple"),
             "disabled",
             ("full_width", "fullWidth"),
+            ("on_change", "onChange"),
+            ("on_click", "onClick"),
             "selected",
             "size",
             "value",
-        ]
-        self._event_names += [
-            "change",
-            "click",
         ]
 
 
@@ -3735,7 +3528,7 @@ class ToggleButtonGroup(MuiHtmlElement):
     :param disabled: If true, the component is disabled. This implies that all ToggleButton children will be disabled. (default: false) (``bool``)
     :param exclusive: If true, only allow one of the child ToggleButton values to be selected. (default: false) (``bool``)
     :param full_width: If true, the button group will take up the full width of its container. (default: false) (``bool``)
-    :param change: Callback fired when the value changes.
+    :param on_change: Callback fired when the value changes. (``func``)
     :param orientation: The component orientation (layout flow direction). (default: 'horizontal') (``'horizontal' | 'vertical'``)
     :param size: The size of the component. (default: 'medium') (``'small' | 'medium' | 'large' | string``)
     :param value: The currently selected value within the group or an array of selected values when exclusive is false. The value must have reference equality with the option in order to be selected. (``any``)
@@ -3743,17 +3536,15 @@ class ToggleButtonGroup(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-toggle-button-group", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "color",
             "disabled",
             "exclusive",
             ("full_width", "fullWidth"),
+            ("on_change", "onChange"),
             "orientation",
             "size",
             "value",
-        ]
-        self._event_names += [
-            "change",
         ]
 
 
@@ -3766,7 +3557,7 @@ class Toolbar(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-toolbar", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("disable_gutters", "disableGutters"),
             "variant",
         ]
@@ -3775,10 +3566,6 @@ class Toolbar(MuiHtmlElement):
 class Tooltip(MuiHtmlElement):
     """MUI Tooltip - https://mui.com/material-ui/api/tooltip/
 
-    :param popper_component: (deprecated) The component used for the popper. (``elementType``)
-    :param popper_props: (deprecated) Props applied to the Popper element. (default: {}) (``object``)
-    :param transition_component: (deprecated) The component used for the transition. Follow this guide to learn more about the requirements for this component. (``elementType``)
-    :param transition_props: (deprecated) Props applied to the transition element. By default, the element is based on this Transition component. (default: {}) (``object``)
     :param arrow: If true, adds an arrow to the tooltip. (default: false) (``bool``)
     :param describe_child: Set to true if the title acts as an accessible description. By default the title acts as an accessible label for the child. (default: false) (``bool``)
     :param disable_focus_listener: Do not respond to focus-visible events. (default: false) (``bool``)
@@ -3792,8 +3579,8 @@ class Tooltip(MuiHtmlElement):
     :param id: This prop is used to help implement the accessibility logic. If you don't provide this prop. It falls back to a randomly generated id. (``string``)
     :param leave_delay: The number of milliseconds to wait before hiding the tooltip. This prop won't impact the leave touch delay (leaveTouchDelay). (default: 0) (``number``)
     :param leave_touch_delay: The number of milliseconds after the user stops touching an element before hiding the tooltip. (default: 1500) (``number``)
-    :param close: Callback fired when the component requests to be closed.
-    :param open: Callback fired when the component requests to be open.
+    :param on_close: Callback fired when the component requests to be closed. (``func``)
+    :param on_open: Callback fired when the component requests to be open. (``func``)
     :param open: If true, the component is shown. (``bool``)
     :param placement: Tooltip placement. (default: 'bottom') (``'auto-end' | 'auto-start' | 'auto' | 'bottom-end' | 'bottom-start' | 'bottom' | ...``)
     :param slot_props: The props used for each slot inside. (default: {}) (``{ arrow?: func | object, popper?: func | object, tooltip?: func | object, ...``)
@@ -3803,11 +3590,7 @@ class Tooltip(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-tooltip", children, **kwargs)
-        self._attr_names += [
-            ("popper_component", "PopperComponent"),
-            ("popper_props", "PopperProps"),
-            ("transition_component", "TransitionComponent"),
-            ("transition_props", "TransitionProps"),
+        self.props += [
             "arrow",
             ("describe_child", "describeChild"),
             ("disable_focus_listener", "disableFocusListener"),
@@ -3821,15 +3604,13 @@ class Tooltip(MuiHtmlElement):
             "id",
             ("leave_delay", "leaveDelay"),
             ("leave_touch_delay", "leaveTouchDelay"),
+            ("on_close", "onClose"),
+            ("on_open", "onOpen"),
             "open",
             "placement",
             ("slot_props", "slotProps"),
             "slots",
             "title",
-        ]
-        self._event_names += [
-            "close",
-            "open",
         ]
 
 
@@ -3840,7 +3621,6 @@ class Typography(MuiHtmlElement):
         :param color: The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide. (``'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | ...``)
         :param gutter_bottom: If true, the text will have a bottom margin. (default: false) (``bool``)
         :param no_wrap: If true, the text will not wrap, but instead will truncate with a text overflow ellipsis. Note that text overflow can only happen with block or inline-block level elements (the element needs to have a width in order to overflow). (default: false) (``bool``)
-        :param paragraph: (deprecated) If true, the element will be a paragraph element. (default: false) (``bool``)
         :param variant: Applies the theme typography styles. (default: 'body1') (``'body1' | 'body2' | 'button' | 'caption' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | ...``)
         :param variant_mapping: The component maps the variant prop to a range of different HTML element types. For instance, subtitle1 to <h6>. If you wish to change that mapping, you can provide your own. Alternatively, you can use the component prop. (default: {
       h1: 'h1',
@@ -3859,12 +3639,11 @@ class Typography(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-typography", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             "align",
             "color",
             ("gutter_bottom", "gutterBottom"),
             ("no_wrap", "noWrap"),
-            "paragraph",
             "variant",
             ("variant_mapping", "variantMapping"),
         ]
@@ -3873,10 +3652,11 @@ class Typography(MuiHtmlElement):
 class Zoom(MuiHtmlElement):
     """MUI Zoom - https://mui.com/material-ui/api/zoom/
 
-        The Zoom transition can be used for the floating variant of the [Button](/material-ui/react-floating-action-button/#animation) component. It uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.
+        The Zoom transition can be used for the floating variant of the [Button](/material-ui/react-floating-action-button/#animation) component.
 
-        :param add_end_listener: Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided. (``func``)
+        :param add_end_listener: Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided. (``func``)
         :param appear: Perform the enter transition when it first mounts if in is also true. Set this to false to disable this behavior. (default: true) (``bool``)
+        :param disable_prefers_reduced_motion: If true, the transition ignores theme.motion.reducedMotion and keeps its normal timing. (default: false) (``bool``)
         :param easing: The transition timing function. You may specify a single easing or a object containing enter and exit values. (``{ enter?: string, exit?: string } | string``)
         :param in: If true, the component will transition in. (``bool``)
         :param timeout: The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object. (default: {
@@ -3887,9 +3667,10 @@ class Zoom(MuiHtmlElement):
 
     def __init__(self, children=None, **kwargs):
         super().__init__("mui-zoom", children, **kwargs)
-        self._attr_names += [
+        self.props += [
             ("add_end_listener", "addEndListener"),
             "appear",
+            ("disable_prefers_reduced_motion", "disablePrefersReducedMotion"),
             "easing",
             "in",
             "timeout",

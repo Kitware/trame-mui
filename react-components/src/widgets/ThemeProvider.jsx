@@ -1,23 +1,27 @@
 import { useMemo } from "react";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
+import { ThemeProvider as MuiThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-// trame contract: reads an optional theme config from props; wraps children
-// with the MUI theme + CssBaseline. Place at the layout root.
-export default function MuiThemeProvider({ theme, mode, slot }) {
+// trame contract: like every other registered tag, children arrive through
+// the normal `children` prop. Wraps them with a MUI theme (palette mode
+// and/or a full theme override) plus CssBaseline. Place at the layout root.
+export default function ThemeProvider({ theme, mode, children }) {
   const muiTheme = useMemo(
     () =>
       createTheme({
-        palette: { mode: mode || "light" },
         ...(theme || {}),
+        // Merged after the spread (rather than merged into it) so a
+        // `theme.palette` override (custom primary/secondary/...) doesn't
+        // shallow-clobber `mode` and vice versa - both need to survive.
+        palette: { ...(theme?.palette || {}), mode: mode || "light" },
       }),
     [theme, mode],
   );
 
   return (
-    <ThemeProvider theme={muiTheme}>
+    <MuiThemeProvider theme={muiTheme}>
       <CssBaseline />
-      {slot ? slot() : null}
-    </ThemeProvider>
+      {children}
+    </MuiThemeProvider>
   );
 }

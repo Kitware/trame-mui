@@ -12,15 +12,13 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
-      - uses: actions/setup-python@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: "3.12"
 
-      # Install and run pre-commit
-      - run: |
-          pip install pre-commit
-          pre-commit install
-          pre-commit run --all-files
+      - name: Run pre-commit via nox
+        run: uv run --extra dev nox -s lint
 
   pytest:
     name: Pytest ${{ matrix.config.name }}
@@ -40,8 +38,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v6
+      - name: Install uv
+        uses: astral-sh/setup-uv@v7
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -50,20 +48,8 @@ jobs:
         with:
           node-version: 24
 
-      - name: Build React Components
-        run: |
-          cd react-components
-          npm ci
-          npm run lint
-          npm run build
-
-      - name: Install and Run Tests
-        run: |
-          pip install .
-          pip install pytest pytest-playwright pytest-xprocess trame
-          # Install requirements for playwright
-          playwright install chromium
-          pytest -s tests
+      - name: Build React Components and run tests
+        run: uv run --extra dev nox -s build_react tests
 
   test-npm-build:
     runs-on: ubuntu-latest
@@ -114,7 +100,7 @@ jobs:
 
       - name: Python Semantic Release
         id: release
-        uses: python-semantic-release/python-semantic-release@v9.15.2
+        uses: python-semantic-release/python-semantic-release@v10.6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
