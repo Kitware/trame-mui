@@ -19,6 +19,10 @@ Not to be confused with `trame-react
 <https://github.com/Kitware/trame-react>`_, which embeds a Vue-rendered trame
 application inside a React application through an iframe.
 
+.. image:: https://raw.githubusercontent.com/Kitware/trame-mui/refs/heads/master/trame-mui.png
+  :alt: Illustration of what can be done with trame and mui
+
+
 Layout (mirrors trame-vuetify)
 ------------------------------
 

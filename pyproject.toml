@@ -29,12 +29,29 @@ dev = [
     "pre-commit",
     "ruff",
     "pytest",
+    "nox",
 ]
 test = [
+    # `trame` is what the example apps under examples/test/ import
+    # (trame.app, trame.ui.html, trame.widgets.react); its latest PyPI
+    # release (3.13.2) still caps trame-client<4, so it's force-unpinned
+    # via [tool.uv].override-dependencies below. Pillow and pixelmatch back
+    # trame_client.utils.testing (see tests/conftest.py) - not pulled in via
+    # trame-client[test] because that extra depends on `trame` too, hitting
+    # the same stale cap.
+    "trame",
+    "pillow",
+    "pixelmatch",
     "pytest",
     "pytest-asyncio",
     "pytest-playwright",
     "pytest-xprocess",
+]
+
+[tool.uv]
+override-dependencies = [
+    "trame-client>=4,<5",
+    "trame-server>=3.15,<5",
 ]
 
 [build-system]

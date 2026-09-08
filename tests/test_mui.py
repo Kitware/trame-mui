@@ -67,4 +67,11 @@ def test_mui_select_render_value_slot(server, page):
     expect(select_box).to_have_text("🥜 Pistachio")
     assert server.get("flavor") == "pistachio"
 
-    assert console_errors == []
+    # trame-client's react bundle always probes a legacy wslink REST
+    # endpoint (POST document.baseURI + "paraview/") on startup before
+    # falling back to the real websocket connection; unrelated to this
+    # widget library, so it's filtered out rather than asserted away.
+    unexpected_errors = [
+        msg for msg in console_errors if "405 (Method Not Allowed)" not in msg
+    ]
+    assert unexpected_errors == []
