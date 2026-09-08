@@ -60,7 +60,7 @@ jobs:
       - name: Install and Run Tests
         run: |
           pip install .
-          pip install pytest pytest-playwright pytest-xprocess trame
+          pip install pytest pytest-playwright pytest-xprocess trame "trame-client[test]"
           # Install requirements for playwright
           playwright install chromium
           pytest -s tests
