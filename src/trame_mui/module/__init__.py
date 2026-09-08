@@ -17,11 +17,7 @@ styles = [
 react_use = ["TrameMui"]
 
 
-def setup(server, **kargs):
-    client_type = "vue3"
-    if hasattr(server, "client_type"):
-        client_type = server.client_type
-
-    if client_type != "react":
-        msg = f"Server using client_type='{client_type}' while we expect 'react'"
+def setup(server, **_):
+    if server.client_type != "react":
+        msg = f"Server using client_type='{server.client_type}' while we expect 'react'"
         raise TypeError(msg)

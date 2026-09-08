@@ -20,9 +20,9 @@ import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-BASE_DIR = Path(__file__).parent
-MUI_ROOT = BASE_DIR / "node_modules" / "@mui" / "material"
-DEST_FILE = BASE_DIR / "mui-api.json"
+BASE_DIR = Path(__file__).parent.parent
+MUI_ROOT = BASE_DIR / "react-components" / "node_modules" / "@mui" / "material"
+DEST_FILE = BASE_DIR / "py-generator" / "mui-api.json"
 
 RAW = "https://raw.githubusercontent.com/mui/material-ui/v{version}/docs/{path}"
 

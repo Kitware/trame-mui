@@ -11,7 +11,7 @@ that ships with trame-client).
 .. code-block:: python
 
     from trame.app import get_server
-    from trame_mui.widgets import mui
+    from trame.widgets import mui
 
     server = get_server(client_type="react")
 
@@ -24,9 +24,36 @@ Layout (mirrors trame-vuetify)
 
 * ``react-components/`` - React components + ``install(registry)`` plugin,
   bundled with React as an external, and the Python class generator
-* ``trame_mui/module/`` - module descriptor (``serve``/``scripts``/
+* ``src/trame_mui/module/`` - module descriptor (``serve``/``scripts``/
   ``styles``/``react_use``) consumed by ``server.enable_module()``
-* ``trame_mui/widgets/`` - generated Python widget classes
+* ``src/trame_mui/widgets/`` - generated Python widget classes
+
+Development
+------------------------------
+
+Build and install the Vue components
+
+.. code-block:: sh
+
+    cd react-components
+    npm i
+    npm run build
+    cd -
+
+Install the library
+
+.. code-block:: sh
+
+    # Create venv and install all dependencies
+    uv sync --all-extras --dev
+
+    # Activate environment
+    source .venv/bin/activate
+
+    # Install commit analysis
+    pre-commit install
+    pre-commit install --hook-type commit-msg
+
 
 License
 -------

@@ -13,7 +13,7 @@ export default {
       fileName: () => "trame-mui.umd.js",
       cssFileName: "trame-mui",
     },
-    outDir: "../trame_mui/module/serve",
+    outDir: "../src/trame_mui/module/serve",
     rollupOptions: {
       // Use the single React instance exposed by the trame react client
       external: ["react", "react-dom"],

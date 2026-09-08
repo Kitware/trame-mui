@@ -8,14 +8,14 @@
     "postbuild": "node copy-fonts.mjs"
   },
   "peerDependencies": {
-    "react": ">=18",
-    "react-dom": ">=18"
+    "react": ">=19",
+    "react-dom": ">=19"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@fontsource/roboto": "^5.3.0",
-    "@mui/material": "^7.1.0"
+    "@mui/material": "^9.4.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.4.1",

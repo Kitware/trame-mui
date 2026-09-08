@@ -6,9 +6,8 @@ authors = [
     {name = "Kitware Inc."},
 ]
 dependencies = [
-    "trame-client>=3.7,<4",
-    # provides react_use module-key aggregation
-    "trame-server>=3.15",
+    "trame-client>=3,<5",
+    "trame-server>=3.15,<5",
 ]
 requires-python = ">=3.10"
 readme = "README.rst"
@@ -39,27 +38,24 @@ test = [
 ]
 
 [build-system]
-requires = ['setuptools', 'wheel']
-build-backend = 'setuptools.build_meta'
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["trame_mui*", "trame.*", "trame"]
+[tool.hatch.build]
+include = [
+  "/src/**/*.py",
+  "/src/trame_mui/module/**",
+]
 
-[tool.setuptools.package-data]
-trame_mui = [
-    "module/**/*.js",
-    "module/**/*.css",
-    "module/**/*.html",
-    "module/**/*.png",
-    "module/**/*.tpl",
-    "module/**/*.woff",
-    "module/**/*.woff2",
+[tool.hatch.build.targets.wheel]
+packages = [
+    "src/trame_mui",
+    "src/trame",
 ]
 
 [tool.semantic_release]
 version_variables = [
-    "trame_mui/__init__.py:__version__",
+    "src/trame_mui/__init__.py:__version__",
 ]
 version_toml = [
     "pyproject.toml:project.version",

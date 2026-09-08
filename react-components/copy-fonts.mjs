@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 
 const require = createRequire(import.meta.url);
 const src = dirname(require.resolve("@fontsource/roboto/400.css"));
-const dst = "../trame_mui/module/serve/roboto";
+const dst = "../src/trame_mui/module/serve/roboto";
 
 rmSync(dst, { recursive: true, force: true });
 mkdirSync(join(dst, "files"), { recursive: true });

@@ -1,15 +1,9 @@
 {
- "$mui-version": "7.3.11",
+ "$mui-version": "9.4.0",
  "components": {
   "Accordion": {
    "componentDescription": "",
    "propDescriptions": {
-    "TransitionComponent": {
-     "description": "The component used for the transition. <a href=\"https://mui.com/material-ui/transitions/#transitioncomponent-prop\">Follow this guide</a> to learn more about the requirements for this component."
-    },
-    "TransitionProps": {
-     "description": "Props applied to the transition element. By default, the element is based on this <a href=\"https://reactcommunity.org/react-transition-group/transition/\"><code>Transition</code></a> component."
-    },
     "children": {
      "description": "The content of the component."
     },
@@ -52,20 +46,6 @@
     }
    },
    "props": {
-    "TransitionComponent": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.transition</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "TransitionProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.transition</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "children": {
      "required": true,
      "type": {
@@ -318,12 +298,6 @@
     "color": {
      "description": "The color of the component. Unless provided, the value is taken from the <code>severity</code> prop. It supports both default and custom theme colors, which can be added as shown in the <a href=\"https://mui.com/material-ui/customization/palette/#custom-colors\">palette customization guide</a>."
     },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
-    },
     "icon": {
      "description": "Override the icon displayed before the children. Unless provided, the icon is mapped to the value of the <code>severity</code> prop. Set to <code>false</code> to remove the <code>icon</code>."
     },
@@ -387,24 +361,6 @@
      "type": {
       "description": "'error'<br>&#124;&nbsp;'info'<br>&#124;&nbsp;'success'<br>&#124;&nbsp;'warning'<br>&#124;&nbsp;string",
       "name": "union"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ CloseButton?: elementType, CloseIcon?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ closeButton?: object, closeIcon?: object }",
-      "name": "shape"
      }
     },
     "icon": {
@@ -600,21 +556,6 @@
   "Autocomplete": {
    "componentDescription": "",
    "propDescriptions": {
-    "ChipProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/chip/\"><code>Chip</code></a> element."
-    },
-    "ListboxComponent": {
-     "description": "The component used to render the listbox."
-    },
-    "ListboxProps": {
-     "description": "Props applied to the Listbox element."
-    },
-    "PaperComponent": {
-     "description": "The component used to render the body of the popup."
-    },
-    "PopperComponent": {
-     "description": "The component used to position the popup."
-    },
     "autoComplete": {
      "description": "If <code>true</code>, the portion of the selected suggestion that the user hasn&#39;t typed, known as the completion string, appears inline after the input cursor in the textbox. The inline completion string is visually highlighted and has a selected state."
     },
@@ -644,9 +585,6 @@
     },
     "closeText": {
      "description": "Override the default text for the <em>close popup</em> icon button.<br>For localization purposes, you can use the provided <a href=\"https://mui.com/material-ui/guides/localization/\">translations</a>."
-    },
-    "componentsProps": {
-     "description": "The props used for each slot inside."
     },
     "defaultValue": {
      "description": "The default value. Use when the component is not controlled."
@@ -692,7 +630,7 @@
      "description": "If <code>true</code>, the Autocomplete is free solo, meaning that the user input is not bound to provided options."
     },
     "fullWidth": {
-     "description": "If <code>true</code>, the input will take up the full width of its container."
+     "description": "If <code>true</code>, the input takes up the full width of its container.<br><code>Autocomplete</code> treats <code>undefined</code> and <code>false</code> differently. If <code>undefined</code>, the inner input takes up the full width of its container. If <code>false</code>, the inner input is restricted to its intrinsic width."
     },
     "getLimitTagsText": {
      "description": "The label to display when the tags are truncated (<code>limitTags</code>).",
@@ -899,23 +837,6 @@
       }
      }
     },
-    "renderTags": {
-     "description": "Render the selected value when doing multiple selections.",
-     "typeDescriptions": {
-      "getTagProps": {
-       "description": "A tag props getter.",
-       "name": "getTagProps"
-      },
-      "ownerState": {
-       "description": "The state of the Autocomplete component.",
-       "name": "ownerState"
-      },
-      "value": {
-       "description": "The <code>value</code> provided to the component.",
-       "name": "value"
-      }
-     }
-    },
     "renderValue": {
      "description": "Renders the selected value(s) as rich content in the input for both single and multiple selections.",
      "typeDescriptions": {
@@ -932,6 +853,9 @@
        "name": "value"
       }
      }
+    },
+    "resetHighlightOnMouseLeave": {
+     "description": "If <code>true</code>, clears an option highlighted by mouse movement when the mouse leaves the listbox. This behavior will be enabled by default in the next major version."
     },
     "selectOnFocus": {
      "description": "If <code>true</code>, the input&#39;s text is selected on focus. It helps the user clear the selected value."
@@ -953,44 +877,6 @@
     }
    },
    "props": {
-    "ChipProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.chip</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "ListboxComponent": {
-     "default": "'ul'",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.listbox.component</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "ListboxProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.listbox</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "PaperComponent": {
-     "default": "Paper",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.paper</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "PopperComponent": {
-     "default": "Popper",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.popper</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
     "autoComplete": {
      "default": "false",
      "type": {
@@ -1052,14 +938,6 @@
      "default": "'Close'",
      "type": {
       "name": "string"
-     }
-    },
-    "componentsProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ clearIndicator?: object, paper?: object, popper?: object, popupIndicator?: object }",
-      "name": "shape"
      }
     },
     "defaultValue": {
@@ -1181,7 +1059,7 @@
      "default": "(option) => option.label ?? option",
      "signature": {
       "describedArgs": [],
-      "type": "function(option: Value) => string"
+      "type": "function(option: Value | string) => string"
      },
      "type": {
       "name": "func"
@@ -1226,7 +1104,7 @@
        "option",
        "value"
       ],
-      "type": "function(option: Value, value: Value) => boolean"
+      "type": "function(option: Value, value: Value | string) => boolean"
      },
      "type": {
       "name": "func"
@@ -1395,21 +1273,6 @@
       "name": "func"
      }
     },
-    "renderTags": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>renderValue</code> prop instead",
-     "signature": {
-      "describedArgs": [
-       "value",
-       "getTagProps",
-       "ownerState"
-      ],
-      "type": "function(value: Array<Value>, getTagProps: function, ownerState: object) => ReactNode"
-     },
-     "type": {
-      "name": "func"
-     }
-    },
     "renderValue": {
      "signature": {
       "describedArgs": [
@@ -1421,6 +1284,12 @@
      },
      "type": {
       "name": "func"
+     }
+    },
+    "resetHighlightOnMouseLeave": {
+     "default": "false",
+     "type": {
+      "name": "bool"
      }
     },
     "selectOnFocus": {
@@ -1439,14 +1308,14 @@
     "slotProps": {
      "default": "{}",
      "type": {
-      "description": "{ chip?: func<br>&#124;&nbsp;object, clearIndicator?: func<br>&#124;&nbsp;object, listbox?: func<br>&#124;&nbsp;object, paper?: func<br>&#124;&nbsp;object, popper?: func<br>&#124;&nbsp;object, popupIndicator?: func<br>&#124;&nbsp;object, root?: func<br>&#124;&nbsp;object }",
+      "description": "{ chip?: func<br>&#124;&nbsp;object, clearIndicator?: func<br>&#124;&nbsp;object, listbox?: func<br>&#124;&nbsp;object, status?: func<br>&#124;&nbsp;object, paper?: func<br>&#124;&nbsp;object, popper?: func<br>&#124;&nbsp;object, popupIndicator?: func<br>&#124;&nbsp;object, root?: func<br>&#124;&nbsp;object }",
       "name": "shape"
      }
     },
     "slots": {
      "default": "{}",
      "type": {
-      "description": "{ clearIndicator?: elementType, listbox?: elementType, paper?: elementType, popper?: elementType, popupIndicator?: elementType, root?: elementType }",
+      "description": "{ clearIndicator?: elementType, listbox?: elementType, paper?: elementType, popper?: elementType, popupIndicator?: elementType, root?: elementType, status?: elementType }",
       "name": "shape"
      }
     },
@@ -1481,9 +1350,6 @@
     },
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component."
-    },
-    "imgProps": {
-     "description": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/img#attributes\">Attributes</a> applied to the <code>img</code> element if the component is used to display an image. It can be used to listen for the loading error event."
     },
     "sizes": {
      "description": "The <code>sizes</code> attribute for the <code>img</code> element."
@@ -1529,13 +1395,6 @@
     "component": {
      "type": {
       "name": "elementType"
-     }
-    },
-    "imgProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.img</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
      }
     },
     "sizes": {
@@ -1597,9 +1456,6 @@
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component."
     },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones.<br>This prop is an alias for the <code>slotProps</code> prop."
-    },
     "max": {
      "description": "Max avatars to show before +x."
     },
@@ -1654,14 +1510,6 @@
       "name": "elementType"
      }
     },
-    "componentsProps": {
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ additionalAvatar?: object }",
-      "name": "shape"
-     }
-    },
     "max": {
      "default": "5",
      "type": {
@@ -1684,7 +1532,7 @@
     "slotProps": {
      "default": "{}",
      "type": {
-      "description": "{ additionalAvatar?: object, surplus?: func<br>&#124;&nbsp;object }",
+      "description": "{ surplus?: func<br>&#124;&nbsp;object }",
       "name": "shape"
      }
     },
@@ -1729,9 +1577,6 @@
   "Backdrop": {
    "componentDescription": "",
    "propDescriptions": {
-    "TransitionComponent": {
-     "description": "The component used for the transition. <a href=\"https://mui.com/material-ui/transitions/#transitioncomponent-prop\">Follow this guide</a> to learn more about the requirements for this component."
-    },
     "children": {
      "description": "The content of the component."
     },
@@ -1740,12 +1585,6 @@
     },
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component."
-    },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
     },
     "invisible": {
      "description": "If <code>true</code>, the backdrop is invisible. It can be used when rendering a popover or a custom select component."
@@ -1767,14 +1606,6 @@
     }
    },
    "props": {
-    "TransitionComponent": {
-     "default": "Fade",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.transition</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
     "children": {
      "type": {
       "name": "node"
@@ -1791,24 +1622,6 @@
     "component": {
      "type": {
       "name": "elementType"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Root?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ root?: object }",
-      "name": "shape"
      }
     },
     "invisible": {
@@ -1875,12 +1688,6 @@
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component."
     },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
-    },
     "invisible": {
      "description": "If <code>true</code>, the badge is invisible."
     },
@@ -1942,24 +1749,6 @@
     "component": {
      "type": {
       "name": "elementType"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Badge?: elementType, Root?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ badge?: func<br>&#124;&nbsp;object, root?: func<br>&#124;&nbsp;object }",
-      "name": "shape"
      }
     },
     "invisible": {
@@ -2552,6 +2341,9 @@
     "focusVisibleClassName": {
      "description": "This prop can help identify which element has keyboard focus. The class name will be applied when the element gains the focus through keyboard interaction. It&#39;s a polyfill for the <a href=\"https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo\">CSS :focus-visible selector</a>. The rationale for using this feature <a href=\"https://github.com/WICG/focus-visible/blob/HEAD/explainer.md\">is explained here</a>. A <a href=\"https://github.com/WICG/focus-visible\">polyfill can be used</a> to apply a <code>focus-visible</code> class to other components if needed."
     },
+    "nativeButton": {
+     "description": "Whether the custom component is expected to render a native <code>&lt;button&gt;</code> element when passing a React component to the <code>component</code> or <code>slots</code> prop."
+    },
     "onFocusVisible": {
      "description": "Callback fired when the component is focused with a keyboard. We trigger a <code>onFocus</code> callback too."
     },
@@ -2560,6 +2352,9 @@
     },
     "touchRippleRef": {
      "description": "A ref that points to the <code>TouchRipple</code> element."
+    },
+    "type": {
+     "description": "The HTML <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/button#type\"><code>type</code></a> attribute applied to <code>button</code> and <code>a</code> elements. Ignored when rendering non-native buttons."
     }
    },
    "props": {
@@ -2634,6 +2429,11 @@
       "name": "string"
      }
     },
+    "nativeButton": {
+     "type": {
+      "name": "bool"
+     }
+    },
     "onFocusVisible": {
      "type": {
       "name": "func"
@@ -2652,6 +2452,12 @@
      "type": {
       "description": "func<br>&#124;&nbsp;{ current?: { pulsate: func, start: func, stop: func } }",
       "name": "union"
+     }
+    },
+    "type": {
+     "default": "'button'",
+     "type": {
+      "name": "string"
      }
     }
    }
@@ -3013,17 +2819,11 @@
     "subheader": {
      "description": "The content of the component."
     },
-    "subheaderTypographyProps": {
-     "description": "These props will be forwarded to the subheader (as long as disableTypography is not <code>true</code>)."
-    },
     "sx": {
      "description": "The system prop that allows defining system overrides as well as additional CSS styles."
     },
     "title": {
      "description": "The content of the component."
-    },
-    "titleTypographyProps": {
-     "description": "These props will be forwarded to the title (as long as disableTypography is not <code>true</code>)."
     }
    },
    "props": {
@@ -3075,13 +2875,6 @@
       "name": "node"
      }
     },
-    "subheaderTypographyProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.subheader</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "sx": {
      "additionalInfo": {
       "sx": true
@@ -3094,13 +2887,6 @@
     "title": {
      "type": {
       "name": "node"
-     }
-    },
-    "titleTypographyProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.title</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
      }
     }
    }
@@ -3204,9 +2990,6 @@
     "indeterminateIcon": {
      "description": "The icon to display when the component is indeterminate."
     },
-    "inputProps": {
-     "description": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes\">Attributes</a> applied to the <code>input</code> element."
-    },
     "onChange": {
      "description": "Callback fired when the state is changed.",
      "typeDescriptions": {
@@ -3302,13 +3085,6 @@
       "name": "node"
      }
     },
-    "inputProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.input</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "onChange": {
      "signature": {
       "describedArgs": [
@@ -3396,6 +3172,9 @@
     "label": {
      "description": "The content of the component."
     },
+    "nativeButton": {
+     "description": "If <code>true</code>, the component is expected to resolve to a native <code>&lt;button&gt;</code> element. When omitted, custom components inherit the default button semantics of the current wrapper. Set to <code>true</code> when a custom component resolves to a native <code>&lt;button&gt;</code>, or <code>false</code> when it resolves to a non-button host."
+    },
     "onDelete": {
      "description": "Callback fired when the delete icon is clicked. If set, the delete icon will be shown."
     },
@@ -3476,6 +3255,11 @@
       "name": "node"
      }
     },
+    "nativeButton": {
+     "type": {
+      "name": "bool"
+     }
+    },
     "onDelete": {
      "type": {
       "name": "func"
@@ -3541,6 +3325,12 @@
     "enableTrackSlot": {
      "description": "If <code>true</code>, a track circle slot is mounted to show a subtle background for the progress. The <code>size</code> and <code>thickness</code> apply to the track slot to be consistent with the progress circle."
     },
+    "max": {
+     "description": "The maximum value for the progress indicator for the determinate variant."
+    },
+    "min": {
+     "description": "The minimum value for the progress indicator for the determinate variant."
+    },
     "size": {
      "description": "The size of the component. If using a number, the pixel unit is assumed. If using a string, you need to provide the CSS unit, for example &#39;3rem&#39;."
     },
@@ -3551,7 +3341,7 @@
      "description": "The thickness of the circle."
     },
     "value": {
-     "description": "The value of the progress indicator for the determinate variant. Value between 0 and 100."
+     "description": "The value of the progress indicator for the determinate variant. Value between <code>min</code> and <code>max</code>."
     },
     "variant": {
      "description": "The variant to use. Use indeterminate when there is no progress value."
@@ -3586,6 +3376,18 @@
       "name": "bool"
      }
     },
+    "max": {
+     "default": "100",
+     "type": {
+      "name": "number"
+     }
+    },
+    "min": {
+     "default": "0",
+     "type": {
+      "name": "number"
+     }
+    },
     "size": {
      "default": "40",
      "type": {
@@ -3609,7 +3411,7 @@
      }
     },
     "value": {
-     "default": "0",
+     "default": "props.min ?? 0",
      "type": {
       "name": "number"
      }
@@ -3680,10 +3482,20 @@
    }
   },
   "Collapse": {
-   "componentDescription": "The Collapse transition is used by the\n[Vertical Stepper](/material-ui/react-stepper/#vertical-stepper) StepContent component.\nIt uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.",
+   "componentDescription": "The Collapse transition is used by the\n[Vertical Stepper](/material-ui/react-stepper/#vertical-stepper) StepContent component.",
    "propDescriptions": {
     "addEndListener": {
-     "description": "Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided."
+     "description": "Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided.",
+     "typeDescriptions": {
+      "done": {
+       "description": "Call this when the transition has finished.",
+       "name": "done"
+      },
+      "node": {
+       "description": "The transitioning DOM node.",
+       "name": "node"
+      }
+     }
     },
     "children": {
      "description": "The content node to be collapsed."
@@ -3697,6 +3509,9 @@
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component.",
      "requiresRef": true
+    },
+    "disablePrefersReducedMotion": {
+     "description": "If <code>true</code>, the transition ignores <code>theme.motion.reducedMotion</code> and keeps its normal timing."
     },
     "easing": {
      "description": "The transition timing function. You may specify a single easing or a object containing enter and exit values."
@@ -3722,6 +3537,13 @@
    },
    "props": {
     "addEndListener": {
+     "signature": {
+      "describedArgs": [
+       "node",
+       "done"
+      ],
+      "type": "function(node: HTMLElement, done: Function) => void"
+     },
      "type": {
       "name": "func"
      }
@@ -3750,6 +3572,12 @@
      "type": {
       "description": "element type",
       "name": "custom"
+     }
+    },
+    "disablePrefersReducedMotion": {
+     "default": "false",
+     "type": {
+      "name": "bool"
      }
     },
     "easing": {
@@ -3895,20 +3723,8 @@
   "Dialog": {
    "componentDescription": "Dialogs are overlaid modal paper based components with a backdrop.",
    "propDescriptions": {
-    "BackdropComponent": {
-     "description": "A backdrop component. This prop enables custom backdrop rendering."
-    },
     "PaperComponent": {
      "description": "The component used to render the body of the dialog."
-    },
-    "PaperProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/paper/\"><code>Paper</code></a> element."
-    },
-    "TransitionComponent": {
-     "description": "The component used for the transition. <a href=\"https://mui.com/material-ui/transitions/#transitioncomponent-prop\">Follow this guide</a> to learn more about the requirements for this component."
-    },
-    "TransitionProps": {
-     "description": "Props applied to the transition element. By default, the element is based on this <a href=\"https://reactcommunity.org/react-transition-group/transition/\"><code>Transition</code></a> component."
     },
     "aria-describedby": {
      "description": "The id(s) of the element(s) that describe the dialog."
@@ -3924,9 +3740,6 @@
     },
     "classes": {
      "description": "Override or extend the styles applied to the component."
-    },
-    "disableEscapeKeyDown": {
-     "description": "If <code>true</code>, hitting escape will not fire the <code>onClose</code> callback."
     },
     "fullScreen": {
      "description": "If <code>true</code>, the dialog is full-screen."
@@ -3973,41 +3786,10 @@
     }
    },
    "props": {
-    "BackdropComponent": {
-     "default": "styled(Backdrop, {\n  name: 'MuiModal',\n  slot: 'Backdrop',\n})({\n  zIndex: -1,\n})",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.backdrop</code> instead. While this prop currently works, it will be removed in the next major version.",
-     "type": {
-      "name": "elementType"
-     }
-    },
     "PaperComponent": {
      "default": "Paper",
      "type": {
       "name": "elementType"
-     }
-    },
-    "PaperProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.paper</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "TransitionComponent": {
-     "default": "Fade",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.transition</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "TransitionProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.transition</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
      }
     },
     "aria-describedby": {
@@ -4038,12 +3820,6 @@
      },
      "type": {
       "name": "object"
-     }
-    },
-    "disableEscapeKeyDown": {
-     "default": "false",
-     "type": {
-      "name": "bool"
      }
     },
     "fullScreen": {
@@ -4317,9 +4093,6 @@
     "flexItem": {
      "description": "If <code>true</code>, a vertical divider will have the correct height when used in flex container. (By default, a vertical divider will have a calculated height of <code>0px</code> if it is the child of a flex container.)"
     },
-    "light": {
-     "description": "If <code>true</code>, the divider will have a lighter color."
-    },
     "orientation": {
      "description": "The component orientation."
     },
@@ -4364,14 +4137,6 @@
       "name": "bool"
      }
     },
-    "light": {
-     "default": "false",
-     "deprecated": true,
-     "deprecationInfo": "Use &lt;Divider sx={{ opacity: 0.6 }} /&gt; (or any opacity or color) instead. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "bool"
-     }
-    },
     "orientation": {
      "default": "'horizontal'",
      "type": {
@@ -4409,12 +4174,6 @@
    "propDescriptions": {
     "ModalProps": {
      "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/modal/\"><code>Modal</code></a> element."
-    },
-    "PaperProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/paper/\"><code>Paper</code></a> element."
-    },
-    "SlideProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/slide/\"><code>Slide</code></a> element."
     },
     "anchor": {
      "description": "Side from which the drawer will appear."
@@ -4466,21 +4225,6 @@
    "props": {
     "ModalProps": {
      "default": "{}",
-     "type": {
-      "name": "object"
-     }
-    },
-    "PaperProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.paper</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "SlideProps": {
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.transition</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
      "type": {
       "name": "object"
      }
@@ -4686,10 +4430,20 @@
    }
   },
   "Fade": {
-   "componentDescription": "The Fade transition is used by the [Modal](/material-ui/react-modal/) component.\nIt uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.",
+   "componentDescription": "The Fade transition is used by the [Modal](/material-ui/react-modal/) component.",
    "propDescriptions": {
     "addEndListener": {
-     "description": "Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided."
+     "description": "Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided.",
+     "typeDescriptions": {
+      "done": {
+       "description": "Call this when the transition has finished.",
+       "name": "done"
+      },
+      "node": {
+       "description": "The transitioning DOM node.",
+       "name": "node"
+      }
+     }
     },
     "appear": {
      "description": "Perform the enter transition when it first mounts if <code>in</code> is also <code>true</code>. Set this to <code>false</code> to disable this behavior."
@@ -4697,6 +4451,9 @@
     "children": {
      "description": "A single child content element.",
      "requiresRef": true
+    },
+    "disablePrefersReducedMotion": {
+     "description": "If <code>true</code>, the transition ignores <code>theme.motion.reducedMotion</code> and keeps its normal timing."
     },
     "easing": {
      "description": "The transition timing function. You may specify a single easing or a object containing enter and exit values."
@@ -4710,6 +4467,13 @@
    },
    "props": {
     "addEndListener": {
+     "signature": {
+      "describedArgs": [
+       "node",
+       "done"
+      ],
+      "type": "function(node: HTMLElement, done: Function) => void"
+     },
      "type": {
       "name": "func"
      }
@@ -4725,6 +4489,12 @@
      "type": {
       "description": "element",
       "name": "custom"
+     }
+    },
+    "disablePrefersReducedMotion": {
+     "default": "false",
+     "type": {
+      "name": "bool"
      }
     },
     "easing": {
@@ -4761,12 +4531,6 @@
     },
     "color": {
      "description": "The color of the component. It supports both default and custom theme colors, which can be added as shown in the <a href=\"https://mui.com/material-ui/customization/palette/#custom-colors\">palette customization guide</a>. The prop defaults to the value (<code>&#39;primary&#39;</code>) inherited from the parent FormControl component."
-    },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
     },
     "defaultValue": {
      "description": "The default value. Use when the component is not controlled."
@@ -4838,10 +4602,10 @@
      "description": "Number of rows to display when multiline option is set to true."
     },
     "slotProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones.<br>This prop is an alias for the <code>componentsProps</code> prop, which will be deprecated in the future."
+     "description": "The extra props for the slot components. You can override the existing props or add new ones."
     },
     "slots": {
-     "description": "The components used for each slot inside.<br>This prop is an alias for the <code>components</code> prop, which will be deprecated in the future."
+     "description": "The components used for each slot inside."
     },
     "startAdornment": {
      "description": "Start <code>InputAdornment</code> for this component."
@@ -4879,24 +4643,6 @@
      "type": {
       "description": "'primary'<br>&#124;&nbsp;'secondary'<br>&#124;&nbsp;string",
       "name": "union"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Input?: elementType, Root?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ input?: object, root?: object }",
-      "name": "shape"
      }
     },
     "defaultValue": {
@@ -5210,9 +4956,6 @@
     "classes": {
      "description": "Override or extend the styles applied to the component."
     },
-    "componentsProps": {
-     "description": "The props used for each slot inside."
-    },
     "control": {
      "description": "A control element. For instance, it can be a <code>Radio</code>, a <code>Switch</code> or a <code>Checkbox</code>."
     },
@@ -5268,15 +5011,6 @@
      },
      "type": {
       "name": "object"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ typography?: object }",
-      "name": "shape"
      }
     },
     "control": {
@@ -5637,7 +5371,7 @@
      "description": "If <code>true</code>, the component will have the flex <em>container</em> behavior. You should be wrapping <em>items</em> with a <em>container</em>."
     },
     "direction": {
-     "description": "Defines the <code>flex-direction</code> style property. It is applied for all screen sizes."
+     "description": "Defines the <code>flex-direction</code> style property for the container.<br>\u26a0\ufe0f Only <code>row</code> and <code>row-reverse</code> are supported. <code>column</code> and <code>column-reverse</code> are not supported, because the Grid component is designed to subdivide layouts into <strong>columns</strong>, not rows.<br>For vertical layouts, use <code>Stack</code> instead."
     },
     "offset": {
      "description": "Defines the offset value for the type <code>item</code> components."
@@ -5650,6 +5384,9 @@
     },
     "spacing": {
      "description": "Defines the space between the type <code>item</code> components. It can only be used on a type <code>container</code> component."
+    },
+    "unstable_level": {
+     "description": "The level of the grid starts from <code>0</code> and increases when the grid nests inside another grid. Nesting is defined as a container Grid being a direct child of a container Grid.<br><code>js &amp;lt;Grid container&gt; // level 0   &amp;lt;Grid container&gt; // level 1     &amp;lt;Grid container&gt; // level 2 </code><br>Only consecutive grid is considered nesting. A grid container will start at <code>0</code> if there are non-Grid container element above it.<br><code>js &amp;lt;Grid container&gt; // level 0   &amp;lt;div&gt;     &amp;lt;Grid container&gt; // level 0 </code><br><code>js &amp;lt;Grid container&gt; // level 0   &amp;lt;Grid&gt;     &amp;lt;Grid container&gt; // level 0 </code>"
     },
     "wrap": {
      "description": "Defines the <code>flex-wrap</code> style property. It&#39;s applied for all screen sizes."
@@ -5683,7 +5420,7 @@
     "direction": {
      "default": "'row'",
      "type": {
-      "description": "'column-reverse'<br>&#124;&nbsp;'column'<br>&#124;&nbsp;'row-reverse'<br>&#124;&nbsp;'row'<br>&#124;&nbsp;Array&lt;'column-reverse'<br>&#124;&nbsp;'column'<br>&#124;&nbsp;'row-reverse'<br>&#124;&nbsp;'row'&gt;<br>&#124;&nbsp;object",
+      "description": "'row-reverse'<br>&#124;&nbsp;'row'<br>&#124;&nbsp;Array&lt;'row-reverse'<br>&#124;&nbsp;'row'&gt;<br>&#124;&nbsp;object",
       "name": "union"
      }
     },
@@ -5721,192 +5458,21 @@
     }
    }
   },
-  "GridLegacy": {
-   "componentDescription": "",
-   "propDescriptions": {
-    "children": {
-     "description": "The content of the component."
-    },
-    "classes": {
-     "description": "Override or extend the styles applied to the component."
-    },
-    "columnSpacing": {
-     "description": "Defines the horizontal space between the type <code>item</code> components. It overrides the value of the <code>spacing</code> prop."
-    },
-    "columns": {
-     "description": "The number of columns."
-    },
-    "component": {
-     "description": "The component used for the root node. Either a string to use a HTML element or a component."
-    },
-    "container": {
-     "description": "If <code>true</code>, the component will have the flex <em>container</em> behavior. You should be wrapping <em>items</em> with a <em>container</em>."
-    },
-    "direction": {
-     "description": "Defines the <code>flex-direction</code> style property. It is applied for all screen sizes."
-    },
-    "item": {
-     "description": "If <code>true</code>, the component will have the flex <em>item</em> behavior. You should be wrapping <em>items</em> with a <em>container</em>."
-    },
-    "lg": {
-     "description": "If a number, it sets the number of columns the grid item uses. It can&#39;t be greater than the total number of columns of the container (12 by default). If &#39;auto&#39;, the grid item&#39;s width matches its content. If false, the prop is ignored. If true, the grid item&#39;s width grows to use the space available in the grid container. The value is applied for the <code>lg</code> breakpoint and wider screens if not overridden."
-    },
-    "md": {
-     "description": "If a number, it sets the number of columns the grid item uses. It can&#39;t be greater than the total number of columns of the container (12 by default). If &#39;auto&#39;, the grid item&#39;s width matches its content. If false, the prop is ignored. If true, the grid item&#39;s width grows to use the space available in the grid container. The value is applied for the <code>md</code> breakpoint and wider screens if not overridden."
-    },
-    "rowSpacing": {
-     "description": "Defines the vertical space between the type <code>item</code> components. It overrides the value of the <code>spacing</code> prop."
-    },
-    "sm": {
-     "description": "If a number, it sets the number of columns the grid item uses. It can&#39;t be greater than the total number of columns of the container (12 by default). If &#39;auto&#39;, the grid item&#39;s width matches its content. If false, the prop is ignored. If true, the grid item&#39;s width grows to use the space available in the grid container. The value is applied for the <code>sm</code> breakpoint and wider screens if not overridden."
-    },
-    "spacing": {
-     "description": "Defines the space between the type <code>item</code> components. It can only be used on a type <code>container</code> component."
-    },
-    "sx": {
-     "description": "The system prop that allows defining system overrides as well as additional CSS styles."
-    },
-    "wrap": {
-     "description": "Defines the <code>flex-wrap</code> style property. It&#39;s applied for all screen sizes."
-    },
-    "xl": {
-     "description": "If a number, it sets the number of columns the grid item uses. It can&#39;t be greater than the total number of columns of the container (12 by default). If &#39;auto&#39;, the grid item&#39;s width matches its content. If false, the prop is ignored. If true, the grid item&#39;s width grows to use the space available in the grid container. The value is applied for the <code>xl</code> breakpoint and wider screens if not overridden."
-    },
-    "xs": {
-     "description": "If a number, it sets the number of columns the grid item uses. It can&#39;t be greater than the total number of columns of the container (12 by default). If &#39;auto&#39;, the grid item&#39;s width matches its content. If false, the prop is ignored. If true, the grid item&#39;s width grows to use the space available in the grid container. The value is applied for all the screen sizes with the lowest priority."
-    },
-    "zeroMinWidth": {
-     "description": "If <code>true</code>, it sets <code>min-width: 0</code> on the item. Refer to the limitations section of the documentation to better understand the use case."
-    }
-   },
-   "props": {
-    "children": {
-     "type": {
-      "name": "node"
-     }
-    },
-    "classes": {
-     "additionalInfo": {
-      "cssApi": true
-     },
-     "type": {
-      "name": "object"
-     }
-    },
-    "columnSpacing": {
-     "type": {
-      "description": "Array&lt;number<br>&#124;&nbsp;string&gt;<br>&#124;&nbsp;number<br>&#124;&nbsp;object<br>&#124;&nbsp;string",
-      "name": "union"
-     }
-    },
-    "columns": {
-     "default": "12",
-     "type": {
-      "description": "Array&lt;number&gt;<br>&#124;&nbsp;number<br>&#124;&nbsp;object",
-      "name": "union"
-     }
-    },
-    "component": {
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "container": {
-     "default": "false",
-     "type": {
-      "name": "bool"
-     }
-    },
-    "direction": {
-     "default": "'row'",
-     "type": {
-      "description": "'column-reverse'<br>&#124;&nbsp;'column'<br>&#124;&nbsp;'row-reverse'<br>&#124;&nbsp;'row'<br>&#124;&nbsp;Array&lt;'column-reverse'<br>&#124;&nbsp;'column'<br>&#124;&nbsp;'row-reverse'<br>&#124;&nbsp;'row'&gt;<br>&#124;&nbsp;object",
-      "name": "union"
-     }
-    },
-    "item": {
-     "default": "false",
-     "type": {
-      "name": "bool"
-     }
-    },
-    "lg": {
-     "default": "false",
-     "type": {
-      "description": "'auto'<br>&#124;&nbsp;number<br>&#124;&nbsp;bool",
-      "name": "union"
-     }
-    },
-    "md": {
-     "default": "false",
-     "type": {
-      "description": "'auto'<br>&#124;&nbsp;number<br>&#124;&nbsp;bool",
-      "name": "union"
-     }
-    },
-    "rowSpacing": {
-     "type": {
-      "description": "Array&lt;number<br>&#124;&nbsp;string&gt;<br>&#124;&nbsp;number<br>&#124;&nbsp;object<br>&#124;&nbsp;string",
-      "name": "union"
-     }
-    },
-    "sm": {
-     "default": "false",
-     "type": {
-      "description": "'auto'<br>&#124;&nbsp;number<br>&#124;&nbsp;bool",
-      "name": "union"
-     }
-    },
-    "spacing": {
-     "default": "0",
-     "type": {
-      "description": "Array&lt;number<br>&#124;&nbsp;string&gt;<br>&#124;&nbsp;number<br>&#124;&nbsp;object<br>&#124;&nbsp;string",
-      "name": "union"
-     }
-    },
-    "sx": {
-     "additionalInfo": {
-      "sx": true
-     },
-     "type": {
-      "description": "Array&lt;func<br>&#124;&nbsp;object<br>&#124;&nbsp;bool&gt;<br>&#124;&nbsp;func<br>&#124;&nbsp;object",
-      "name": "union"
-     }
-    },
-    "wrap": {
-     "default": "'wrap'",
-     "type": {
-      "description": "'nowrap'<br>&#124;&nbsp;'wrap-reverse'<br>&#124;&nbsp;'wrap'",
-      "name": "enum"
-     }
-    },
-    "xl": {
-     "default": "false",
-     "type": {
-      "description": "'auto'<br>&#124;&nbsp;number<br>&#124;&nbsp;bool",
-      "name": "union"
-     }
-    },
-    "xs": {
-     "default": "false",
-     "type": {
-      "description": "'auto'<br>&#124;&nbsp;number<br>&#124;&nbsp;bool",
-      "name": "union"
-     }
-    },
-    "zeroMinWidth": {
-     "default": "false",
-     "type": {
-      "name": "bool"
-     }
-    }
-   }
-  },
   "Grow": {
-   "componentDescription": "The Grow transition is used by the [Tooltip](/material-ui/react-tooltip/) and\n[Popover](/material-ui/react-popover/) components.\nIt uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.",
+   "componentDescription": "The Grow transition is used by the [Tooltip](/material-ui/react-tooltip/) and\n[Popover](/material-ui/react-popover/) components.",
    "propDescriptions": {
     "addEndListener": {
-     "description": "Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided."
+     "description": "Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided.",
+     "typeDescriptions": {
+      "done": {
+       "description": "Call this when the transition has finished.",
+       "name": "done"
+      },
+      "node": {
+       "description": "The transitioning DOM node.",
+       "name": "node"
+      }
+     }
     },
     "appear": {
      "description": "Perform the enter transition when it first mounts if <code>in</code> is also <code>true</code>. Set this to <code>false</code> to disable this behavior."
@@ -5914,6 +5480,9 @@
     "children": {
      "description": "A single child content element.",
      "requiresRef": true
+    },
+    "disablePrefersReducedMotion": {
+     "description": "If <code>true</code>, the transition ignores <code>theme.motion.reducedMotion</code> and keeps its normal timing."
     },
     "easing": {
      "description": "The transition timing function. You may specify a single easing or a object containing enter and exit values."
@@ -5927,6 +5496,13 @@
    },
    "props": {
     "addEndListener": {
+     "signature": {
+      "describedArgs": [
+       "node",
+       "done"
+      ],
+      "type": "function(node: HTMLElement, done: Function) => void"
+     },
      "type": {
       "name": "func"
      }
@@ -5942,6 +5518,12 @@
      "type": {
       "description": "element",
       "name": "custom"
+     }
+    },
+    "disablePrefersReducedMotion": {
+     "default": "false",
+     "type": {
+      "name": "bool"
      }
     },
     "easing": {
@@ -6473,12 +6055,6 @@
     "color": {
      "description": "The color of the component. It supports both default and custom theme colors, which can be added as shown in the <a href=\"https://mui.com/material-ui/customization/palette/#custom-colors\">palette customization guide</a>. The prop defaults to the value (<code>&#39;primary&#39;</code>) inherited from the parent FormControl component."
     },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
-    },
     "defaultValue": {
      "description": "The default value. Use when the component is not controlled."
     },
@@ -6546,10 +6122,10 @@
      "description": "Number of rows to display when multiline option is set to true."
     },
     "slotProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones.<br>This prop is an alias for the <code>componentsProps</code> prop, which will be deprecated in the future."
+     "description": "The extra props for the slot components. You can override the existing props or add new ones."
     },
     "slots": {
-     "description": "The components used for each slot inside.<br>This prop is an alias for the <code>components</code> prop, which will be deprecated in the future."
+     "description": "The components used for each slot inside."
     },
     "startAdornment": {
      "description": "Start <code>InputAdornment</code> for this component."
@@ -6587,24 +6163,6 @@
      "type": {
       "description": "'primary'<br>&#124;&nbsp;'secondary'<br>&#124;&nbsp;string",
       "name": "union"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Input?: elementType, Root?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ input?: object, root?: object }",
-      "name": "shape"
      }
     },
     "defaultValue": {
@@ -6862,12 +6420,6 @@
     "color": {
      "description": "The color of the component. It supports both default and custom theme colors, which can be added as shown in the <a href=\"https://mui.com/material-ui/customization/palette/#custom-colors\">palette customization guide</a>. The prop defaults to the value (<code>&#39;primary&#39;</code>) inherited from the parent FormControl component."
     },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
-    },
     "defaultValue": {
      "description": "The default value. Use when the component is not controlled."
     },
@@ -6945,10 +6497,10 @@
      "description": "The size of the component."
     },
     "slotProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones.<br>This prop is an alias for the <code>componentsProps</code> prop, which will be deprecated in the future."
+     "description": "The extra props for the slot components. You can override the existing props or add new ones."
     },
     "slots": {
-     "description": "The components used for each slot inside.<br>This prop is an alias for the <code>components</code> prop, which will be deprecated in the future."
+     "description": "The components used for each slot inside."
     },
     "startAdornment": {
      "description": "Start <code>InputAdornment</code> for this component."
@@ -6986,24 +6538,6 @@
      "type": {
       "description": "'primary'<br>&#124;&nbsp;'secondary'<br>&#124;&nbsp;'error'<br>&#124;&nbsp;'info'<br>&#124;&nbsp;'success'<br>&#124;&nbsp;'warning'<br>&#124;&nbsp;string",
       "name": "union"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Input?: elementType, Root?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ input?: object, root?: object }",
-      "name": "shape"
      }
     },
     "defaultValue": {
@@ -7313,14 +6847,20 @@
     "color": {
      "description": "The color of the component. It supports both default and custom theme colors, which can be added as shown in the <a href=\"https://mui.com/material-ui/customization/palette/#custom-colors\">palette customization guide</a>."
     },
+    "max": {
+     "description": "The maximum value for the progress indicator for the determinate and buffer variants."
+    },
+    "min": {
+     "description": "The minimum value for the progress indicator for the determinate and buffer variants."
+    },
     "sx": {
      "description": "The system prop that allows defining system overrides as well as additional CSS styles."
     },
     "value": {
-     "description": "The value of the progress indicator for the determinate and buffer variants. Value between 0 and 100."
+     "description": "The value of the progress indicator for the determinate and buffer variants. Value between <code>min</code> and <code>max</code>."
     },
     "valueBuffer": {
-     "description": "The value for the buffer variant. Value between 0 and 100."
+     "description": "The value for the buffer variant. Value between <code>min</code> and <code>max</code>."
     },
     "variant": {
      "description": "The variant to use. Use indeterminate or query when there is no progress value."
@@ -7340,6 +6880,18 @@
      "type": {
       "description": "'inherit'<br>&#124;&nbsp;'primary'<br>&#124;&nbsp;'secondary'<br>&#124;&nbsp;string",
       "name": "union"
+     }
+    },
+    "max": {
+     "default": "100",
+     "type": {
+      "name": "number"
+     }
+    },
+    "min": {
+     "default": "0",
+     "type": {
+      "name": "number"
      }
     },
     "sx": {
@@ -7529,32 +7081,19 @@
    }
   },
   "ListItem": {
-   "componentDescription": "Uses an additional container component if `ListItemSecondaryAction` is the last child.",
+   "componentDescription": "",
    "propDescriptions": {
-    "ContainerComponent": {
-     "description": "The container component used when a <code>ListItemSecondaryAction</code> is the last child.",
-     "requiresRef": true
-    },
-    "ContainerProps": {
-     "description": "Props applied to the container component if used."
-    },
     "alignItems": {
      "description": "Defines the <code>align-items</code> style property."
     },
     "children": {
-     "description": "The content of the component if a <code>ListItemSecondaryAction</code> is used it must be the last child."
+     "description": "The content of the component."
     },
     "classes": {
      "description": "Override or extend the styles applied to the component."
     },
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component."
-    },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
     },
     "dense": {
      "description": "If <code>true</code>, compact vertical padding designed for keyboard and mouse input is used. The prop defaults to the value inherited from the parent List component."
@@ -7582,23 +7121,6 @@
     }
    },
    "props": {
-    "ContainerComponent": {
-     "default": "'li'",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>component</code> or <code>slots.root</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "element type",
-      "name": "custom"
-     }
-    },
-    "ContainerProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>slotProps.root</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "alignItems": {
      "default": "'center'",
      "type": {
@@ -7608,8 +7130,7 @@
     },
     "children": {
      "type": {
-      "description": "node",
-      "name": "custom"
+      "name": "node"
      }
     },
     "classes": {
@@ -7623,24 +7144,6 @@
     "component": {
      "type": {
       "name": "elementType"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Root?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ root?: object }",
-      "name": "shape"
      }
     },
     "dense": {
@@ -7675,7 +7178,7 @@
     "slotProps": {
      "default": "{}",
      "type": {
-      "description": "{ root?: object, secondaryAction?: func<br>&#124;&nbsp;object }",
+      "description": "{ root?: func<br>&#124;&nbsp;object, secondaryAction?: func<br>&#124;&nbsp;object }",
       "name": "shape"
      }
     },
@@ -7745,7 +7248,7 @@
      "description": "If <code>true</code>, the list item is focused during the first mount. Focus will also be triggered if the value changes from false to true."
     },
     "children": {
-     "description": "The content of the component if a <code>ListItemSecondaryAction</code> is used it must be the last child."
+     "description": "The content of the component."
     },
     "classes": {
      "description": "Override or extend the styles applied to the component."
@@ -7900,6 +7403,9 @@
     "classes": {
      "description": "Override or extend the styles applied to the component."
     },
+    "component": {
+     "description": "The component used for the root node. Either a string to use a HTML element or a component."
+    },
     "sx": {
      "description": "The system prop that allows defining system overrides as well as additional CSS styles."
     }
@@ -7916,6 +7422,11 @@
      },
      "type": {
       "name": "object"
+     }
+    },
+    "component": {
+     "type": {
+      "name": "elementType"
      }
     },
     "sx": {
@@ -7947,14 +7458,8 @@
     "primary": {
      "description": "The main content element."
     },
-    "primaryTypographyProps": {
-     "description": "These props will be forwarded to the primary typography component (as long as disableTypography is not <code>true</code>)."
-    },
     "secondary": {
      "description": "The secondary content element."
-    },
-    "secondaryTypographyProps": {
-     "description": "These props will be forwarded to the secondary typography component (as long as disableTypography is not <code>true</code>)."
     },
     "slotProps": {
      "description": "The props used for each slot inside."
@@ -7997,23 +7502,9 @@
       "name": "node"
      }
     },
-    "primaryTypographyProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.primary</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "secondary": {
      "type": {
       "name": "node"
-     }
-    },
-    "secondaryTypographyProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.secondary</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
      }
     },
     "slotProps": {
@@ -8127,14 +7618,8 @@
   "Menu": {
    "componentDescription": "",
    "propDescriptions": {
-    "MenuListProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/menu-list/\"><code>MenuList</code></a> element."
-    },
     "PopoverClasses": {
      "description": "<code>classes</code> prop applied to the <a href=\"https://mui.com/material-ui/api/popover/\"><code>Popover</code></a> element."
-    },
-    "TransitionProps": {
-     "description": "Props applied to the transition element. By default, the element is based on this <a href=\"https://reactcommunity.org/react-transition-group/transition/\"><code>Transition</code></a> component."
     },
     "anchorEl": {
      "description": "An HTML element, or a function that returns one. It&#39;s used to set the position of the menu."
@@ -8184,23 +7669,7 @@
     }
    },
    "props": {
-    "MenuListProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.list</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "PopoverClasses": {
-     "type": {
-      "name": "object"
-     }
-    },
-    "TransitionProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.transition</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
      "type": {
       "name": "object"
      }
@@ -8321,7 +7790,7 @@
      "description": "This prop can help identify which element has keyboard focus. The class name will be applied when the element gains the focus through keyboard interaction. It&#39;s a polyfill for the <a href=\"https://drafts.csswg.org/selectors-4/#the-focus-visible-pseudo\">CSS :focus-visible selector</a>. The rationale for using this feature <a href=\"https://github.com/WICG/focus-visible/blob/HEAD/explainer.md\">is explained here</a>. A <a href=\"https://github.com/WICG/focus-visible\">polyfill can be used</a> to apply a <code>focus-visible</code> class to other components if needed."
     },
     "selected": {
-     "description": "If <code>true</code>, the component is selected."
+     "description": "If <code>true</code>, the component is selected. For <code>menuitemcheckbox</code> and <code>menuitemradio</code> roles, this also drives <code>aria-checked</code>."
     },
     "sx": {
      "description": "The system prop that allows defining system overrides as well as additional CSS styles."
@@ -8456,9 +7925,6 @@
   "MobileStepper": {
    "componentDescription": "",
    "propDescriptions": {
-    "LinearProgressProps": {
-     "description": "Props applied to the <code>LinearProgress</code> element."
-    },
     "activeStep": {
      "description": "Set the active step (zero based index). Defines which dot is highlighted when the variant is &#39;dots&#39;."
     },
@@ -8491,13 +7957,6 @@
     }
    },
    "props": {
-    "LinearProgressProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.progress</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "activeStep": {
      "default": "0",
      "type": {
@@ -8572,12 +8031,6 @@
   "Modal": {
    "componentDescription": "Modal is a lower-level construct that is leveraged by the following components:\n\n- [Dialog](/material-ui/api/dialog/)\n- [Drawer](/material-ui/api/drawer/)\n- [Menu](/material-ui/api/menu/)\n- [Popover](/material-ui/api/popover/)\n\nIf you are creating a modal dialog, you probably want to use the [Dialog](/material-ui/api/dialog/) component\nrather than directly using Modal.\n\nThis component shares many concepts with [react-overlays](https://react-bootstrap.github.io/react-overlays/#modals).",
    "propDescriptions": {
-    "BackdropComponent": {
-     "description": "A backdrop component. This prop enables custom backdrop rendering."
-    },
-    "BackdropProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/backdrop/\"><code>Backdrop</code></a> element."
-    },
     "children": {
      "description": "A single child content element.",
      "requiresRef": true
@@ -8591,12 +8044,6 @@
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component."
     },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
-    },
     "container": {
      "description": "An HTML element or function that returns one. The <code>container</code> will have the portal children appended to it.<br>You can also provide a callback, which is called in a React layout effect. This lets you set the container from a ref, and also makes server-side rendering possible.<br>By default, it uses the body of the top-level document object, so it&#39;s simply <code>document.body</code> most of the time."
     },
@@ -8605,9 +8052,6 @@
     },
     "disableEnforceFocus": {
      "description": "If <code>true</code>, the modal will not prevent focus from leaving the modal while open.<br>Generally this should never be set to <code>true</code> as it makes the modal less accessible to assistive technologies, like screen readers."
-    },
-    "disableEscapeKeyDown": {
-     "description": "If <code>true</code>, hitting escape will not fire the <code>onClose</code> callback."
     },
     "disablePortal": {
      "description": "The <code>children</code> will be under the DOM hierarchy of the parent component."
@@ -8657,21 +8101,6 @@
     }
    },
    "props": {
-    "BackdropComponent": {
-     "default": "styled(Backdrop, {\n  name: 'MuiModal',\n  slot: 'Backdrop',\n})({\n  zIndex: -1,\n})",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.backdrop</code> instead. While this prop currently works, it will be removed in the next major version.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "BackdropProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.backdrop</code> instead.",
-     "type": {
-      "name": "object"
-     }
-    },
     "children": {
      "required": true,
      "type": {
@@ -8698,24 +8127,6 @@
       "name": "elementType"
      }
     },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Backdrop?: elementType, Root?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ backdrop?: func<br>&#124;&nbsp;object, root?: func<br>&#124;&nbsp;object }",
-      "name": "shape"
-     }
-    },
     "container": {
      "type": {
       "description": "HTML element<br>&#124;&nbsp;func",
@@ -8729,12 +8140,6 @@
      }
     },
     "disableEnforceFocus": {
-     "default": "false",
-     "type": {
-      "name": "bool"
-     }
-    },
-    "disableEscapeKeyDown": {
      "default": "false",
      "type": {
       "name": "bool"
@@ -8973,9 +8378,6 @@
     "color": {
      "description": "The color of the component. It supports both default and custom theme colors, which can be added as shown in the <a href=\"https://mui.com/material-ui/customization/palette/#custom-colors\">palette customization guide</a>. The prop defaults to the value (<code>&#39;primary&#39;</code>) inherited from the parent FormControl component."
     },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
     "defaultValue": {
      "description": "The default value. Use when the component is not controlled."
     },
@@ -9087,15 +8489,6 @@
      "type": {
       "description": "'primary'<br>&#124;&nbsp;'secondary'<br>&#124;&nbsp;string",
       "name": "union"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Input?: elementType, Root?: elementType }",
-      "name": "shape"
      }
     },
     "defaultValue": {
@@ -9511,11 +8904,11 @@
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component."
     },
-    "components": {
-     "description": "The components used for each slot inside.<br>This prop is an alias for the <code>slots</code> prop. It&#39;s recommended to use the <code>slots</code> prop instead."
-    },
     "disabled": {
      "description": "If <code>true</code>, the component is disabled."
+    },
+    "nativeButton": {
+     "description": "Whether the custom component should render a native <code>&lt;button&gt;</code> element when rendering a React component with the <code>component</code> or <code>slots</code> prop."
     },
     "page": {
      "description": "The current page number."
@@ -9566,17 +8959,13 @@
       "name": "elementType"
      }
     },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ first?: elementType, last?: elementType, next?: elementType, previous?: elementType }",
-      "name": "shape"
-     }
-    },
     "disabled": {
      "default": "false",
+     "type": {
+      "name": "bool"
+     }
+    },
+    "nativeButton": {
      "type": {
       "name": "bool"
      }
@@ -9840,7 +9229,7 @@
     "direction": {
      "default": "'row'",
      "type": {
-      "description": "'column'<br>&#124;&nbsp;'column-reverse'<br>&#124;&nbsp;'row'<br>&#124;&nbsp;'row-reverse'<br>&#124;&nbsp;Array&lt;'column'<br>&#124;&nbsp;'column-reverse'<br>&#124;&nbsp;'row'<br>&#124;&nbsp;'row-reverse'&gt;<br>&#124;&nbsp;object",
+      "description": "'row'<br>&#124;&nbsp;'row-reverse'<br>&#124;&nbsp;Array&lt;'row'<br>&#124;&nbsp;'row-reverse'&gt;<br>&#124;&nbsp;object",
       "name": "union"
      }
     },
@@ -9936,21 +9325,6 @@
   "Popover": {
    "componentDescription": "",
    "propDescriptions": {
-    "BackdropComponent": {
-     "description": "A backdrop component. This prop enables custom backdrop rendering."
-    },
-    "BackdropProps": {
-     "description": "Props applied to the <a href=\"/material-ui/api/backdrop/\"><code>Backdrop</code></a> element."
-    },
-    "PaperProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/paper/\"><code>Paper</code></a> element.<br>This prop is an alias for <code>slotProps.paper</code> and will be overridden by it if both are used."
-    },
-    "TransitionComponent": {
-     "description": "The component used for the transition. <a href=\"https://mui.com/material-ui/transitions/#transitioncomponent-prop\">Follow this guide</a> to learn more about the requirements for this component."
-    },
-    "TransitionProps": {
-     "description": "Props applied to the transition element. By default, the element is based on this <a href=\"https://reactcommunity.org/react-transition-group/transition/\"><code>Transition</code></a> component."
-    },
     "action": {
      "description": "A ref for imperative actions. It currently only supports updatePosition() action."
     },
@@ -9974,6 +9348,9 @@
     },
     "container": {
      "description": "An HTML element, component instance, or function that returns either. The <code>container</code> will passed to the Modal component.<br>By default, it uses the body of the anchorEl&#39;s top-level document object, so it&#39;s simply <code>document.body</code> most of the time."
+    },
+    "disableAutoFocus": {
+     "description": "If <code>true</code>, the modal will not automatically shift focus to itself when it opens, and replace it to the last focused element when it closes. This also works correctly with any modal children that have the <code>disableAutoFocus</code> prop.<br>Generally this should never be set to <code>true</code> as it makes the modal less accessible to assistive technologies, like screen readers."
     },
     "disableScrollLock": {
      "description": "Disable the scroll lock behavior."
@@ -10007,46 +9384,6 @@
     }
    },
    "props": {
-    "BackdropComponent": {
-     "default": "styled(Backdrop, {\n  name: 'MuiModal',\n  slot: 'Backdrop',\n  overridesResolver: (props, styles) => {\n    return styles.backdrop;\n  },\n})({\n  zIndex: -1,\n})",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.backdrop</code> instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "BackdropProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.backdrop</code> instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "PaperProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.paper</code> instead.",
-     "type": {
-      "description": "{ component?: element type }",
-      "name": "shape"
-     }
-    },
-    "TransitionComponent": {
-     "default": "Grow",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots.transition</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "TransitionProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.transition</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "action": {
      "type": {
       "description": "ref",
@@ -10096,6 +9433,12 @@
      "type": {
       "description": "HTML element<br>&#124;&nbsp;func",
       "name": "union"
+     }
+    },
+    "disableAutoFocus": {
+     "default": "false",
+     "type": {
+      "name": "bool"
      }
     },
     "disableScrollLock": {
@@ -10179,12 +9522,6 @@
     "component": {
      "description": "The component used for the root node. Either a string to use a HTML element or a component."
     },
-    "components": {
-     "description": "The components used for each slot inside the Popper. Either a string to use a HTML element or a component."
-    },
-    "componentsProps": {
-     "description": "The props used for each slot inside the Popper."
-    },
     "container": {
      "description": "An HTML element or function that returns one. The <code>container</code> will have the portal children appended to it.<br>You can also provide a callback, which is called in a React layout effect. This lets you set the container from a ref, and also makes server-side rendering possible.<br>By default, it uses the body of the top-level document object, so it&#39;s simply <code>document.body</code> most of the time."
     },
@@ -10238,24 +9575,6 @@
     "component": {
      "type": {
       "name": "elementType"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">How to migrate</a>.",
-     "type": {
-      "description": "{ Root?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">How to migrate</a>.",
-     "type": {
-      "description": "{ root?: func<br>&#124;&nbsp;object }",
-      "name": "shape"
      }
     },
     "container": {
@@ -10399,12 +9718,6 @@
     "id": {
      "description": "The id of the <code>input</code> element."
     },
-    "inputProps": {
-     "description": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes\">Attributes</a> applied to the <code>input</code> element."
-    },
-    "inputRef": {
-     "description": "Pass a ref to the <code>input</code> element."
-    },
     "name": {
      "description": "Name attribute of the <code>input</code> element."
     },
@@ -10483,21 +9796,6 @@
     "id": {
      "type": {
       "name": "string"
-     }
-    },
-    "inputProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.input</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "inputRef": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.input.ref</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "ref",
-      "name": "custom"
      }
     },
     "name": {
@@ -10626,9 +9924,6 @@
   "Rating": {
    "componentDescription": "",
    "propDescriptions": {
-    "IconContainerComponent": {
-     "description": "The component containing the icon."
-    },
     "classes": {
      "description": "Override or extend the styles applied to the component."
     },
@@ -10717,14 +10012,6 @@
     }
    },
    "props": {
-    "IconContainerComponent": {
-     "default": "function IconContainer(props) {\n  const { value, ...other } = props;\n  return <span {...other} />;\n}",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.icon.component</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
     "classes": {
      "additionalInfo": {
       "cssApi": true
@@ -11279,10 +10566,20 @@
    }
   },
   "Slide": {
-   "componentDescription": "The Slide transition is used by the [Drawer](/material-ui/react-drawer/) component.\nIt uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.",
+   "componentDescription": "The Slide transition is used by the [Drawer](/material-ui/react-drawer/) component.",
    "propDescriptions": {
     "addEndListener": {
-     "description": "Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided."
+     "description": "Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided.",
+     "typeDescriptions": {
+      "done": {
+       "description": "Call this when the transition has finished.",
+       "name": "done"
+      },
+      "node": {
+       "description": "The transitioning DOM node.",
+       "name": "node"
+      }
+     }
     },
     "appear": {
      "description": "Perform the enter transition when it first mounts if <code>in</code> is also <code>true</code>. Set this to <code>false</code> to disable this behavior."
@@ -11297,6 +10594,9 @@
     "direction": {
      "description": "Direction the child node will enter from."
     },
+    "disablePrefersReducedMotion": {
+     "description": "If <code>true</code>, the transition ignores <code>theme.motion.reducedMotion</code> and keeps its normal timing."
+    },
     "easing": {
      "description": "The transition timing function. You may specify a single easing or a object containing enter and exit values."
     },
@@ -11309,6 +10609,13 @@
    },
    "props": {
     "addEndListener": {
+     "signature": {
+      "describedArgs": [
+       "node",
+       "done"
+      ],
+      "type": "function(node: HTMLElement, done: Function) => void"
+     },
      "type": {
       "name": "func"
      }
@@ -11337,6 +10644,12 @@
      "type": {
       "description": "'down'<br>&#124;&nbsp;'left'<br>&#124;&nbsp;'right'<br>&#124;&nbsp;'up'",
       "name": "enum"
+     }
+    },
+    "disablePrefersReducedMotion": {
+     "default": "false",
+     "type": {
+      "name": "bool"
      }
     },
     "easing": {
@@ -11377,12 +10690,6 @@
     },
     "color": {
      "description": "The color of the component. It supports both default and custom theme colors, which can be added as shown in the <a href=\"https://mui.com/material-ui/customization/palette/#custom-colors\">palette customization guide</a>."
-    },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
     },
     "defaultValue": {
      "description": "The default value. Use when the component is not controlled."
@@ -11445,7 +10752,7 @@
      }
     },
     "onChangeCommitted": {
-     "description": "Callback function that is fired when the <code>mouseup</code> is triggered.",
+     "description": "Callback function that is fired when the pointer or touch interaction ends.",
      "typeDescriptions": {
       "event": {
        "description": "The event source of the callback. <strong>Warning</strong>: This is a generic event not a change event.",
@@ -11470,10 +10777,10 @@
      "description": "The size of the slider."
     },
     "slotProps": {
-     "description": "The props used for each slot inside the Slider."
+     "description": "The props used for each slot inside."
     },
     "slots": {
-     "description": "The components used for each slot inside the Slider. Either a string to use a HTML element or a component."
+     "description": "The components used for each slot inside."
     },
     "step": {
      "description": "The granularity with which the slider can step through values. (A &quot;discrete&quot; slider.) The <code>min</code> prop serves as the origin for the valid values. We recommend (max - min) to be evenly divisible by the step.<br>When step is <code>null</code>, the thumb can only be slid onto marks provided with the <code>marks</code> prop."
@@ -11528,24 +10835,6 @@
      "type": {
       "description": "'primary'<br>&#124;&nbsp;'secondary'<br>&#124;&nbsp;'error'<br>&#124;&nbsp;'info'<br>&#124;&nbsp;'success'<br>&#124;&nbsp;'warning'<br>&#124;&nbsp;string",
       "name": "union"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Input?: elementType, Mark?: elementType, MarkLabel?: elementType, Rail?: elementType, Root?: elementType, Thumb?: elementType, Track?: elementType, ValueLabel?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ input?: func<br>&#124;&nbsp;object, mark?: func<br>&#124;&nbsp;object, markLabel?: func<br>&#124;&nbsp;object, rail?: func<br>&#124;&nbsp;object, root?: func<br>&#124;&nbsp;object, thumb?: func<br>&#124;&nbsp;object, track?: func<br>&#124;&nbsp;object, valueLabel?: func<br>&#124;&nbsp;{ children?: element, className?: string, open?: bool, style?: object, value?: node, valueLabelDisplay?: 'auto'<br>&#124;&nbsp;'off'<br>&#124;&nbsp;'on' } }",
-      "name": "shape"
      }
     },
     "defaultValue": {
@@ -11734,18 +11023,6 @@
   "Snackbar": {
    "componentDescription": "",
    "propDescriptions": {
-    "ClickAwayListenerProps": {
-     "description": "Props applied to the <code>ClickAwayListener</code> element."
-    },
-    "ContentProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/snackbar-content/\"><code>SnackbarContent</code></a> element."
-    },
-    "TransitionComponent": {
-     "description": "The component used for the transition. <a href=\"https://mui.com/material-ui/transitions/#transitioncomponent-prop\">Follow this guide</a> to learn more about the requirements for this component."
-    },
-    "TransitionProps": {
-     "description": "Props applied to the transition element. By default, the element is based on this <a href=\"https://reactcommunity.org/react-transition-group/transition/\"><code>Transition</code></a> component."
-    },
     "action": {
      "description": "The action to display. It renders after the message, at the end of the snackbar."
     },
@@ -11803,36 +11080,6 @@
     }
    },
    "props": {
-    "ClickAwayListenerProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.clickAwayListener</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "ContentProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.content</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "TransitionComponent": {
-     "default": "Grow",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.transition</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "TransitionProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.transition</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "action": {
      "type": {
       "name": "node"
@@ -11996,12 +11243,6 @@
     "FabProps": {
      "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/fab/\"><code>Fab</code></a> element."
     },
-    "TransitionComponent": {
-     "description": "The component used for the transition. <a href=\"https://mui.com/material-ui/transitions/#transitioncomponent-prop\">Follow this guide</a> to learn more about the requirements for this component."
-    },
-    "TransitionProps": {
-     "description": "Props applied to the transition element. By default, the element is based on this <a href=\"https://reactcommunity.org/react-transition-group/transition/\"><code>Transition</code></a> component."
-    },
     "ariaLabel": {
      "description": "The aria-label of the button element. Also used to provide the <code>id</code> for the <code>SpeedDial</code> element and its children."
     },
@@ -12068,21 +11309,6 @@
    "props": {
     "FabProps": {
      "default": "{}",
-     "type": {
-      "name": "object"
-     }
-    },
-    "TransitionComponent": {
-     "default": "Zoom\n* @deprecated Use `slots.transition` instead. This prop will be removed in a future major release. [How to migrate](/material-ui/migration/migrating-from-deprecated-apis/)",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.transition</code> instead. This prop will be removed in a future major release. <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">How to migrate</a>",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "TransitionProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.transition</code> instead. This prop will be removed in a future major release. <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">How to migrate</a>",
      "type": {
       "name": "object"
      }
@@ -12193,12 +11419,6 @@
   "SpeedDialAction": {
    "componentDescription": "",
    "propDescriptions": {
-    "FabProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/fab/\"><code>Fab</code></a> component."
-    },
-    "TooltipClasses": {
-     "description": "<code>classes</code> prop applied to the <a href=\"https://mui.com/material-ui/api/tooltip/\"><code>Tooltip</code></a> element."
-    },
     "classes": {
      "description": "Override or extend the styles applied to the component."
     },
@@ -12222,33 +11442,9 @@
     },
     "sx": {
      "description": "The system prop that allows defining system overrides as well as additional CSS styles."
-    },
-    "tooltipOpen": {
-     "description": "Make the tooltip always visible when the SpeedDial is open."
-    },
-    "tooltipPlacement": {
-     "description": "Placement of the tooltip."
-    },
-    "tooltipTitle": {
-     "description": "Label to display in the tooltip."
     }
    },
    "props": {
-    "FabProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.fab</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "TooltipClasses": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.tooltip.classes</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "classes": {
      "additionalInfo": {
       "cssApi": true
@@ -12299,30 +11495,6 @@
      "type": {
       "description": "Array&lt;func<br>&#124;&nbsp;object<br>&#124;&nbsp;bool&gt;<br>&#124;&nbsp;func<br>&#124;&nbsp;object",
       "name": "union"
-     }
-    },
-    "tooltipOpen": {
-     "default": "false",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.tooltip.open</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "bool"
-     }
-    },
-    "tooltipPlacement": {
-     "default": "'left'",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.tooltip.placement</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "'auto-end'<br>&#124;&nbsp;'auto-start'<br>&#124;&nbsp;'auto'<br>&#124;&nbsp;'bottom-end'<br>&#124;&nbsp;'bottom-start'<br>&#124;&nbsp;'bottom'<br>&#124;&nbsp;'left-end'<br>&#124;&nbsp;'left-start'<br>&#124;&nbsp;'left'<br>&#124;&nbsp;'right-end'<br>&#124;&nbsp;'right-start'<br>&#124;&nbsp;'right'<br>&#124;&nbsp;'top-end'<br>&#124;&nbsp;'top-start'<br>&#124;&nbsp;'top'",
-      "name": "enum"
-     }
-    },
-    "tooltipTitle": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.tooltip.title</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "node"
      }
     }
    }
@@ -12395,7 +11567,7 @@
      "description": "The system prop, which allows defining system overrides as well as additional CSS styles."
     },
     "useFlexGap": {
-     "description": "If <code>true</code>, the CSS flexbox <code>gap</code> is used instead of applying <code>margin</code> to children.<br>While CSS <code>gap</code> removes the <a href=\"https://mui.com/joy-ui/react-stack/#limitations\">known limitations</a>, it is not fully supported in some browsers. We recommend checking <a href=\"https://caniuse.com/?search=flex%20gap\">https://caniuse.com/?search=flex%20gap</a> before using this flag.<br>To enable this flag globally, follow the theme&#39;s default props configuration."
+     "description": "If <code>true</code>, the CSS flexbox <code>gap</code> is used instead of applying <code>margin</code> to children.<br>While CSS <code>gap</code> removes the known limitations, it is not fully supported in some browsers. We recommend checking <a href=\"https://caniuse.com/?search=flex%20gap\">https://caniuse.com/?search=flex%20gap</a> before using this flag.<br>To enable this flag globally, follow the theme&#39;s default props configuration."
     }
    },
    "props": {
@@ -12628,12 +11800,6 @@
   "StepContent": {
    "componentDescription": "",
    "propDescriptions": {
-    "TransitionComponent": {
-     "description": "The component used for the transition. <a href=\"https://mui.com/material-ui/transitions/#transitioncomponent-prop\">Follow this guide</a> to learn more about the requirements for this component."
-    },
-    "TransitionProps": {
-     "description": "Props applied to the transition element. By default, the element is based on this <a href=\"https://reactcommunity.org/react-transition-group/transition/\"><code>Transition</code></a> component."
-    },
     "children": {
      "description": "The content of the component."
     },
@@ -12654,21 +11820,6 @@
     }
    },
    "props": {
-    "TransitionComponent": {
-     "default": "Collapse",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.transition</code> instead. This prop will be removed in a future major release. <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">How to migrate</a>.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "TransitionProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.transition</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "children": {
      "type": {
       "name": "node"
@@ -12782,20 +11933,11 @@
   "StepLabel": {
    "componentDescription": "",
    "propDescriptions": {
-    "StepIconComponent": {
-     "description": "The component to render in place of the <a href=\"https://mui.com/material-ui/api/step-icon/\"><code>StepIcon</code></a>."
-    },
-    "StepIconProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/step-icon/\"><code>StepIcon</code></a> element."
-    },
     "children": {
      "description": "In most cases will simply be a string containing a title for the label."
     },
     "classes": {
      "description": "Override or extend the styles applied to the component."
-    },
-    "componentsProps": {
-     "description": "The props used for each slot inside."
     },
     "error": {
      "description": "If <code>true</code>, the step is marked as failed."
@@ -12817,20 +11959,6 @@
     }
    },
    "props": {
-    "StepIconComponent": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slots.stepIcon</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "StepIconProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.stepIcon</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "children": {
      "type": {
       "name": "node"
@@ -12842,15 +11970,6 @@
      },
      "type": {
       "name": "object"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ label?: object }",
-      "name": "shape"
      }
     },
     "error": {
@@ -12901,7 +12020,7 @@
      "description": "Set the active step (zero based index). Set to -1 to disable all the steps."
     },
     "alternativeLabel": {
-     "description": "If set to &#39;true&#39; and orientation is horizontal, then the step label will be positioned under the icon."
+     "description": "If set to &#39;true&#39; and orientation is horizontal, then the step label will be positioned under the icon. If set to &#39;true&#39; and orientation is vertical, it reverses the position of the label and content."
     },
     "children": {
      "description": "Two or more <code>&lt;Step /&gt;</code> components."
@@ -13098,9 +12217,6 @@
   "SwipeableDrawer": {
    "componentDescription": "",
    "propDescriptions": {
-    "SwipeAreaProps": {
-     "description": "The element is used to intercept the touch events on the edge."
-    },
     "allowSwipeInChildren": {
      "description": "If set to true, the swipe event will open the drawer even if the user begins the swipe on one of the drawer&#39;s children. This can be useful in scenarios where the drawer is partially visible. You can customize it further with a callback that determines which children the user can drag over to open the drawer (for example, to ignore other elements that handle touch move events, like sliders)."
     },
@@ -13157,13 +12273,6 @@
     }
    },
    "props": {
-    "SwipeAreaProps": {
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.swipeArea</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "allowSwipeInChildren": {
      "default": "false",
      "type": {
@@ -13298,12 +12407,6 @@
     "id": {
      "description": "The id of the <code>input</code> element."
     },
-    "inputProps": {
-     "description": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes\">Attributes</a> applied to the <code>input</code> element."
-    },
-    "inputRef": {
-     "description": "Pass a ref to the <code>input</code> element."
-    },
     "onChange": {
      "description": "Callback fired when the state is changed.",
      "typeDescriptions": {
@@ -13389,21 +12492,6 @@
     "id": {
      "type": {
       "name": "string"
-     }
-    },
-    "inputProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.input</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "inputRef": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.input.ref</code> instead. This prop will be removed in a future major release. See <a href=\"/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "ref",
-      "name": "custom"
      }
     },
     "onChange": {
@@ -14022,12 +13110,6 @@
     "ActionsComponent": {
      "description": "The component used for displaying the actions. Either a string to use a HTML element or a component."
     },
-    "SelectProps": {
-     "description": "Props applied to the rows per page <a href=\"https://mui.com/material-ui/api/select/\"><code>Select</code></a> element.<br>This prop is an alias for <code>slotProps.select</code> and will be overridden by it if both are used."
-    },
-    "backIconButtonProps": {
-     "description": "Props applied to the back arrow <a href=\"https://mui.com/material-ui/api/icon-button/\"><code>IconButton</code></a> component.<br>This prop is an alias for <code>slotProps.actions.previousButton</code> and will be overridden by it if both are used."
-    },
     "classes": {
      "description": "Override or extend the styles applied to the component."
     },
@@ -14054,9 +13136,6 @@
     },
     "labelRowsPerPage": {
      "description": "Customize the rows per page label.<br>For localization purposes, you can use the provided <a href=\"https://mui.com/material-ui/guides/localization/\">translations</a>."
-    },
-    "nextIconButtonProps": {
-     "description": "Props applied to the next arrow <a href=\"https://mui.com/material-ui/api/icon-button/\"><code>IconButton</code></a> element.<br>This prop is an alias for <code>slotProps.actions.nextButton</code> and will be overridden by it if both are used."
     },
     "onPageChange": {
      "description": "Callback fired when the page is changed.",
@@ -14112,21 +13191,6 @@
       "name": "elementType"
      }
     },
-    "SelectProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.select</code> instead.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "backIconButtonProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.actions.previousButton</code> instead.",
-     "type": {
-      "name": "object"
-     }
-    },
     "classes": {
      "additionalInfo": {
       "cssApi": true
@@ -14166,7 +13230,7 @@
      }
     },
     "labelDisplayedRows": {
-     "default": "function defaultLabelDisplayedRows({ from, to, count }) {\n  return `${from}\u2013${to} of ${count !== -1 ? count : `more than ${to}`}`;\n}",
+     "default": "function defaultLabelDisplayedRows({ from, to, count }) {\n  return `${formatNumber(from)}\u2013${formatNumber(to)} of ${count !== -1 ? formatNumber(count) : `more than ${formatNumber(to)}`}`;\n}",
      "type": {
       "name": "func"
      }
@@ -14175,13 +13239,6 @@
      "default": "'Rows per page:'",
      "type": {
       "name": "node"
-     }
-    },
-    "nextIconButtonProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.actions.nextButton</code> instead.",
-     "type": {
-      "name": "object"
      }
     },
     "onPageChange": {
@@ -14269,9 +13326,6 @@
   "TablePaginationActions": {
    "componentDescription": "",
    "propDescriptions": {
-    "backIconButtonProps": {
-     "description": "This prop is an alias for <code>slotProps.previousButton</code> and will be overridden by it if both are used."
-    },
     "classes": {
      "description": "Override or extend the styles applied to the component."
     },
@@ -14286,19 +13340,9 @@
        "name": "type"
       }
      }
-    },
-    "nextIconButtonProps": {
-     "description": "This prop is an alias for <code>slotProps.nextButton</code> and will be overridden by it if both are used."
     }
    },
    "props": {
-    "backIconButtonProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.previousButton</code> instead.",
-     "type": {
-      "name": "object"
-     }
-    },
     "classes": {
      "additionalInfo": {
       "cssApi": true
@@ -14323,13 +13367,6 @@
      },
      "type": {
       "name": "func"
-     }
-    },
-    "nextIconButtonProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.nextButton</code> instead.",
-     "type": {
-      "name": "object"
      }
     }
    }
@@ -14496,15 +13533,6 @@
   "Tabs": {
    "componentDescription": "",
    "propDescriptions": {
-    "ScrollButtonComponent": {
-     "description": "The component used to render the scroll buttons."
-    },
-    "TabIndicatorProps": {
-     "description": "Props applied to the tab indicator element."
-    },
-    "TabScrollButtonProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/tab-scroll-button/\"><code>TabScrollButton</code></a> element."
-    },
     "action": {
      "description": "Callback fired when the component mounts. This is useful when you want to trigger an action programmatically. It supports two actions: <code>updateIndicator()</code> and <code>updateScrollButtons()</code>"
     },
@@ -14577,30 +13605,6 @@
     }
    },
    "props": {
-    "ScrollButtonComponent": {
-     "default": "TabScrollButton",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots.scrollButtons</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "TabIndicatorProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.indicator</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "TabScrollButtonProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.scrollButtons</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "action": {
      "type": {
       "description": "ref",
@@ -14695,7 +13699,7 @@
     "slots": {
      "default": "{}",
      "type": {
-      "description": "{ endScrollButtonIcon?: elementType, EndScrollButtonIcon?: elementType, indicator?: elementType, list?: elementType, root?: elementType, scrollbar?: elementType, scrollButtons?: elementType, scroller?: elementType, startScrollButtonIcon?: elementType, StartScrollButtonIcon?: elementType }",
+      "description": "{ endScrollButtonIcon?: elementType, indicator?: elementType, list?: elementType, root?: elementType, scrollbar?: elementType, scrollButtons?: elementType, scroller?: elementType, startScrollButtonIcon?: elementType }",
       "name": "shape"
      }
     },
@@ -14736,20 +13740,8 @@
    }
   },
   "TextField": {
-   "componentDescription": "The `TextField` is a convenience wrapper for the most common cases (80%).\nIt cannot be all things to all people, otherwise the API would grow out of control.\n\n## Advanced Configuration\n\nIt's important to understand that the text field is a simple abstraction\non top of the following components:\n\n- [FormControl](/material-ui/api/form-control/)\n- [InputLabel](/material-ui/api/input-label/)\n- [FilledInput](/material-ui/api/filled-input/)\n- [OutlinedInput](/material-ui/api/outlined-input/)\n- [Input](/material-ui/api/input/)\n- [FormHelperText](/material-ui/api/form-helper-text/)\n\nIf you wish to alter the props applied to the `input` element, you can do so as follows:\n\n```jsx\nconst inputProps = {\n  step: 300,\n};\n\nreturn <TextField id=\"time\" type=\"time\" inputProps={inputProps} />;\n```\n\nFor advanced cases, please look at the source of TextField by clicking on the\n\"Edit this page\" button above. Consider either:\n\n- using the upper case props for passing values directly to the components\n- using the underlying components directly as shown in the demos",
+   "componentDescription": "The `TextField` is a convenience wrapper for the most common cases (80%).\nIt cannot be all things to all people, otherwise the API would grow out of control.\n\n## Advanced Configuration\n\nIt's important to understand that the text field is a simple abstraction\non top of the following components:\n\n- [FormControl](/material-ui/api/form-control/)\n- [InputLabel](/material-ui/api/input-label/)\n- [FilledInput](/material-ui/api/filled-input/)\n- [OutlinedInput](/material-ui/api/outlined-input/)\n- [Input](/material-ui/api/input/)\n- [FormHelperText](/material-ui/api/form-helper-text/)\n\nIf you wish to alter the props applied to the `input` element, you can do so as follows:\n\n```jsx\nconst slotProps = {\n  htmlInput: {\n     step: 300\n  }\n};\n\nreturn <TextField id=\"time\" type=\"time\" slotProps={slotProps} />;\n```\n\nFor advanced cases, please look at the source of TextField by clicking on the\n\"Edit this page\" button above. Consider either:\n\n- using the `slotProps` prop for passing values directly to the components\n- using the underlying components directly as shown in the demos",
    "propDescriptions": {
-    "FormHelperTextProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/form-helper-text/\"><code>FormHelperText</code></a> element."
-    },
-    "InputLabelProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/input-label/\"><code>InputLabel</code></a> element. Pointer events like <code>onClick</code> are enabled if and only if <code>shrink</code> is <code>true</code>."
-    },
-    "InputProps": {
-     "description": "Props applied to the Input element. It will be a <a href=\"https://mui.com/material-ui/api/filled-input/\"><code>FilledInput</code></a>, <a href=\"https://mui.com/material-ui/api/outlined-input/\"><code>OutlinedInput</code></a> or <a href=\"https://mui.com/material-ui/api/input/\"><code>Input</code></a> component depending on the <code>variant</code> prop value."
-    },
-    "SelectProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/select/\"><code>Select</code></a> element."
-    },
     "autoComplete": {
      "description": "This prop helps users to fill forms faster, especially on mobile devices. The name can be confusing, as it&#39;s more like an autofill. You can learn more about it <a href=\"https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill\">following the specification</a>."
     },
@@ -14779,9 +13771,6 @@
     },
     "id": {
      "description": "The id of the <code>input</code> element. Use this prop to make <code>label</code> and <code>helperText</code> accessible for screen readers."
-    },
-    "inputProps": {
-     "description": "<a href=\"https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input#attributes\">Attributes</a> applied to the <code>input</code> element."
     },
     "inputRef": {
      "description": "Pass a ref to the <code>input</code> element."
@@ -14848,34 +13837,6 @@
     }
    },
    "props": {
-    "FormHelperTextProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.formHelperText</code> instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "InputLabelProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.inputLabel</code> instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "InputProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.input</code> instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "SelectProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.select</code> instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "autoComplete": {
      "type": {
       "name": "string"
@@ -14933,13 +13894,6 @@
     "id": {
      "type": {
       "name": "string"
-     }
-    },
-    "inputProps": {
-     "deprecated": true,
-     "deprecationInfo": "Use <code>slotProps.htmlInput</code> instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
      }
     },
     "inputRef": {
@@ -15449,18 +14403,6 @@
   "Tooltip": {
    "componentDescription": "",
    "propDescriptions": {
-    "PopperComponent": {
-     "description": "The component used for the popper."
-    },
-    "PopperProps": {
-     "description": "Props applied to the <a href=\"https://mui.com/material-ui/api/popper/\"><code>Popper</code></a> element."
-    },
-    "TransitionComponent": {
-     "description": "The component used for the transition. <a href=\"https://mui.com/material-ui/transitions/#transitioncomponent-prop\">Follow this guide</a> to learn more about the requirements for this component."
-    },
-    "TransitionProps": {
-     "description": "Props applied to the transition element. By default, the element is based on this <a href=\"https://reactcommunity.org/react-transition-group/transition/\"><code>Transition</code></a> component."
-    },
     "arrow": {
      "description": "If <code>true</code>, adds an arrow to the tooltip."
     },
@@ -15470,12 +14412,6 @@
     },
     "classes": {
      "description": "Override or extend the styles applied to the component."
-    },
-    "components": {
-     "description": "The components used for each slot inside."
-    },
-    "componentsProps": {
-     "description": "The extra props for the slot components. You can override the existing props or add new ones."
     },
     "describeChild": {
      "description": "Set to <code>true</code> if the <code>title</code> acts as an accessible description. By default the <code>title</code> acts as an accessible label for the child."
@@ -15551,36 +14487,6 @@
     }
    },
    "props": {
-    "PopperComponent": {
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots.popper</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "PopperProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.popper</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
-    "TransitionComponent": {
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots.transition</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "elementType"
-     }
-    },
-    "TransitionProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps.transition</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "object"
-     }
-    },
     "arrow": {
      "default": "false",
      "type": {
@@ -15600,24 +14506,6 @@
      },
      "type": {
       "name": "object"
-     }
-    },
-    "components": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slots</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ Arrow?: elementType, Popper?: elementType, Tooltip?: elementType, Transition?: elementType }",
-      "name": "shape"
-     }
-    },
-    "componentsProps": {
-     "default": "{}",
-     "deprecated": true,
-     "deprecationInfo": "use the <code>slotProps</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "description": "{ arrow?: object, popper?: object, tooltip?: object, transition?: object }",
-      "name": "shape"
      }
     },
     "describeChild": {
@@ -15779,9 +14667,6 @@
     "noWrap": {
      "description": "If <code>true</code>, the text will not wrap, but instead will truncate with a text overflow ellipsis.<br>Note that text overflow can only happen with block or inline-block level elements (the element needs to have a width in order to overflow)."
     },
-    "paragraph": {
-     "description": "If <code>true</code>, the element will be a paragraph element."
-    },
     "sx": {
      "description": "The system prop that allows defining system overrides as well as additional CSS styles."
     },
@@ -15836,14 +14721,6 @@
       "name": "bool"
      }
     },
-    "paragraph": {
-     "default": "false",
-     "deprecated": true,
-     "deprecationInfo": "Use the <code>component</code> prop instead. This prop will be removed in a future major release. See <a href=\"https://mui.com/material-ui/migration/migrating-from-deprecated-apis/\">Migrating from deprecated APIs</a> for more details.",
-     "type": {
-      "name": "bool"
-     }
-    },
     "sx": {
      "additionalInfo": {
       "sx": true
@@ -15869,10 +14746,20 @@
    }
   },
   "Zoom": {
-   "componentDescription": "The Zoom transition can be used for the floating variant of the\n[Button](/material-ui/react-floating-action-button/#animation) component.\nIt uses [react-transition-group](https://github.com/reactjs/react-transition-group) internally.",
+   "componentDescription": "The Zoom transition can be used for the floating variant of the\n[Button](/material-ui/react-floating-action-button/#animation) component.",
    "propDescriptions": {
     "addEndListener": {
-     "description": "Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided."
+     "description": "Add a custom transition end trigger. Use it when you need custom logic to decide when the transition has ended. Note: Timeouts are still used as a fallback if provided.",
+     "typeDescriptions": {
+      "done": {
+       "description": "Call this when the transition has finished.",
+       "name": "done"
+      },
+      "node": {
+       "description": "The transitioning DOM node.",
+       "name": "node"
+      }
+     }
     },
     "appear": {
      "description": "Perform the enter transition when it first mounts if <code>in</code> is also <code>true</code>. Set this to <code>false</code> to disable this behavior."
@@ -15880,6 +14767,9 @@
     "children": {
      "description": "A single child content element.",
      "requiresRef": true
+    },
+    "disablePrefersReducedMotion": {
+     "description": "If <code>true</code>, the transition ignores <code>theme.motion.reducedMotion</code> and keeps its normal timing."
     },
     "easing": {
      "description": "The transition timing function. You may specify a single easing or a object containing enter and exit values."
@@ -15893,6 +14783,13 @@
    },
    "props": {
     "addEndListener": {
+     "signature": {
+      "describedArgs": [
+       "node",
+       "done"
+      ],
+      "type": "function(node: HTMLElement, done: Function) => void"
+     },
      "type": {
       "name": "func"
      }
@@ -15908,6 +14805,12 @@
      "type": {
       "description": "element",
       "name": "custom"
+     }
+    },
+    "disablePrefersReducedMotion": {
+     "default": "false",
+     "type": {
+      "name": "bool"
      }
     },
     "easing": {

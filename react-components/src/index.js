@@ -2,15 +2,12 @@
 //
 // Every component exported by @mui/material is auto-registered under its
 // kebab-case tag (Button -> "mui-button", CardContent -> "mui-card-content").
-// Stateful components get their r_model semantics from modelConfigs.js.
 //
 // The trame react client evaluates the `react_use` module entry and calls
 // `install(registry)`.
 
 import * as MUI from "@mui/material";
-import wrap from "./wrap";
-import MODEL_CONFIGS from "./modelConfigs";
-import MuiThemeProvider from "./widgets/ThemeProvider";
+import ThemeProvider from "./widgets/ThemeProvider.jsx";
 
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
 
@@ -21,15 +18,22 @@ function isComponent(name, value) {
   return type === "function" || (type === "object" && value !== null);
 }
 
-export function install(registry) {
-  Object.entries(MUI).forEach(([name, component]) => {
-    if (!isComponent(name, component)) return;
-    registry.register(
-      `mui-${kebab(name)}`,
-      wrap(component, name, MODEL_CONFIGS[name]),
-    );
-  });
+// Components hand-registered here take precedence over the auto-registration
+// below (mui-theme-provider would otherwise resolve to the raw
+// @mui/material ThemeProvider, which has no `mode` shorthand and doesn't
+// mount CssBaseline).
+const OVERRIDES = {
+  "mui-theme-provider": ThemeProvider,
+};
 
-  // Theme + CssBaseline wrapper (place at the layout root)
-  registry.register("mui-theme", MuiThemeProvider);
+export function install(registerTag) {
+  Object.entries(MUI)
+    .filter((args) => isComponent(...args))
+    .forEach(([name, component]) => {
+      registerTag(`mui-${kebab(name)}`, component);
+    });
+
+  Object.entries(OVERRIDES).forEach(([tag, component]) => {
+    registerTag(tag, component);
+  });
 }
